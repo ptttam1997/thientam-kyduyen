@@ -2,7 +2,7 @@
 // Lưu lời chúc dùng chung qua KV namespace "WISHES" (bind trong Pages → Settings → Functions → KV namespace bindings).
 // Endpoint:
 //   GET  /api/wishes        → trả về danh sách (mảng JSON, mới nhất ở cuối)
-//   POST /api/wishes        → thêm 1 lời chúc; body JSON: { name, message, side, attending, website? }
+//   POST /api/wishes        → thêm 1 lời chúc; body JSON: { name, message, website? }
 
 const KEY = 'list';
 const MAX_NAME = 60;
@@ -10,8 +10,6 @@ const MAX_MESSAGE = 500;
 const MAX_TOTAL = 2000;
 const POST_MIN_INTERVAL_MS = 5000;     // 1 lời chúc / IP / 5s
 const DUP_WINDOW_MS = 60_000;          // chống trùng tên+nội dung trong 60s
-const SIDES = new Set(['groom', 'bride']);
-const ATTENDING = new Set(['yes', 'no']);
 
 const CORS_HEADERS = {
   'access-control-allow-origin': '*',
@@ -89,13 +87,9 @@ export async function onRequestPost({ request, env }) {
 
   const name = clean(body && body.name).slice(0, MAX_NAME);
   const message = clean(body && body.message).slice(0, MAX_MESSAGE);
-  const side = clean(body && body.side);
-  const attending = clean(body && body.attending);
 
   if (!name) return json({ error: 'Thiếu tên' }, { status: 400 });
   if (!message) return json({ error: 'Thiếu lời chúc' }, { status: 400 });
-  if (!SIDES.has(side)) return json({ error: 'Chọn nhà trai hoặc nhà gái' }, { status: 400 });
-  if (!ATTENDING.has(attending)) return json({ error: 'Xác nhận tham dự' }, { status: 400 });
 
   // Rate-limit theo IP: 1 request / 5s
   const ip = getIP(request);
@@ -117,7 +111,7 @@ export async function onRequestPost({ request, env }) {
   );
   if (dup) return json(list);
 
-  list.push({ name, message, side, attending, ts: now });
+  list.push({ name, message, ts: now });
   if (list.length > MAX_TOTAL) list.splice(0, list.length - MAX_TOTAL);
 
   try {
