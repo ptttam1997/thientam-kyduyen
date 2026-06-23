@@ -5,6 +5,8 @@ const KEY = 'list';
 const MAX_NAME = 60;
 const MAX_MESSAGE = 500;
 const MAX_TOTAL = 2000;
+const SIDES = new Set(['groom', 'bride']);
+const ATTENDING = new Set(['yes', 'no']);
 
 const json = (data, init = {}) =>
   new Response(JSON.stringify(data), {
@@ -45,7 +47,11 @@ export async function onRequestPost({ request, env }) {
 
   const name = clean(body && body.name).slice(0, MAX_NAME);
   const message = clean(body && body.message).slice(0, MAX_MESSAGE);
+  const side = clean(body && body.side);
+  const attending = clean(body && body.attending);
   if (!name || !message) return json({ error: 'Thiếu nội dung' }, { status: 400 });
+  if (!SIDES.has(side)) return json({ error: 'Chọn nhà trai hoặc nhà gái' }, { status: 400 });
+  if (!ATTENDING.has(attending)) return json({ error: 'Xác nhận tham dự' }, { status: 400 });
 
   const list = (await env.WISHES.get(KEY, { type: 'json' })) || [];
 
@@ -54,7 +60,7 @@ export async function onRequestPost({ request, env }) {
   const dup = list.find(w => w.name === name && w.message === message && (now - w.ts) < 60000);
   if (dup) return json(list);
 
-  list.push({ name, message, ts: now });
+  list.push({ name, message, side, attending, ts: now });
   if (list.length > MAX_TOTAL) list.splice(0, list.length - MAX_TOTAL);
 
   await env.WISHES.put(KEY, JSON.stringify(list));

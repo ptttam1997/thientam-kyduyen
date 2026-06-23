@@ -952,6 +952,100 @@
   .wishes-submit:hover { color: var(--ink); }
   .wishes-submit:hover::before { transform: translateY(0); }
 
+  /* Pill toggle groups (side + attending) */
+  .wishes-choice { display: flex; flex-direction: column; gap: 10px; }
+  .wishes-choice-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: rgba(201, 169, 110, 0.75);
+    text-transform: uppercase;
+    padding-left: 2px;
+  }
+  .wishes-pills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .wishes-pills input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+  .wishes-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 14px;
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    background: rgba(201, 169, 110, 0.04);
+    color: rgba(244, 236, 216, 0.75);
+    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wishes-pill:hover {
+    border-color: rgba(201, 169, 110, 0.6);
+    color: var(--cream);
+  }
+  .wishes-pills input[type="radio"]:checked + .wishes-pill {
+    border-color: var(--gold);
+    background: rgba(201, 169, 110, 0.18);
+    color: var(--gold-bright);
+    box-shadow: inset 0 0 0 1px var(--gold);
+  }
+  .wishes-pills input[type="radio"]:focus-visible + .wishes-pill {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Badges on each wish card */
+  .wish-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding-left: 24px;
+  }
+  .wish-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid rgba(201, 169, 110, 0.4);
+    color: var(--gold-bright);
+    background: rgba(201, 169, 110, 0.06);
+  }
+  .wish-badge.is-attending {
+    border-color: rgba(201, 169, 110, 0.55);
+    color: var(--gold-bright);
+    background: rgba(201, 169, 110, 0.14);
+  }
+  .wish-badge.is-remote {
+    border-color: rgba(244, 236, 216, 0.18);
+    color: rgba(244, 236, 216, 0.55);
+    background: transparent;
+  }
+
+  .wishes-breakdown {
+    text-align: center;
+    margin-top: 8px;
+    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    color: rgba(201, 169, 110, 0.7);
+    font-style: italic;
+  }
+  .wishes-breakdown span { color: var(--gold-bright); font-style: normal; }
+
   .wishes-list {
     max-width: 760px;
     margin: 0 auto;
@@ -1218,12 +1312,34 @@
 
       <form class="wishes-form" id="wishesForm" autocomplete="off">
         <input type="text" name="name" id="wishName" placeholder="Tên của bạn" required maxlength="60" />
+
+        <div class="wishes-choice">
+          <div class="wishes-choice-label">Khách của</div>
+          <div class="wishes-pills" role="radiogroup" aria-label="Khách của">
+            <input type="radio" name="side" id="sideGroom" value="groom" required />
+            <label for="sideGroom" class="wishes-pill">Nhà trai · Thiên Tâm</label>
+            <input type="radio" name="side" id="sideBride" value="bride" />
+            <label for="sideBride" class="wishes-pill">Nhà gái · Kỳ Duyên</label>
+          </div>
+        </div>
+
+        <div class="wishes-choice">
+          <div class="wishes-choice-label">Xác nhận tham dự</div>
+          <div class="wishes-pills" role="radiogroup" aria-label="Xác nhận tham dự">
+            <input type="radio" name="attending" id="attendYes" value="yes" required />
+            <label for="attendYes" class="wishes-pill">Sẽ tham dự</label>
+            <input type="radio" name="attending" id="attendNo" value="no" />
+            <label for="attendNo" class="wishes-pill">Gửi lời chúc từ xa</label>
+          </div>
+        </div>
+
         <textarea name="message" id="wishMessage" placeholder="Lời chúc dành cho cô dâu chú rể..." required maxlength="500"></textarea>
         <button type="submit" class="wishes-submit">GỬI LỜI CHÚC</button>
       </form>
 
       <div class="wishes-list" id="wishesList"></div>
       <div class="wishes-count" id="wishesCount" style="display:none;"></div>
+      <div class="wishes-breakdown" id="wishesBreakdown" style="display:none;"></div>
     </div>
   </section>
 
@@ -1239,7 +1355,7 @@
       </p>
       <div class="ornament"><div class="ornament-diamond"></div></div>
       <div class="closing-couple">THIÊN TÂM &nbsp;&amp;&nbsp; KỲ DUYÊN</div>
-      <a href="#" class="rsvp-btn" onclick="alert('Cảm ơn bạn! Vui lòng phản hồi qua số điện thoại 09xx xxx xxx'); return false;">XÁC NHẬN THAM DỰ</a>
+      <a href="#wishesForm" class="rsvp-btn" data-rsvp-scroll>XÁC NHẬN THAM DỰ</a>
     </div>
   </section>
 
@@ -1342,6 +1458,22 @@
     });
   })();
 
+  // ===== RSVP button → scroll to wishes form & prefill "Sẽ tham dự" =====
+  (function rsvpScroll() {
+    document.querySelectorAll('[data-rsvp-scroll]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const form = document.getElementById('wishesForm');
+        if (!form) return;
+        const yes = document.getElementById('attendYes');
+        if (yes && !document.querySelector('input[name="attending"]:checked')) yes.checked = true;
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const nameInput = document.getElementById('wishName');
+        if (nameInput) setTimeout(() => nameInput.focus({ preventScroll: true }), 600);
+      });
+    });
+  })();
+
   // ===== WISHES / COMMENTS (Cloudflare KV via Pages Function, localStorage fallback) =====
   (function wishesSystem() {
     const API = '/api/wishes';
@@ -1349,7 +1481,10 @@
     const form = document.getElementById('wishesForm');
     const list = document.getElementById('wishesList');
     const counter = document.getElementById('wishesCount');
+    const breakdown = document.getElementById('wishesBreakdown');
     if (!form || !list) return;
+
+    const SIDE_LABEL = { groom: 'NHÀ TRAI', bride: 'NHÀ GÁI' };
 
     let useLocalOnly = false;
     let wishesCache = [];
@@ -1382,11 +1517,11 @@
       }
     };
 
-    const postRemote = async (name, message) => {
+    const postRemote = async (payload) => {
       const res = await fetch(API, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ name, message, website: '' }),
+        body: JSON.stringify({ ...payload, website: '' }),
       });
       if (!res.ok) throw new Error('Post failed');
       const data = await res.json();
@@ -1420,23 +1555,51 @@
       if (!wishes.length) {
         list.innerHTML = '<div class="wishes-empty">Hãy là người đầu tiên gửi lời chúc tới Thiên Tâm &amp; Kỳ Duyên...</div>';
         counter.style.display = 'none';
+        if (breakdown) breakdown.style.display = 'none';
         return;
       }
       wishes.forEach((w, i) => {
         const card = document.createElement('div');
         card.className = 'wish-card';
         card.style.animationDelay = Math.min(i * 0.05, 0.6) + 's';
+
+        const badges = [];
+        const sideLabel = SIDE_LABEL[w.side];
+        if (sideLabel) badges.push('<span class="wish-badge">' + sideLabel + '</span>');
+        if (w.attending === 'yes') {
+          badges.push('<span class="wish-badge is-attending">✓ THAM DỰ</span>');
+        } else if (w.attending === 'no') {
+          badges.push('<span class="wish-badge is-remote">GỬI TỪ XA</span>');
+        }
+        const badgesHTML = badges.length ? '<div class="wish-badges">' + badges.join('') + '</div>' : '';
+
         card.innerHTML =
           '<div class="wish-head">' +
             '<div class="wish-name">' + escapeHTML(w.name) + '</div>' +
             '<div class="wish-time">' + formatTime(w.ts) + '</div>' +
           '</div>' +
+          badgesHTML +
           '<div class="wish-message">' + escapeHTML(w.message).replace(/\n/g, '<br/>') + '</div>';
         list.appendChild(card);
       });
       counter.style.display = 'block';
       const suffix = useLocalOnly ? ' (chỉ lưu trên máy bạn)' : '';
       counter.textContent = '— ' + wishes.length + ' LỜI CHÚC' + suffix + ' —';
+
+      if (breakdown) {
+        const groom = wishes.filter(w => w.side === 'groom').length;
+        const bride = wishes.filter(w => w.side === 'bride').length;
+        const attending = wishes.filter(w => w.attending === 'yes').length;
+        if (groom + bride + attending > 0) {
+          breakdown.innerHTML =
+            'Nhà trai <span>' + groom + '</span> · ' +
+            'Nhà gái <span>' + bride + '</span> · ' +
+            'Xác nhận tham dự <span>' + attending + '</span>';
+          breakdown.style.display = 'block';
+        } else {
+          breakdown.style.display = 'none';
+        }
+      }
     };
 
     const submitBtn = form.querySelector('.wishes-submit');
@@ -1458,13 +1621,20 @@
       e.preventDefault();
       const name = form.wishName.value.trim();
       const message = form.wishMessage.value.trim();
+      const sideEl = form.querySelector('input[name="side"]:checked');
+      const attendingEl = form.querySelector('input[name="attending"]:checked');
       if (!name || !message) return;
+      if (!sideEl) { flashBtn('CHỌN NHÀ TRAI / NHÀ GÁI', false); return; }
+      if (!attendingEl) { flashBtn('XÁC NHẬN THAM DỰ', false); return; }
+
+      const side = sideEl.value;
+      const attending = attendingEl.value;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'ĐANG GỬI...';
 
       if (useLocalOnly) {
-        wishesCache.push({ name, message, ts: Date.now() });
+        wishesCache.push({ name, message, side, attending, ts: Date.now() });
         saveLocal(wishesCache);
         form.reset();
         render();
@@ -1473,13 +1643,13 @@
       }
 
       try {
-        await postRemote(name, message);
+        await postRemote({ name, message, side, attending });
         form.reset();
         render();
         flashBtn('✓ ĐÃ GỬI');
       } catch (err) {
         // Network fail → save local làm phương án dự phòng
-        wishesCache.push({ name, message, ts: Date.now() });
+        wishesCache.push({ name, message, side, attending, ts: Date.now() });
         saveLocal(wishesCache);
         form.reset();
         render();
