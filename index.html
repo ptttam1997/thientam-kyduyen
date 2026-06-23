@@ -1044,6 +1044,98 @@
     opacity: 0.7;
   }
 
+  /* ============ RSVP ============ */
+  .rsvp-form {
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .rsvp-radio-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-align: center;
+    margin: 6px 0 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .rsvp-radio-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .rsvp-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 14px 12px;
+    border: 1px solid rgba(201, 169, 110, 0.25);
+    background: rgba(201, 169, 110, 0.03);
+    transition: border-color 0.25s, background 0.25s;
+    text-align: center;
+  }
+  .rsvp-radio:hover {
+    border-color: rgba(201, 169, 110, 0.55);
+    background: rgba(201, 169, 110, 0.07);
+  }
+  .rsvp-radio input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .rsvp-radio input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .rsvp-radio:has(input:checked) {
+    border-color: var(--gold);
+    background: rgba(201, 169, 110, 0.1);
+  }
+  .rsvp-radio span {
+    color: rgba(244, 236, 216, 0.85);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+  }
+  .rsvp-radio:has(input:checked) span {
+    color: var(--gold-bright);
+  }
+  .rsvp-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .rsvp-thanks {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 28px;
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    background: rgba(201, 169, 110, 0.04);
+    color: var(--gold-bright);
+    font-family: 'Italiana', serif;
+    font-size: clamp(18px, 2.4vw, 22px);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+
   @media (max-width: 480px) {
     .wishes-form input, .wishes-form textarea { padding: 14px 16px; font-size: 15px; }
     .wishes-list { height: 440px; }
@@ -1051,6 +1143,8 @@
     .wish-float { width: 96%; }
     .wish-name { font-size: 18px; }
     .wish-message { font-size: 15px; padding-left: 18px; }
+    .rsvp-radio-group { grid-template-columns: 1fr; }
+    .rsvp-radio { padding: 14px 16px; justify-content: flex-start; }
     .envelope-hint { font-size: 9px; letter-spacing: 0.4em; bottom: 8%; }
     .envelope-seal { width: 52px; height: 52px; margin-left: -26px; margin-top: -26px; font-size: 18px; }
   }
@@ -1200,6 +1294,52 @@
           <div class="event-detail">Trung tâm tiệc cưới</div>
           <div class="event-detail" style="font-style: italic; opacity: 0.7; margin-top: 8px;">[Tên & địa chỉ nhà hàng]</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="comments reveal">
+    <div class="container">
+      <div class="section-eyebrow">R.S.V.P</div>
+      <h2 class="section-title">Xác Nhận Tham Dự</h2>
+      <div class="ornament"><div class="ornament-diamond"></div></div>
+      <p style="text-align:center; max-width:560px; margin: 0 auto 40px; color: rgba(244,236,216,0.7); font-style: italic; font-size: clamp(15px, 2vw, 17px); line-height: 1.7;">
+        Sự hiện diện của anh chị là niềm vinh hạnh của gia đình chúng tôi.
+      </p>
+
+      <form class="rsvp-form" id="rsvpForm" autocomplete="off">
+        <input type="text" name="name" placeholder="Tên của bạn" required maxlength="60" />
+
+        <div>
+          <div class="rsvp-radio-label">Tham dự tiệc</div>
+          <div class="rsvp-radio-group">
+            <label class="rsvp-radio">
+              <input type="radio" name="side" value="Tiệc Nhà Trai" required />
+              <span>Tiệc Nhà Trai</span>
+            </label>
+            <label class="rsvp-radio">
+              <input type="radio" name="side" value="Tiệc Nhà Gái" />
+              <span>Tiệc Nhà Gái</span>
+            </label>
+            <label class="rsvp-radio">
+              <input type="radio" name="side" value="Không thể tham dự" />
+              <span>Không tham dự</span>
+            </label>
+          </div>
+        </div>
+
+        <input type="number" name="guests" min="1" max="10" placeholder="Số khách đi kèm (mặc định 1)" />
+        <textarea name="note" placeholder="Lời nhắn riêng (tùy chọn)" maxlength="300" style="min-height:90px;"></textarea>
+
+        <input type="text" name="website" class="rsvp-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <button type="submit" class="wishes-submit">XÁC NHẬN THAM DỰ</button>
+      </form>
+
+      <div class="rsvp-thanks" id="rsvpThanks" style="display:none;">
+        Cảm ơn anh chị đã xác nhận.<br/>
+        Hẹn gặp lại trong ngày trọng đại!
       </div>
     </div>
   </section>
@@ -1564,6 +1704,59 @@
       }
       if (!useLocalOnly) fetchRemote();
       else if (stageQueue.length) startStage();
+    });
+  })();
+
+  (function rsvpSystem() {
+    const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyheMK5SrJGw99_rxeE73nq0JR9Zj0ZF5JMDw73zXn_9CoFw7Ee0LY8i_bwLIVbIkjc/exec';
+
+    const form = document.getElementById('rsvpForm');
+    const thanks = document.getElementById('rsvpThanks');
+    if (!form || !thanks) return;
+
+    const btn = form.querySelector('button[type=submit]');
+    const originalText = btn.textContent;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot: bot điền field 'website' → giả vờ thành công, bỏ qua
+      if (form.website.value) {
+        form.style.display = 'none';
+        thanks.style.display = 'block';
+        return;
+      }
+
+      const name = form.name.value.trim();
+      const side = (form.querySelector('input[name=side]:checked') || {}).value;
+      const guests = form.guests.value || '1';
+      const note = form.note.value.trim();
+
+      if (!name || !side) return;
+
+      btn.disabled = true;
+      btn.textContent = 'ĐANG GỬI...';
+
+      try {
+        await fetch(RSVP_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'content-type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ name, side, guests, note }),
+        });
+        form.style.display = 'none';
+        thanks.style.display = 'block';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'THỬ LẠI';
+        btn.style.background = '#8a3a3a';
+        btn.style.color = 'var(--cream)';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2400);
+      }
     });
   })();
 </script>
