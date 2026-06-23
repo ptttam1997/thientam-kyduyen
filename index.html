@@ -955,9 +955,17 @@
   .wishes-list {
     max-width: 760px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    height: 520px;
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+  }
+  .wishes-list.is-empty {
+    height: auto;
+    overflow: visible;
+    -webkit-mask-image: none;
+            mask-image: none;
   }
   .wishes-empty {
     text-align: center;
@@ -971,11 +979,21 @@
     border: 1px solid rgba(201, 169, 110, 0.2);
     background: rgba(201, 169, 110, 0.025);
     position: relative;
-    animation: wishIn 0.6s cubic-bezier(.2,.9,.3,1.1) both;
   }
-  @keyframes wishIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .wish-float {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: min(100%, 620px);
+    transform: translateX(-50%);
+    animation: wishFloat 13s linear forwards;
+    will-change: top, opacity;
+  }
+  @keyframes wishFloat {
+    0%   { top: 100%;  opacity: 0; }
+    10%  {              opacity: 1; }
+    90%  {              opacity: 1; }
+    100% { top: -45%;  opacity: 0; }
   }
   .wish-card::before {
     content: '“';
@@ -1028,7 +1046,9 @@
 
   @media (max-width: 480px) {
     .wishes-form input, .wishes-form textarea { padding: 14px 16px; font-size: 15px; }
+    .wishes-list { height: 440px; }
     .wish-card { padding: 20px 22px; }
+    .wish-float { width: 96%; }
     .wish-name { font-size: 18px; }
     .wish-message { font-size: 15px; padding-left: 18px; }
     .envelope-hint { font-size: 9px; letter-spacing: 0.4em; bottom: 8%; }
@@ -1414,26 +1434,71 @@
       '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
     }[c]));
 
+    const STAGE_DURATION = 13000;
+    const STAGE_STAGGER = 2400;
+    let stageQueue = [];
+    let stageIdx = 0;
+    let stageTimer = null;
+
+    const shuffle = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+
+    const spawnWish = () => {
+      if (!stageQueue.length) return;
+      if (stageIdx >= stageQueue.length) {
+        stageQueue = shuffle(stageQueue);
+        stageIdx = 0;
+      }
+      const w = stageQueue[stageIdx++];
+      const card = document.createElement('div');
+      card.className = 'wish-card wish-float';
+      card.innerHTML =
+        '<div class="wish-head">' +
+          '<div class="wish-name">' + escapeHTML(w.name) + '</div>' +
+          '<div class="wish-time">' + formatTime(w.ts) + '</div>' +
+        '</div>' +
+        '<div class="wish-message">' + escapeHTML(w.message).replace(/\n/g, '<br/>') + '</div>';
+      list.appendChild(card);
+      setTimeout(() => card.remove(), STAGE_DURATION + 500);
+    };
+
+    const stopStage = () => {
+      if (stageTimer) clearInterval(stageTimer);
+      stageTimer = null;
+    };
+
+    const startStage = () => {
+      if (stageTimer || !stageQueue.length) return;
+      spawnWish();
+      stageTimer = setInterval(spawnWish, STAGE_STAGGER);
+    };
+
     const render = () => {
-      const wishes = [...wishesCache].sort((a,b) => b.ts - a.ts);
-      list.innerHTML = '';
+      const wishes = wishesCache.slice();
+
       if (!wishes.length) {
+        stopStage();
+        list.classList.add('is-empty');
         list.innerHTML = '<div class="wishes-empty">Hãy là người đầu tiên gửi lời chúc tới Thiện Tâm &amp; Kỳ Duyên...</div>';
         counter.style.display = 'none';
         return;
       }
-      wishes.forEach((w, i) => {
-        const card = document.createElement('div');
-        card.className = 'wish-card';
-        card.style.animationDelay = Math.min(i * 0.05, 0.6) + 's';
-        card.innerHTML =
-          '<div class="wish-head">' +
-            '<div class="wish-name">' + escapeHTML(w.name) + '</div>' +
-            '<div class="wish-time">' + formatTime(w.ts) + '</div>' +
-          '</div>' +
-          '<div class="wish-message">' + escapeHTML(w.message).replace(/\n/g, '<br/>') + '</div>';
-        list.appendChild(card);
-      });
+
+      if (list.classList.contains('is-empty')) {
+        list.classList.remove('is-empty');
+        list.innerHTML = '';
+      }
+
+      stageQueue = shuffle(wishes);
+      stageIdx = 0;
+      startStage();
+
       counter.style.display = 'block';
       const suffix = useLocalOnly ? ' (chỉ lưu trên máy bạn)' : '';
       counter.textContent = '— ' + wishes.length + ' LỜI CHÚC' + suffix + ' —';
@@ -1491,9 +1556,14 @@
     render();
     fetchRemote();
 
-    // Refresh khi quay lại tab
+    // Tạm dừng khi tab ẩn, tiếp tục khi quay lại
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && !useLocalOnly) fetchRemote();
+      if (document.hidden) {
+        stopStage();
+        return;
+      }
+      if (!useLocalOnly) fetchRemote();
+      else if (stageQueue.length) startStage();
     });
   })();
 </script>
