@@ -9,7 +9,8 @@
       "Read(//opt/homebrew/bin/**)",
       "Bash(npm --version)",
       "Bash(npx *)",
-      "Bash(git -C \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web\" status --short)"
+      "Bash(git -C \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web\" status --short)",
+      "Bash(open *)"
     ]
   }
 }

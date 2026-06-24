@@ -177,7 +177,7 @@
   .music-toggle .bar:nth-child(3) { animation-delay: 0.4s; }
   @keyframes bar-pulse { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
 
-  /* ============ INTRO — Hỷ (囍) Double-Door Opening ============ */
+  /* ============ INTRO — Wedding Card + Butterflies ============ */
   .envelope-overlay {
     position: fixed; inset: 0;
     background: var(--bone);
@@ -189,8 +189,6 @@
     overflow: hidden;
   }
   .envelope-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-  /* subtle paper grain on the intro */
   .envelope-overlay::before {
     content: '';
     position: absolute; inset: 0;
@@ -210,101 +208,235 @@
     transition: transform 0.4s ease;
     outline: none;
   }
-  .envelope:hover { transform: translateY(-2px); }
+  .envelope:hover .wcard { transform: translateY(-3px); box-shadow: 0 36px 70px -22px rgba(26, 22, 20, 0.36), 0 0 0 1px rgba(122, 70, 60, 0.18); }
   .envelope:focus-visible { outline: 1px dashed var(--rose); outline-offset: 24px; }
 
-  .hy-eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(10px, 1.3vw, 12px);
-    letter-spacing: 0.48em;
-    color: var(--rose-deep);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  /* The 囍 character — split into two clip-pathed halves */
-  .hy-char {
+  /* ========== Horizontal Wedding Envelope (white, V-flap, T&D seal) ========== */
+  .wcard {
     position: relative;
-    width: clamp(220px, 38vw, 340px);
-    height: clamp(220px, 38vw, 340px);
-    display: flex; align-items: center; justify-content: center;
+    width: min(88vw, 440px);
+    aspect-ratio: 1.55 / 1;
+    perspective: 1800px;
+    transform-style: preserve-3d;
+    z-index: 2;
+    transition: transform 0.5s ease;
   }
-  .hy-char::before, .hy-char::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: clamp(40px, 5vw, 60px);
-    height: 1px;
-    background: var(--rose-deep);
-    opacity: 0.55;
-    transition: width 0.7s ease, opacity 0.4s ease;
-  }
-  .hy-char::before { right: calc(100% + 14px); }
-  .hy-char::after  { left:  calc(100% + 14px); }
 
-  .hy-half {
+  /* Envelope body (back face — what you see initially) */
+  .env-body {
     position: absolute;
     inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'STSong', 'Songti SC', 'Source Han Serif SC', 'Noto Serif TC', 'Noto Serif SC', 'PingFang SC', serif;
-    font-size: clamp(240px, 40vw, 360px);
-    font-weight: 400;
-    line-height: 1;
-    color: var(--rose-deep);
-    overflow: hidden;
-    user-select: none;
-    text-shadow: 0 6px 32px rgba(122, 70, 60, 0.22);
-    transition:
-      transform 1.4s cubic-bezier(0.7, 0.0, 0.25, 1),
-      opacity 0.7s ease 0.6s;
+    border-radius: 2px;
+    background: linear-gradient(165deg, #fefcf6 0%, #f4ece3 60%, #ead9c5 100%);
+    box-shadow:
+      0 28px 56px -22px rgba(26, 22, 20, 0.34),
+      0 0 0 1px rgba(122, 70, 60, 0.10);
+    z-index: 1;
   }
-  .hy-half.hy-left  { clip-path: inset(0 50% 0 0); }
-  .hy-half.hy-right { clip-path: inset(0 0 0 50%); }
 
-  /* faint center seam — looks like the character is built from two halves */
-  .hy-char .seam {
+  /* Inside surface (revealed when flap opens — butterflies emerge from here) */
+  .env-inside {
     position: absolute;
-    top: 12%; bottom: 12%;
-    left: 50%;
-    width: 1px;
-    background: linear-gradient(180deg, transparent 0%, rgba(122,70,60,0.18) 20%, rgba(122,70,60,0.18) 80%, transparent 100%);
-    transition: opacity 0.4s ease;
+    inset: 0;
+    border-radius: 2px;
+    background:
+      radial-gradient(45% 55% at 50% 38%, rgba(232, 201, 189, 0.35) 0%, transparent 70%),
+      linear-gradient(165deg, #faf3e6 0%, #ead9c5 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(122, 70, 60, 0.18),
+      inset 0 0 50px rgba(122, 70, 60, 0.12);
+    z-index: 2;
+  }
+  .env-inside::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border: 1px solid rgba(122, 70, 60, 0.14);
+    border-radius: 1px;
   }
 
-  .hy-couple {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(22px, 3.2vw, 34px);
-    color: var(--ink);
-    letter-spacing: 0.035em;
-    text-align: center;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+  /* V-shaped flap — triangle pointing down to center */
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 62%;
+    background: linear-gradient(168deg, #ffffff 0%, #f5ede1 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    filter: drop-shadow(0 3px 5px rgba(26, 22, 20, 0.10));
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition:
+      transform 1.5s cubic-bezier(0.5, 0, 0.22, 1),
+      filter 1s ease;
+    z-index: 4;
+    backface-visibility: hidden;
   }
-  .hy-couple .amp {
+
+  /* T & D wax seal at the V-point of the flap */
+  .env-seal {
+    position: absolute;
+    top: 62%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(60px, 16vw, 82px);
+    height: clamp(60px, 16vw, 82px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #9a4f43 0%, #7a463c 55%, #5d352d 100%);
+    color: var(--bone);
     font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
     font-style: italic;
-    font-weight: 400;
-    color: var(--rose);
-    margin: 0 0.32em;
+    font-size: clamp(20px, 5vw, 26px);
+    letter-spacing: 0.02em;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 5;
+    box-shadow:
+      0 10px 24px -8px rgba(122, 70, 60, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.18),
+      inset 0 2px 4px rgba(255, 255, 255, 0.15),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.18);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.5, 1), opacity 0.4s ease;
+  }
+  .env-seal::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(244, 236, 227, 0.42);
+    pointer-events: none;
+  }
+  .env-seal::after {
+    /* glossy highlight */
+    content: '';
+    position: absolute;
+    top: 12%; left: 18%;
+    width: 32%; height: 26%;
+    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
   }
 
-  /* ===== Opening animation — the two halves slide off-screen ===== */
-  .envelope.opening .hy-left  { transform: translateX(-110vw) rotate(-2deg); }
-  .envelope.opening .hy-right { transform: translateX(110vw)  rotate(2deg); }
-  .envelope.opening .hy-eyebrow,
-  .envelope.opening .hy-couple {
-    opacity: 0; transform: translateY(8px);
-    transition-delay: 0s;
+  .envelope:hover .wcard { transform: translateY(-3px); }
+  .envelope:hover .env-body {
+    box-shadow:
+      0 34px 64px -22px rgba(26, 22, 20, 0.42),
+      0 0 0 1px rgba(122, 70, 60, 0.14);
   }
-  .envelope.opening .hy-char::before { width: 0; opacity: 0; }
-  .envelope.opening .hy-char::after  { width: 0; opacity: 0; }
-  .envelope.opening .hy-char .seam   { opacity: 0; }
+  .envelope:hover .env-flap { filter: drop-shadow(0 4px 8px rgba(26, 22, 20, 0.16)); }
 
+  /* ===== Opening sequence =====
+     0–0.4s : seal peels off (scale down + fade)
+     0.3–1.8s : flap lifts up (rotateX -178°)
+     0.9–1.5s : butterflies start emerging (JS delay)
+     0–3.6s : whole envelope eventually scales down + fades */
+  .envelope.opening .wcard {
+    animation: wcardLift 3.6s cubic-bezier(0.5, 0, 0.25, 1) forwards;
+  }
+  @keyframes wcardLift {
+    0%   { transform: scale(1)   translateY(0); opacity: 1; }
+    8%   { transform: scale(1.04) translateY(-6px); opacity: 1; }
+    70%  { transform: scale(1.01) translateY(-4px); opacity: 1; }
+    100% { transform: scale(0.94) translateY(-26px); opacity: 0; }
+  }
+  .envelope.opening .env-flap {
+    transform: rotateX(-178deg);
+    filter: drop-shadow(0 -10px 16px rgba(26, 22, 20, 0.18));
+    transition-delay: 0.25s;
+  }
+  .envelope.opening .env-seal {
+    transform: translate(-50%, -50%) scale(0.3) rotate(8deg);
+    opacity: 0;
+  }
+
+  /* ========== Butterflies ========== */
+  .butterflies {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    pointer-events: none;
+    perspective: 800px;
+    z-index: 3;
+  }
+  .butterfly {
+    position: absolute;
+    top: 0; left: 0;
+    width: 48px; height: 38px;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 8px 10px rgba(26, 22, 20, 0.18));
+  }
+  .envelope.opening .butterfly {
+    animation: flyOut var(--dur, 8s) cubic-bezier(0.25, 0.55, 0.35, 1) var(--delay, 0s) forwards;
+  }
+  @keyframes flyOut {
+    0% {
+      transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    16% {
+      transform:
+        translate(calc(-50% + (var(--dx) * 0.06)), calc(-50% + (var(--dy) * 0.06)))
+        scale(1) rotate(calc(var(--rot) * 0.06));
+      opacity: 1;
+    }
+    82% { opacity: 1; }
+    100% {
+      transform:
+        translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+        scale(1) rotate(var(--rot));
+      opacity: 0;
+    }
+  }
+
+  .butterfly .wing {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+  }
+  .butterfly .wing.left  { left: 0;  transform-origin: right center; }
+  .butterfly .wing.right { right: 0; transform-origin: left center;  }
+  .envelope.opening .butterfly .wing.left  { animation: flapLeft  0.42s ease-in-out infinite; }
+  .envelope.opening .butterfly .wing.right { animation: flapRight 0.42s ease-in-out infinite; }
+  @keyframes flapLeft {
+    0%, 100% { transform: rotateY(0deg); }
+    50%      { transform: rotateY(58deg); }
+  }
+  @keyframes flapRight {
+    0%, 100% { transform: rotateY(0deg); }
+    50%      { transform: rotateY(-58deg); }
+  }
+  .butterfly .wing svg { width: 100%; height: 100%; display: block; }
+  .butterfly .wing.right svg { transform: scaleX(-1); }
+  .butterfly .wing svg path { fill: currentColor; }
+  .butterfly::after {
+    /* slim body */
+    content: '';
+    position: absolute;
+    left: 50%; top: 16%;
+    width: 1.6px; height: 68%;
+    background: currentColor;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    opacity: 0.9;
+  }
+
+  /* ========== Hint ========== */
   .envelope-hint {
-    margin-top: clamp(48px, 7vw, 80px);
+    margin-top: clamp(40px, 6vw, 64px);
     font-family: 'Cinzel', serif;
+    font-weight: 500;
     font-size: clamp(10px, 1.3vw, 11px);
     letter-spacing: 0.48em;
     color: var(--rose-deep);
     animation: hint-pulse 2.4s ease-in-out infinite;
+    z-index: 1;
   }
   @keyframes hint-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
   .envelope.opening ~ .envelope-hint { opacity: 0; transition: opacity 0.4s ease; }
@@ -1261,20 +1393,26 @@
 </head>
 <body class="envelope-active">
 
-  <!-- INTRO — Hỷ (囍) double-door opening -->
+  <!-- INTRO — Wedding card + butterflies fly out -->
   <div class="envelope-overlay" id="envelopeOverlay">
     <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thiệp cưới">
-      <div class="hy-eyebrow">WEDDING · MMXXVI</div>
 
-      <div class="hy-char">
-        <span class="hy-half hy-left"  aria-hidden="true">囍</span>
-        <span class="hy-half hy-right" aria-hidden="true">囍</span>
-        <span class="seam" aria-hidden="true"></span>
+      <div class="wcard">
+        <!-- Envelope body (always visible) -->
+        <div class="env-body" aria-hidden="true"></div>
+
+        <!-- Inside surface (visible after flap opens; butterflies emerge from here) -->
+        <div class="env-inside" aria-hidden="true"></div>
+
+        <!-- V-shaped flap covering the top (lifts up on click) -->
+        <div class="env-flap" aria-hidden="true"></div>
+
+        <!-- Wax seal at the V-point -->
+        <div class="env-seal">T &amp; D</div>
       </div>
 
-      <div class="hy-couple">
-        Thiện Tâm <span class="amp">&amp;</span> Kỳ Duyên
-      </div>
+      <!-- butterflies layer (filled by JS on first paint) -->
+      <div class="butterflies" id="butterflies" aria-hidden="true"></div>
     </div>
     <div class="envelope-hint">CHẠM ĐỂ MỞ THIỆP</div>
   </div>
@@ -1814,11 +1952,55 @@
     else { audio.pause(); btn.classList.remove('playing'); }
   });
 
-  // ===== ENVELOPE OPEN ANIMATION =====
+  // ===== ENVELOPE — pre-spawn butterflies, animate on open =====
   (function envelopeAnimation() {
-    const overlay = document.getElementById('envelopeOverlay');
+    const overlay  = document.getElementById('envelopeOverlay');
     const envelope = document.getElementById('envelope');
+    const layer    = document.getElementById('butterflies');
     if (!overlay || !envelope) return;
+
+    // Pre-spawn a few large, graceful butterflies
+    if (layer) {
+      const COUNT = 6;
+      const colors = ['#7a463c', '#b87a6e', '#b89968', '#a06155', '#c89388', '#8b5e54'];
+      // Each wing SVG = half a butterfly (upper + lower lobe + decorative highlight + eye-spot)
+      const wingSvg =
+        '<svg viewBox="0 0 30 24" preserveAspectRatio="none">' +
+          '<path d="M30 12 Q 22 2, 8 4 Q 0 7, 4 14 Q 14 13, 30 12 Z M30 12 Q 22 22, 12 22 Q 5 20, 8 14 Q 14 13, 30 12 Z"/>' +
+          '<ellipse cx="13" cy="8" rx="4.2" ry="2.6" fill="rgba(255,255,255,0.22)"/>' +
+          '<circle cx="13" cy="18" r="1.6" fill="rgba(20,16,14,0.32)"/>' +
+          '<circle cx="13" cy="18" r="0.5" fill="rgba(255,255,255,0.5)"/>' +
+        '</svg>';
+
+      for (let i = 0; i < COUNT; i++) {
+        const b = document.createElement('div');
+        b.className = 'butterfly';
+        b.innerHTML =
+          '<div class="wing left">'  + wingSvg + '</div>' +
+          '<div class="wing right">' + wingSvg + '</div>';
+
+        // Spread directions evenly with random jitter so 6 bướm don't pile up
+        const angle = (i / COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+        const dist  = 45 + Math.random() * 25;    // vmax — gentle drift, not blast-off
+        const dx    = Math.cos(angle) * dist;
+        const dy    = Math.sin(angle) * dist - 18;  // strong upward bias — bướm bay lên
+        const rot   = (Math.random() - 0.5) * 180;  // ±90° gentle rotation
+        const dur   = 7.5 + Math.random() * 2.5;    // 7.5-10s slow flight
+        const delay = 0.9 + Math.random() * 0.6;    // wait for cover to open before emerging
+        const scale = 1.4 + Math.random() * 0.7;    // big — 1.4-2.1× base 48×38
+
+        b.style.setProperty('--dx',  dx + 'vmax');
+        b.style.setProperty('--dy',  dy + 'vmax');
+        b.style.setProperty('--rot', rot + 'deg');
+        b.style.setProperty('--dur', dur + 's');
+        b.style.setProperty('--delay', delay + 's');
+        b.style.color  = colors[i % colors.length];
+        b.style.width  = (48 * scale) + 'px';
+        b.style.height = (38 * scale) + 'px';
+
+        layer.appendChild(b);
+      }
+    }
 
     let opened = false;
     const openEnvelope = () => {
@@ -1828,8 +2010,8 @@
       setTimeout(() => {
         overlay.classList.add('hidden');
         document.body.classList.remove('envelope-active');
-      }, 1800);
-      setTimeout(() => { overlay.remove(); }, 3000);
+      }, 4200);
+      setTimeout(() => { overlay.remove(); }, 5800);
       try { if (audio.src && audio.paused) { audio.play().then(() => btn.classList.add('playing')).catch(() => {}); } } catch (e) {}
     };
 
