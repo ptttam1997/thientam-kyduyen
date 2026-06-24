@@ -241,186 +241,120 @@
   .envelope:hover .wcard { transform: translateY(-3px); box-shadow: 0 36px 70px -22px rgba(26, 22, 20, 0.36), 0 0 0 1px rgba(122, 70, 60, 0.18); }
   .envelope:focus-visible { outline: 1px dashed var(--rose); outline-offset: 24px; }
 
-  /* ========== Horizontal Wedding Envelope (white, V-flap, T&D seal) ========== */
-  .wcard {
+  /* ========== Hỷ (囍) Card — gold glow, gently splits sideways ========== */
+  .hy-card {
     position: relative;
-    width: min(88vw, 440px);
-    aspect-ratio: 1.55 / 1;
-    perspective: 1800px;
-    transform-style: preserve-3d;
-    z-index: 2;
-    transition: transform 0.5s ease;
-  }
-
-  /* Envelope body — pure white paper */
-  .env-body {
-    position: absolute;
-    inset: 0;
-    border-radius: 2px;
-    background:
-      radial-gradient(120% 100% at 50% 50%, #ffffff 0%, #fafafa 80%, #f0ece4 100%);
-    box-shadow:
-      0 36px 70px -22px rgba(26, 22, 20, 0.38),
-      0 8px 18px -8px rgba(26, 22, 20, 0.22),
-      0 0 0 1px rgba(122, 70, 60, 0.12);
-    z-index: 1;
-  }
-
-  /* Inside surface (revealed when flap opens — butterflies emerge from here) */
-  .env-inside {
-    position: absolute;
-    inset: 0;
-    border-radius: 2px;
-    background:
-      radial-gradient(45% 55% at 50% 38%, rgba(232, 201, 189, 0.4) 0%, transparent 70%),
-      linear-gradient(165deg, #faf3e6 0%, #ead9c5 100%);
-    box-shadow:
-      inset 0 0 0 1px rgba(122, 70, 60, 0.18),
-      inset 0 0 50px rgba(122, 70, 60, 0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(36px, 6vw, 64px);
     z-index: 2;
   }
-  .env-inside::before {
+
+  /* Decorative double-ring frame around the character */
+  .hy-frame {
+    position: relative;
+    width: clamp(260px, 42vw, 400px);
+    height: clamp(260px, 42vw, 400px);
+  }
+  .hy-frame::before, .hy-frame::after {
     content: '';
     position: absolute;
-    inset: 18px;
-    border: 1px solid rgba(122, 70, 60, 0.14);
-    border-radius: 1px;
-  }
-
-  /* V-shaped flap — pure white, with crisp crease shadow */
-  .env-flap {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 62%;
-    background:
-      linear-gradient(180deg, #ffffff 0%, #fafafa 85%, #f0ece4 100%);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    filter:
-      drop-shadow(0 4px 6px rgba(26, 22, 20, 0.14))
-      drop-shadow(0 1px 1px rgba(26, 22, 20, 0.08));
-    transform-origin: top center;
-    transform: rotateX(0deg);
-    transition:
-      transform 1.5s cubic-bezier(0.5, 0, 0.22, 1),
-      filter 1s ease;
-    z-index: 4;
-    backface-visibility: hidden;
-  }
-
-  /* Subtle horizontal seam line below flap V-point (where flap meets body) */
-  .wcard::after {
-    content: '';
-    position: absolute;
-    left: 6%; right: 6%;
-    top: 62%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(122, 70, 60, 0.18) 25%, rgba(122, 70, 60, 0.22) 50%, rgba(122, 70, 60, 0.18) 75%, transparent 100%);
-    transform: translateY(-0.5px);
-    pointer-events: none;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .envelope:hover .wcard::after { opacity: 1; }
-
-  /* T & D wax seal — bigger, embossed, sits on the V-point */
-  .env-seal {
-    position: absolute;
-    top: 62%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-3deg);
-    width: clamp(78px, 19vw, 102px);
-    height: clamp(78px, 19vw, 102px);
     border-radius: 50%;
-    background:
-      radial-gradient(circle at 32% 28%, #b25a4d 0%, #8a4a3e 40%, #6b3a31 75%, #4a2820 100%);
-    color: #fbeee5;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-    font-style: italic;
-    font-size: clamp(26px, 6vw, 34px);
-    letter-spacing: 0.02em;
+    pointer-events: none;
+    transition:
+      opacity 1.1s ease,
+      transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hy-frame::before {
+    inset: 0;
+    border: 1px solid rgba(212, 165, 116, 0.5);
+    box-shadow:
+      0 0 32px rgba(212, 165, 116, 0.18),
+      inset 0 0 28px rgba(212, 165, 116, 0.16);
+  }
+  .hy-frame::after {
+    inset: 16px;
+    border: 1px solid rgba(212, 165, 116, 0.22);
+  }
+
+  /* 囍 character — two clip-pathed halves that slide apart on open */
+  .hy-half {
+    position: absolute;
+    inset: 0;
     display: flex; align-items: center; justify-content: center;
-    z-index: 5;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 -1px 1px rgba(255, 255, 255, 0.1);
-    box-shadow:
-      /* outer drop shadows (depth on paper) */
-      0 14px 28px -8px rgba(74, 40, 32, 0.55),
-      0 6px 12px -3px rgba(74, 40, 32, 0.35),
-      0 2px 4px rgba(0, 0, 0, 0.2),
-      /* embossed look on the seal */
-      inset 0 3px 6px rgba(255, 200, 180, 0.18),
-      inset 0 -4px 8px rgba(0, 0, 0, 0.32),
-      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    font-family: 'STSong', 'Songti SC', 'Source Han Serif SC', 'Noto Serif TC', 'Noto Serif SC', 'PingFang SC', serif;
+    font-size: clamp(220px, 38vw, 340px);
+    font-weight: 400;
+    line-height: 1;
+    color: #e8c587;
+    overflow: hidden;
+    user-select: none;
+    text-shadow:
+      0 0 14px rgba(232, 197, 135, 0.7),
+      0 0 32px rgba(212, 165, 116, 0.5),
+      0 0 64px rgba(176, 134, 88, 0.35),
+      0 0 96px rgba(140, 100, 60, 0.22);
     transition:
-      transform 0.5s cubic-bezier(0.4, 0, 0.5, 1),
-      opacity 0.4s ease,
-      box-shadow 0.4s ease;
+      transform 2.4s cubic-bezier(0.4, 0, 0.22, 1),
+      opacity 1.6s ease;
   }
-  .env-seal::before {
-    /* embossed inner ring */
-    content: '';
-    position: absolute;
-    inset: 7px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(251, 238, 229, 0.32);
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
-    pointer-events: none;
+  .hy-half.hy-left  { clip-path: inset(0 50% 0 0); }
+  .hy-half.hy-right { clip-path: inset(0 0 0 50%); }
+
+  /* Couple subtitle below the character */
+  .hy-couple {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 28px);
+    color: #faf2e4;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-shadow:
+      0 0 8px rgba(244, 236, 227, 0.4),
+      0 0 18px rgba(212, 165, 116, 0.25);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
-  .env-seal::after {
-    /* glossy top-left highlight */
-    content: '';
-    position: absolute;
-    top: 10%; left: 14%;
-    width: 38%; height: 30%;
-    background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 40%, transparent 75%);
-    border-radius: 50%;
-    pointer-events: none;
+  .hy-couple .amp {
+    color: #e8c587;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0.32em;
   }
 
-  .envelope:hover .env-body {
+  /* ===== Opening — gentle sideways drift =====
+     0–0.4s : tiny anticipation scale
+     0.0–2.4s : two halves drift outward + fade
+     1.2–1.8s : butterflies start emerging (JS delay)
+     0–4s : couple text + ring fade away gently */
+  .envelope.opening .hy-card {
+    animation: hyLift 3.6s cubic-bezier(0.4, 0, 0.25, 1) forwards;
+  }
+  @keyframes hyLift {
+    0%   { transform: scale(1);    opacity: 1; }
+    8%   { transform: scale(1.02); opacity: 1; }
+    80%  { transform: scale(1);    opacity: 1; }
+    100% { transform: scale(0.98); opacity: 0; }
+  }
+  .envelope.opening .hy-left  { transform: translateX(-28vw); opacity: 0.18; }
+  .envelope.opening .hy-right { transform: translateX(28vw);  opacity: 0.18; }
+  .envelope.opening .hy-frame::before { opacity: 0; transform: scale(1.08); }
+  .envelope.opening .hy-frame::after  { opacity: 0; transform: scale(1.12); }
+  .envelope.opening .hy-couple        { opacity: 0; transform: translateY(6px); }
+
+  /* Hover — subtle warm-glow pulse */
+  .envelope:hover .hy-frame::before {
     box-shadow:
-      0 42px 80px -24px rgba(26, 22, 20, 0.46),
-      0 10px 22px -8px rgba(26, 22, 20, 0.26),
-      0 0 0 1px rgba(122, 70, 60, 0.18);
+      0 0 44px rgba(212, 165, 116, 0.28),
+      inset 0 0 38px rgba(212, 165, 116, 0.22);
   }
-  .envelope:hover .env-flap {
-    filter:
-      drop-shadow(0 6px 10px rgba(26, 22, 20, 0.18))
-      drop-shadow(0 2px 2px rgba(26, 22, 20, 0.1));
-  }
-  /* Seal pulse while envelope is hovered (works without JS too) */
-  .envelope:hover .env-seal {
-    animation: sealPulse 1.8s ease-in-out infinite;
-  }
-  @keyframes sealPulse {
-    0%, 100% { transform: translate(-50%, -50%) rotate(-3deg) scale(1); }
-    50%      { transform: translate(-50%, -50%) rotate(-3deg) scale(1.05); }
-  }
-
-  /* ===== Opening sequence =====
-     0–0.4s : seal peels off (scale down + fade)
-     0.3–1.8s : flap lifts up (rotateX -178°)
-     0.9–1.5s : butterflies start emerging (JS delay)
-     0–3.6s : whole envelope eventually scales down + fades */
-  .envelope.opening .wcard {
-    animation: wcardLift 3.6s cubic-bezier(0.5, 0, 0.25, 1) forwards;
-  }
-  @keyframes wcardLift {
-    0%   { transform: scale(1)   translateY(0); opacity: 1; }
-    8%   { transform: scale(1.04) translateY(-6px); opacity: 1; }
-    70%  { transform: scale(1.01) translateY(-4px); opacity: 1; }
-    100% { transform: scale(0.94) translateY(-26px); opacity: 0; }
-  }
-  .envelope.opening .env-flap {
-    transform: rotateX(-178deg);
-    filter: drop-shadow(0 -10px 16px rgba(26, 22, 20, 0.18));
-    transition-delay: 0.25s;
-  }
-  .envelope.opening .env-seal {
-    transform: translate(-50%, -50%) rotate(18deg) scale(0.35);
-    opacity: 0;
-    animation: none;
+  .envelope:hover .hy-half {
+    text-shadow:
+      0 0 18px rgba(232, 197, 135, 0.85),
+      0 0 38px rgba(212, 165, 116, 0.6),
+      0 0 72px rgba(176, 134, 88, 0.4),
+      0 0 108px rgba(140, 100, 60, 0.25);
   }
 
   /* ========== Butterflies ========== */
@@ -1480,18 +1414,16 @@
   <div class="envelope-overlay" id="envelopeOverlay">
     <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thiệp cưới">
 
-      <div class="wcard">
-        <!-- Envelope body (always visible) -->
-        <div class="env-body" aria-hidden="true"></div>
-
-        <!-- Inside surface (visible after flap opens; butterflies emerge from here) -->
-        <div class="env-inside" aria-hidden="true"></div>
-
-        <!-- V-shaped flap covering the top (lifts up on click) -->
-        <div class="env-flap" aria-hidden="true"></div>
-
-        <!-- Wax seal at the V-point -->
-        <div class="env-seal">T &amp; D</div>
+      <div class="hy-card">
+        <!-- 囍 character framed by double gold ring -->
+        <div class="hy-frame">
+          <span class="hy-half hy-left"  aria-hidden="true">囍</span>
+          <span class="hy-half hy-right" aria-hidden="true">囍</span>
+        </div>
+        <!-- Couple subtitle -->
+        <div class="hy-couple">
+          Thiện Tâm <span class="amp">&amp;</span> Kỳ Duyên
+        </div>
       </div>
 
       <!-- butterflies layer (filled by JS on first paint) -->
@@ -2106,7 +2038,7 @@
         const dy    = Math.sin(angle) * dist - 18;  // strong upward bias — bướm bay lên
         const rot   = (Math.random() - 0.5) * 180;  // ±90° gentle rotation
         const dur   = 7.5 + Math.random() * 2.5;    // 7.5-10s slow flight
-        const delay = 0.9 + Math.random() * 0.6;    // wait for cover to open before emerging
+        const delay = 1.1 + Math.random() * 0.7;    // emerge as the Hỷ halves are drifting apart
         const scale = 1.4 + Math.random() * 0.7;    // big — 1.4-2.1× base 48×38
 
         b.style.setProperty('--dx',  dx + 'vmax');
@@ -2346,9 +2278,9 @@
   // ===== jQuery — đặc sắc hover effects =====
   if (window.jQuery) (function($) {
     $(function() {
-      // 1) Envelope card — 3D mouse-tracking tilt while hovering before click
+      // 1) Hỷ card — gentle parallax following the cursor (subtle, not aggressive)
       const $envelope = $('#envelope');
-      const $wcard    = $envelope.find('.wcard');
+      const $hycard   = $envelope.find('.hy-card');
 
       $envelope.on('mousemove.tilt', function(e) {
         if ($envelope.hasClass('opening')) return;
@@ -2357,14 +2289,14 @@
         const cy = rect.height / 2;
         const dx = (e.clientX - rect.left - cx) / cx;
         const dy = (e.clientY - rect.top  - cy) / cy;
-        $wcard.css({
-          'transform':  'translateY(-4px) rotateX(' + (-dy * 8) + 'deg) rotateY(' + (dx * 12) + 'deg)',
-          'transition': 'transform 0.12s ease-out'
+        $hycard.css({
+          'transform':  'translate(' + (dx * 6) + 'px, ' + (dy * 4) + 'px)',
+          'transition': 'transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1)'
         });
       }).on('mouseleave.tilt', function() {
-        $wcard.css({
+        $hycard.css({
           'transform':  '',
-          'transition': 'transform 0.7s cubic-bezier(0.2, 0.8, 0.3, 1)'
+          'transition': 'transform 0.9s cubic-bezier(0.2, 0.8, 0.3, 1)'
         });
       });
 
