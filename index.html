@@ -326,8 +326,7 @@
   /* ===== Opening — gentle sideways drift =====
      0–0.4s : tiny anticipation scale
      0.0–2.4s : two halves drift outward + fade
-     1.2–1.8s : butterflies start emerging (JS delay)
-     0–4s : couple text + ring fade away gently */
+     0–3.6s : couple text + ring fade away gently */
   .envelope.opening .hy-card {
     animation: hyLift 3.6s cubic-bezier(0.4, 0, 0.25, 1) forwards;
   }
@@ -355,92 +354,6 @@
       0 0 38px rgba(212, 165, 116, 0.6),
       0 0 72px rgba(176, 134, 88, 0.4),
       0 0 108px rgba(140, 100, 60, 0.25);
-  }
-
-  /* ========== Butterflies ========== */
-  .butterflies {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
-    pointer-events: none;
-    perspective: 800px;
-    z-index: 3;
-  }
-  .butterfly {
-    position: absolute;
-    top: 0; left: 0;
-    width: 48px; height: 38px;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    transform-style: preserve-3d;
-    will-change: transform, opacity, filter;
-    /* glowing hologram effect */
-    filter:
-      drop-shadow(0 0 4px currentColor)
-      drop-shadow(0 0 14px currentColor)
-      drop-shadow(0 0 28px color-mix(in oklab, currentColor 60%, transparent));
-  }
-  .envelope.opening .butterfly {
-    animation: flyOut var(--dur, 8s) cubic-bezier(0.25, 0.55, 0.35, 1) var(--delay, 0s) forwards;
-  }
-  @keyframes flyOut {
-    0% {
-      transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      transform: translate(-50%, -50%) scale(1) rotate(0deg);
-      opacity: 1;
-    }
-    16% {
-      transform:
-        translate(calc(-50% + (var(--dx) * 0.06)), calc(-50% + (var(--dy) * 0.06)))
-        scale(1) rotate(calc(var(--rot) * 0.06));
-      opacity: 1;
-    }
-    82% { opacity: 1; }
-    100% {
-      transform:
-        translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
-        scale(1) rotate(var(--rot));
-      opacity: 0;
-    }
-  }
-
-  .butterfly .wing {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 50%;
-  }
-  .butterfly .wing.left  { left: 0;  transform-origin: right center; }
-  .butterfly .wing.right { right: 0; transform-origin: left center;  }
-  .envelope.opening .butterfly .wing.left  { animation: flapLeft  0.42s ease-in-out infinite; }
-  .envelope.opening .butterfly .wing.right { animation: flapRight 0.42s ease-in-out infinite; }
-  @keyframes flapLeft {
-    0%, 100% { transform: rotateY(0deg); }
-    50%      { transform: rotateY(58deg); }
-  }
-  @keyframes flapRight {
-    0%, 100% { transform: rotateY(0deg); }
-    50%      { transform: rotateY(-58deg); }
-  }
-  .butterfly .wing svg { width: 100%; height: 100%; display: block; overflow: visible; }
-  .butterfly .wing.right svg { transform: scaleX(-1); }
-  /* wing fill = translucent glow, outline = bright neon */
-  .butterfly .wing svg .wfill   { fill: currentColor; fill-opacity: 0.32; stroke: currentColor; stroke-width: 0.5; }
-  .butterfly .wing svg .wvein   { fill: none; stroke: currentColor; stroke-width: 0.3; opacity: 0.6; }
-  .butterfly .wing svg .wsparkle { fill: #ffffff; }
-  .butterfly::after {
-    /* glowing body */
-    content: '';
-    position: absolute;
-    left: 50%; top: 14%;
-    width: 2px; height: 72%;
-    background: linear-gradient(180deg, currentColor 0%, #ffffff 50%, currentColor 100%);
-    transform: translateX(-50%);
-    border-radius: 2px;
-    box-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
   }
 
   /* ========== Hint ========== */
@@ -1410,7 +1323,7 @@
 </head>
 <body class="envelope-active">
 
-  <!-- INTRO — Wedding card + butterflies fly out -->
+  <!-- INTRO — Hỷ (囍) card gently splits sideways -->
   <div class="envelope-overlay" id="envelopeOverlay">
     <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thiệp cưới">
 
@@ -1425,9 +1338,6 @@
           Thiện Tâm <span class="amp">&amp;</span> Kỳ Duyên
         </div>
       </div>
-
-      <!-- butterflies layer (filled by JS on first paint) -->
-      <div class="butterflies" id="butterflies" aria-hidden="true"></div>
     </div>
     <div class="envelope-hint">CHẠM ĐỂ MỞ THIỆP</div>
   </div>
@@ -1992,67 +1902,11 @@
     else { audio.pause(); btn.classList.remove('playing'); }
   });
 
-  // ===== ENVELOPE — pre-spawn butterflies, animate on open =====
+  // ===== INTRO — Hỷ card gently splits open =====
   (function envelopeAnimation() {
     const overlay  = document.getElementById('envelopeOverlay');
     const envelope = document.getElementById('envelope');
-    const layer    = document.getElementById('butterflies');
     if (!overlay || !envelope) return;
-
-    // Pre-spawn a few large, graceful HOLOGRAM butterflies (cyan glow)
-    if (layer) {
-      const COUNT = 6;
-      const colors = ['#00e5ff', '#5cc8ff', '#86d8ff', '#33d6ff', '#7ad4ff', '#a6e5ff'];
-      // Hologram wing — translucent fill + bright outline + veins + sparkle stars
-      const wingSvg =
-        '<svg viewBox="0 0 30 24" preserveAspectRatio="none">' +
-          // upper wing
-          '<path class="wfill" d="M30 12 Q 22 2, 8 4 Q 0 7, 4 14 Q 14 13, 30 12 Z"/>' +
-          // lower wing
-          '<path class="wfill" d="M30 12 Q 22 22, 12 22 Q 5 20, 8 14 Q 14 13, 30 12 Z"/>' +
-          // wing veins (upper)
-          '<path class="wvein" d="M28 12 Q 20 7, 11 6"/>' +
-          '<path class="wvein" d="M28 12 Q 18 9, 6 11"/>' +
-          // wing veins (lower)
-          '<path class="wvein" d="M28 12 Q 20 17, 13 20"/>' +
-          '<path class="wvein" d="M28 12 Q 16 16, 9 17"/>' +
-          // sparkle stars on wing
-          '<circle class="wsparkle" cx="20" cy="6"  r="0.6" opacity="0.95"/>' +
-          '<circle class="wsparkle" cx="10" cy="9"  r="0.4" opacity="0.8"/>' +
-          '<circle class="wsparkle" cx="14" cy="18" r="0.55" opacity="0.85"/>' +
-          '<circle class="wsparkle" cx="22" cy="19" r="0.4" opacity="0.75"/>' +
-          '<circle class="wsparkle" cx="6"  cy="13" r="0.35" opacity="0.7"/>' +
-        '</svg>';
-
-      for (let i = 0; i < COUNT; i++) {
-        const b = document.createElement('div');
-        b.className = 'butterfly';
-        b.innerHTML =
-          '<div class="wing left">'  + wingSvg + '</div>' +
-          '<div class="wing right">' + wingSvg + '</div>';
-
-        // Spread directions evenly with random jitter so 6 bướm don't pile up
-        const angle = (i / COUNT) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
-        const dist  = 45 + Math.random() * 25;    // vmax — gentle drift, not blast-off
-        const dx    = Math.cos(angle) * dist;
-        const dy    = Math.sin(angle) * dist - 18;  // strong upward bias — bướm bay lên
-        const rot   = (Math.random() - 0.5) * 180;  // ±90° gentle rotation
-        const dur   = 7.5 + Math.random() * 2.5;    // 7.5-10s slow flight
-        const delay = 1.1 + Math.random() * 0.7;    // emerge as the Hỷ halves are drifting apart
-        const scale = 1.4 + Math.random() * 0.7;    // big — 1.4-2.1× base 48×38
-
-        b.style.setProperty('--dx',  dx + 'vmax');
-        b.style.setProperty('--dy',  dy + 'vmax');
-        b.style.setProperty('--rot', rot + 'deg');
-        b.style.setProperty('--dur', dur + 's');
-        b.style.setProperty('--delay', delay + 's');
-        b.style.color  = colors[i % colors.length];
-        b.style.width  = (48 * scale) + 'px';
-        b.style.height = (38 * scale) + 'px';
-
-        layer.appendChild(b);
-      }
-    }
 
     let opened = false;
     const openEnvelope = () => {
@@ -2062,8 +1916,8 @@
       setTimeout(() => {
         overlay.classList.add('hidden');
         document.body.classList.remove('envelope-active');
-      }, 4200);
-      setTimeout(() => { overlay.remove(); }, 5800);
+      }, 3000);
+      setTimeout(() => { overlay.remove(); }, 4400);
       try { if (audio.src && audio.paused) { audio.play().then(() => btn.classList.add('playing')).catch(() => {}); } } catch (e) {}
     };
 
