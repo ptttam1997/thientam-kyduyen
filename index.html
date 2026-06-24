@@ -3,66 +3,150 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0908" />
+<meta name="theme-color" content="#f4ece3" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="description" content="Thiệp cưới Thiện Tâm & Kỳ Duyên — trân trọng kính mời quý vị đến chung vui ngày trọng đại của chúng tôi." />
-<title>Thiện Tâm & Kỳ Duyên — Wedding Invitation</title>
+<title>Thiện Tâm & Kỳ Duyên — A Wedding Story</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Italiana&family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italiana&family=Cinzel:wght@400;500;600&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
+  /* ============================================================
+     EDITORIAL CINEMATIC — Thiện Tâm & Kỳ Duyên
+     Palette: bone + warm black + dusty rose, magazine-style asymmetry
+     ============================================================ */
+
   :root {
-    /* Cineluve blush palette — semantics flipped, variable names kept */
-    --gold:        #c89388;   /* dusty rose accent (was bronze) */
-    --gold-bright: #d9a89e;   /* light blush highlight */
-    --gold-deep:   #a06155;   /* deep rose for borders/dividers */
-    --ink:         #fbf5f1;   /* PAGE BG: soft blush cream */
-    --ink-soft:    #f5e8e1;   /* SECTION ALT: warmer blush */
-    --cream:       #2b2522;   /* PRIMARY TEXT: warm near-black */
-    --paper:       #fce7e1;   /* soft pink accent for cards */
+    --bone:        #f4ece3;
+    --bone-soft:   #ebe1d5;
+    --paper:       #e8dccd;
+    --ink:         #1a1614;
+    --ink-2:       #4a4138;
+    --ink-3:       #7a6f63;
+    --rose:        #b87a6e;
+    --rose-deep:   #7a463c;
+    --rose-pale:   #e8c9bd;
+    --gold:        #b89968;
+
+    /* legacy aliases kept so old JS color tweaks still parse */
+    --cream:       #1a1614;
+    --gold-bright: #b87a6e;
+    --gold-deep:   #7a463c;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
 
   body {
-    background: var(--ink);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+    background: var(--bone);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', Georgia, serif;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+  body.envelope-active { overflow: hidden; }
 
   img { max-width: 100%; height: auto; display: block; }
+  a  { color: inherit; text-decoration: none; }
 
-  /* ============ FLOATING PARTICLES ============ */
-  .particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
+  ::selection { background: var(--rose); color: var(--bone); }
+
+  /* ============ TYPOGRAPHIC PRIMITIVES ============ */
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+    font-size: clamp(10px, 1.2vw, 12px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
   }
+  .eyebrow.light { color: var(--bone); }
+
+  .folio {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: 0.005em;
+  }
+
+  .display-italic {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.05;
+  }
+
+  .asterism {
+    display: block;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--rose);
+    font-size: 18px;
+    letter-spacing: 0.6em;
+    margin: 0 0 0 0.6em;
+  }
+  .asterism::before { content: '※'; }
+
+  /* SVG line ornament used as chapter rule */
+  .chapter-rule {
+    display: block;
+    width: 100%;
+    max-width: 240px;
+    height: 8px;
+    margin: 18px 0 0;
+  }
+  .chapter-rule.centered { margin-left: auto; margin-right: auto; }
+
+  /* ============ LAYOUT ============ */
+
+  .stage {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 64px);
+  }
+  .narrow {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .editorial-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(20px, 4vw, 48px);
+    align-items: start;
+  }
+
+  /* ============ FLOATING PARTICLES (kept, retuned) ============ */
+  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
   .particle {
     position: absolute;
-    width: 3px;
-    height: 3px;
-    background: var(--gold);
+    width: 3px; height: 3px;
+    background: var(--rose);
     border-radius: 50%;
     opacity: 0;
-    animation: float 14s linear infinite;
-    box-shadow: 0 0 6px rgba(160, 97, 85, 0.35);
+    animation: float 18s linear infinite;
+    box-shadow: 0 0 8px rgba(184, 122, 110, 0.4);
   }
   @keyframes float {
     0%   { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
-    10%  { opacity: 0.45; transform: translateY(85vh) translateX(10px) scale(1); }
-    50%  { opacity: 0.3; }
+    10%  { opacity: 0.38; transform: translateY(85vh) translateX(8px) scale(1); }
+    50%  { opacity: 0.22; }
     100% { transform: translateY(-10vh) translateX(40px) scale(0.3); opacity: 0; }
   }
 
@@ -71,1161 +155,1092 @@
     position: fixed;
     top: max(20px, env(safe-area-inset-top));
     right: max(20px, env(safe-area-inset-right));
-    width: 48px;
-    height: 48px;
+    width: 46px; height: 46px;
     border-radius: 50%;
-    background: rgba(251, 245, 241, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--gold);
-    cursor: pointer;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(244, 236, 227, 0.82);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    border: 1px solid var(--rose);
+    cursor: pointer;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
   }
-  .music-toggle:hover { background: var(--gold); }
-  .music-toggle:hover svg { stroke: var(--ink); }
-  .music-toggle svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; transition: stroke 0.3s; }
-  .music-toggle.playing .bar {
-    animation: bar-pulse 1s ease-in-out infinite;
-    transform-origin: bottom;
-  }
+  .music-toggle:hover { background: var(--rose); transform: scale(1.04); }
+  .music-toggle:hover svg { stroke: var(--bone); }
+  .music-toggle svg { width: 20px; height: 20px; stroke: var(--rose-deep); fill: none; stroke-width: 1.5; transition: stroke 0.3s; }
+  .music-toggle.playing .bar { animation: bar-pulse 1s ease-in-out infinite; transform-origin: bottom; }
   .music-toggle .bar:nth-child(2) { animation-delay: 0.2s; }
   .music-toggle .bar:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bar-pulse {
-    0%, 100% { transform: scaleY(0.4); }
-    50% { transform: scaleY(1); }
+  @keyframes bar-pulse { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+
+  /* ============ ENVELOPE INTRO ============ */
+  .envelope-overlay {
+    position: fixed; inset: 0;
+    background: var(--bone);
+    z-index: 9999;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px;
+    transition: opacity 1.1s ease, visibility 1.1s ease;
   }
+  .envelope-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .envelope {
+    position: relative;
+    width: min(86vw, 360px);
+    aspect-ratio: 1.55 / 1;
+    cursor: pointer;
+    perspective: 1200px;
+    transition: transform 0.45s ease;
+  }
+  .envelope:hover { transform: translateY(-4px); }
+  .envelope-body, .envelope-pocket, .envelope-flap {
+    position: absolute; inset: 0;
+    border-radius: 2px;
+  }
+  .envelope-body {
+    background: linear-gradient(170deg, var(--paper) 0%, var(--bone-soft) 100%);
+    box-shadow: 0 30px 60px -20px rgba(26, 22, 20, 0.25), 0 0 0 1px rgba(122, 70, 60, 0.12);
+  }
+  .envelope-pocket {
+    background:
+      linear-gradient(135deg, transparent 50%, rgba(122, 70, 60, 0.06) 50%),
+      linear-gradient(45deg, transparent 50%, rgba(122, 70, 60, 0.06) 50%);
+    background-size: 100% 50%, 100% 50%;
+    background-position: 0 100%, 0 100%;
+    background-repeat: no-repeat;
+    border-top: 1px solid rgba(122, 70, 60, 0.18);
+    z-index: 3;
+  }
+  .envelope-flap {
+    background: linear-gradient(160deg, var(--bone-soft) 0%, var(--paper) 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 62%);
+    border-bottom: 1px solid rgba(122, 70, 60, 0.18);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 1s cubic-bezier(0.6, 0.02, 0.32, 1);
+    z-index: 4;
+  }
+  .envelope-letter {
+    position: absolute;
+    left: 8%; right: 8%; top: 14%; bottom: 14%;
+    background: var(--bone);
+    border: 1px solid rgba(122, 70, 60, 0.18);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 12px;
+    z-index: 2;
+    transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s;
+  }
+  .envelope-letter-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    color: var(--rose-deep);
+  }
+  .envelope-letter-names {
+    margin-top: 10px;
+    font-family: 'Italiana', serif;
+    font-size: clamp(20px, 5vw, 28px);
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.05;
+  }
+  .envelope-letter-names .amp {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--rose);
+    font-size: 0.85em;
+    margin: 0.05em 0;
+  }
+  .envelope-seal {
+    position: absolute;
+    bottom: -14px; left: 50%;
+    transform: translateX(-50%);
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--rose-deep);
+    color: var(--bone);
+    font-family: 'Italiana', serif;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    box-shadow: 0 10px 22px -8px rgba(122, 70, 60, 0.5);
+    z-index: 5;
+    transition: transform 0.5s ease;
+  }
+  .envelope.opening .envelope-flap { transform: rotateX(-180deg); }
+  .envelope.opening .envelope-letter { transform: translateY(-160%) scale(1.05); }
+  .envelope.opening .envelope-seal { transform: translateX(-50%) scale(0); opacity: 0; }
+  .envelope-hint {
+    margin-top: 56px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.46em;
+    color: var(--rose-deep);
+    animation: hint-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes hint-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
   /* ============ HERO ============ */
   .hero {
     position: relative;
     height: 100vh;
     height: 100svh;
-    min-height: 560px;
+    min-height: 600px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    color: var(--bone);
   }
   .hero-bg {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background-image: url('images/LAT06963.jpg');
     background-size: cover;
-    background-position: center 30%;
-    filter: brightness(1.02) contrast(0.95) saturate(0.88);
-    animation: kenburns 24s ease-in-out infinite alternate;
+    background-position: center 35%;
+    filter: brightness(0.92) contrast(0.96) saturate(0.9);
+    animation: kenburns 28s ease-in-out infinite alternate;
+    z-index: 0;
   }
   @keyframes kenburns {
     0%   { transform: scale(1) translate(0, 0); }
-    100% { transform: scale(1.1) translate(-1.5%, -1%); }
+    100% { transform: scale(1.12) translate(-2%, -1.5%); }
   }
   .hero::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at center, rgba(251,246,233,0.25) 0%, rgba(251,246,233,0.55) 70%, rgba(251,246,233,0.88) 100%),
-      linear-gradient(180deg, rgba(251,246,233,0.55) 0%, rgba(251,246,233,0.15) 30%, rgba(251,246,233,0.25) 70%, rgba(251,246,233,0.85) 100%);
+      linear-gradient(180deg,
+        rgba(26, 22, 20, 0.55) 0%,
+        rgba(26, 22, 20, 0.15) 28%,
+        rgba(26, 22, 20, 0.18) 65%,
+        rgba(26, 22, 20, 0.7) 100%);
     z-index: 1;
   }
-  .hero-inner {
-    position: relative;
-    z-index: 3;
+  /* Film grain — cinematic texture over hero */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    animation: grainShift 1.6s steps(6) infinite;
+  }
+  @keyframes grainShift {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-4%, 3%); }
+    40%  { transform: translate(2%, -5%); }
+    60%  { transform: translate(-6%, -2%); }
+    80%  { transform: translate(4%, 4%); }
+    100% { transform: translate(0, 0); }
+  }
+  .hero-top, .hero-bottom, .hero-center {
+    position: relative; z-index: 2;
+    padding: clamp(24px, 4vw, 48px) clamp(20px, 5vw, 64px);
+  }
+  .hero-top {
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--bone);
+    animation: fadeUp 1.4s ease-out;
+  }
+  .hero-top .eyebrow { color: var(--bone); opacity: 0.78; }
+  .hero-mark {
+    font-family: 'Italiana', serif;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    color: var(--bone);
+  }
+  .hero-center {
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
     text-align: center;
-    padding: 0 24px;
-    animation: fadeUp 1.8s ease-out;
+    animation: fadeUp 1.8s ease-out 0.1s both;
   }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(40px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   .hero-eyebrow {
     font-family: 'Cinzel', serif;
     letter-spacing: 0.55em;
-    font-size: clamp(9px, 1.5vw, 11px);
-    color: var(--gold);
-    margin-bottom: clamp(22px, 4vw, 32px);
+    font-size: clamp(10px, 1.4vw, 12px);
+    color: var(--rose-pale);
+    margin-bottom: clamp(26px, 4vw, 40px);
     display: inline-flex;
     align-items: center;
     gap: 16px;
-    flex-wrap: nowrap;
   }
   .hero-eyebrow::before, .hero-eyebrow::after {
     content: '';
-    width: clamp(20px, 6vw, 40px);
+    width: clamp(28px, 7vw, 56px);
     height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
+    background: var(--rose-pale);
+    opacity: 0.7;
   }
   .hero-names {
     font-family: 'Italiana', serif;
-    font-size: clamp(46px, 12vw, 140px);
-    line-height: 1;
+    font-size: clamp(52px, 14vw, 168px);
+    line-height: 0.96;
     font-weight: 400;
-    color: var(--cream);
-    letter-spacing: 0.02em;
+    color: var(--bone);
+    letter-spacing: 0.012em;
+    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
   }
   .hero-names .amp {
     display: block;
-    font-family: 'Great Vibes', cursive;
-    font-size: 0.7em;
-    color: var(--gold);
-    margin: 0.05em 0;
-    font-weight: 400;
-    line-height: 0.9;
-    text-shadow: 0 2px 18px rgba(160, 97, 85, 0.18);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.4em;
+    color: var(--rose-pale);
+    margin: 0.04em 0;
+    line-height: 1;
+  }
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    color: var(--bone);
+    animation: fadeUp 1.6s ease-out 0.25s both;
   }
   .hero-date {
-    margin-top: clamp(24px, 4vw, 36px);
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(12px, 3vw, 22px);
     font-family: 'Cinzel', serif;
-    font-size: clamp(11px, 2vw, 14px);
-    letter-spacing: 0.4em;
-    color: var(--gold-bright);
+    font-size: clamp(11px, 1.4vw, 13px);
+    letter-spacing: 0.46em;
+    color: var(--bone);
+    display: flex; align-items: center; gap: clamp(10px, 2.4vw, 18px);
   }
   .hero-date .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    transform: rotate(45deg);
+    width: 3px; height: 3px; background: var(--rose-pale); border-radius: 50%;
   }
   .scroll-cue {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    color: var(--gold);
     font-family: 'Cinzel', serif;
     font-size: 10px;
-    letter-spacing: 0.4em;
-    opacity: 0.8;
+    letter-spacing: 0.5em;
+    color: var(--bone);
+    opacity: 0.7;
+    display: inline-flex; align-items: center; gap: 10px;
   }
   .scroll-cue::after {
     content: '';
-    display: block;
-    width: 1px;
-    height: 50px;
-    background: linear-gradient(180deg, var(--gold), transparent);
-    margin: 12px auto 0;
-    animation: drop 2s ease-in-out infinite;
+    display: inline-block;
+    width: 1px; height: 28px;
+    background: var(--bone);
+    animation: cue-line 2.2s ease-in-out infinite;
+    transform-origin: top;
   }
-  @keyframes drop {
-    0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
-    50%      { transform: scaleY(1); opacity: 1; }
-  }
-
-  /* ============ SECTION COMMONS ============ */
-  section {
-    position: relative;
-    padding: clamp(70px, 10vw, 120px) clamp(20px, 5vw, 32px);
-    z-index: 2;
-  }
-  .container { max-width: 1080px; margin: 0 auto; width: 100%; }
-  .section-eyebrow {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(9px, 1.4vw, 11px);
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Italiana', serif;
-    font-size: clamp(32px, 6vw, 64px);
-    text-align: center;
-    color: var(--cream);
-    margin-bottom: clamp(40px, 6vw, 60px);
-    line-height: 1.15;
-  }
-  .ornament {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin: 24px 0 48px;
-    color: var(--gold);
-  }
-  .ornament::before, .ornament::after {
-    content: '';
-    height: 1px;
-    width: clamp(50px, 12vw, 90px);
-    background: linear-gradient(90deg, transparent, var(--gold));
-  }
-  .ornament::after {
-    background: linear-gradient(90deg, var(--gold), transparent);
-  }
-  .ornament-diamond {
-    width: 56px;
-    height: 26px;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 24' fill='none' stroke='%23c89388' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='8' cy='18' rx='6' ry='2.8' fill='%23c89388' stroke='none'/%3E%3Cpath d='M10 16 C 10 8, 16 4, 20 4'/%3E%3Cellipse cx='32' cy='18' rx='6' ry='2.8' fill='%23c89388' stroke='none'/%3E%3Cpath d='M30 16 C 30 8, 24 4, 20 4'/%3E%3Cpath d='M20 4 C 19.4 3.4, 18.6 3.4, 18.6 4.4 C 18.6 5.4, 20 6.6, 20 6.6 C 20 6.6, 21.4 5.4, 21.4 4.4 C 21.4 3.4, 20.6 3.4, 20 4 Z' fill='%23c89388' stroke='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+  @keyframes cue-line {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.6; }
+    50%      { transform: scaleY(1);   opacity: 1; }
   }
 
-  /* ============ COUNTDOWN ============ */
-  .countdown {
-    background: linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 100%);
-    padding: clamp(56px, 8vw, 80px) clamp(16px, 5vw, 24px);
-    border-top: 1px solid rgba(200, 147, 136, 0.15);
-    border-bottom: 1px solid rgba(200, 147, 136, 0.15);
-  }
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(8px, 1.5vw, 16px);
-    max-width: 720px;
-    margin: 0 auto;
-  }
-  .cd-unit {
-    text-align: center;
-    padding: clamp(18px, 3vw, 28px) clamp(8px, 1.5vw, 12px);
-    border: 1px solid rgba(200, 147, 136, 0.2);
-    background: rgba(200, 147, 136, 0.03);
-    position: relative;
-  }
-  .cd-unit::before, .cd-unit::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border: 1px solid var(--gold);
-  }
-  .cd-unit::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-  .cd-unit::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-  .cd-num {
-    font-family: 'Italiana', serif;
-    font-size: clamp(28px, 6vw, 48px);
-    color: var(--gold-bright);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .cd-label {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(8px, 1.4vw, 10px);
-    letter-spacing: 0.25em;
-    color: var(--cream);
-    opacity: 0.7;
-    text-transform: uppercase;
-  }
-
-  /* ============ COUPLE ============ */
-  .couple-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: clamp(30px, 5vw, 60px);
-    align-items: center;
-  }
-  .couple-card { text-align: center; min-width: 0; }
-  .couple-photo {
-    width: min(280px, 75vw);
-    aspect-ratio: 280 / 360;
-    height: auto;
-    margin: 0 auto 28px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(200, 147, 136, 0.3);
-  }
-  .couple-photo::before {
-    content: '';
-    position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(200, 147, 136, 0.4);
-    z-index: 2;
-    pointer-events: none;
-  }
-  .couple-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s ease;
-    filter: grayscale(0.15) contrast(1.05);
-  }
-  .couple-photo:hover img { transform: scale(1.05); }
-  .couple-role {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(10px, 1.6vw, 11px);
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-  .couple-name {
-    font-family: 'Italiana', serif;
-    font-size: clamp(28px, 5vw, 38px);
-    color: var(--cream);
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
-  .couple-bio {
-    font-size: clamp(14px, 1.8vw, 15px);
-    color: rgba(42, 34, 26, 0.65);
-    line-height: 1.7;
-    max-width: 320px;
-    margin: 0 auto;
-    font-style: italic;
-  }
-  .couple-amp {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(60px, 9vw, 100px);
-    color: var(--gold);
-    line-height: 1;
-    text-shadow: 0 2px 22px rgba(160, 97, 85, 0.18);
+  /* ============ PROLOGUE (pull quote) ============ */
+  .prologue {
+    padding: clamp(96px, 14vw, 180px) 0;
+    background: var(--bone);
     text-align: center;
   }
-
-  /* ============ STORY ============ */
-  .story-quote {
-    text-align: center;
-    max-width: 760px;
-    margin: 0 auto;
+  .prologue-quote {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 2.4vw, 28px);
     font-style: italic;
     font-weight: 300;
-    line-height: 1.7;
-    color: rgba(42, 34, 26, 0.85);
+    font-size: clamp(22px, 3.4vw, 38px);
+    line-height: 1.42;
+    color: var(--ink);
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
   }
-  .story-quote::before {
-    content: '“';
-    display: block;
-    font-family: 'Italiana', serif;
-    font-size: clamp(70px, 12vw, 120px);
-    color: var(--gold);
-    line-height: 0.7;
-    margin-bottom: 16px;
-    opacity: 0.4;
-  }
-  .story-author {
-    margin-top: 32px;
-    font-family: 'Cinzel', serif;
-    font-size: 12px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-  }
-
-  /* ============ EVENT DETAILS ============ */
-  .events {
-    background: linear-gradient(180deg, var(--ink-soft) 0%, var(--ink) 100%);
-  }
-  .event-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: clamp(24px, 4vw, 40px);
-    margin-top: clamp(40px, 6vw, 60px);
-  }
-  .event-card {
-    text-align: center;
-    padding: clamp(40px, 6vw, 60px) clamp(20px, 4vw, 32px);
-    border: 1px solid rgba(200, 147, 136, 0.25);
-    background: rgba(200, 147, 136, 0.025);
-    position: relative;
-    transition: all 0.4s ease;
-  }
-  .event-card:hover {
-    background: rgba(200, 147, 136, 0.06);
-    transform: translateY(-4px);
-    box-shadow: 0 18px 48px rgba(110, 81, 40, 0.12);
-  }
-  .event-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 24px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-  }
-  .event-icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.2; }
-  .event-type {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(10px, 1.6vw, 11px);
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-  .event-name {
-    font-family: 'Italiana', serif;
-    font-size: clamp(26px, 4vw, 32px);
-    color: var(--cream);
-    margin-bottom: 24px;
-  }
-  .event-detail {
-    color: rgba(42, 34, 26, 0.75);
-    font-size: clamp(14px, 2vw, 16px);
-    margin-bottom: 6px;
-    word-wrap: break-word;
-  }
-  .event-detail strong { color: var(--gold-bright); font-weight: 500; letter-spacing: 0.05em; }
-  .event-divider {
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    margin: 20px auto;
-  }
-
-  /* ============ GALLERY ============ */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: clamp(140px, 18vw, 200px);
-    gap: clamp(8px, 1.4vw, 16px);
-    margin-top: clamp(40px, 6vw, 60px);
-  }
-  .gallery-item {
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid rgba(200, 147, 136, 0.15);
-  }
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s ease, filter 0.4s ease;
-    filter: brightness(1.0) contrast(1.02) saturate(0.95);
-  }
-  .gallery-item:hover img { transform: scale(1.08); filter: brightness(1.05) contrast(1.05); }
-  .gallery-item.tall { grid-row: span 2; }
-  .gallery-item.wide { grid-column: span 2; }
-
-  /* ============ RSVP / CLOSING ============ */
-  .closing {
-    text-align: center;
-    padding: clamp(80px, 12vw, 140px) clamp(20px, 5vw, 24px);
-    background:
-      linear-gradient(180deg, rgba(251,246,233,0.88), rgba(251,246,233,0.95)),
-      url('images/LAT07605.jpg') center/cover no-repeat;
-    background-attachment: fixed;
-  }
-  .closing-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(46px, 9vw, 96px);
-    color: var(--gold);
-    line-height: 1.1;
-    margin-bottom: clamp(20px, 4vw, 32px);
-    text-shadow: 0 2px 28px rgba(160, 97, 85, 0.2);
-  }
-  .closing-text {
-    max-width: 600px;
-    margin: 0 auto 48px;
-    color: rgba(42, 34, 26, 0.8);
-    font-size: clamp(15px, 2vw, 18px);
-    line-height: 1.8;
-  }
-  .closing-couple {
-    font-family: 'Italiana', serif;
-    font-size: clamp(20px, 3vw, 28px);
-    color: var(--cream);
-    letter-spacing: 0.15em;
-    word-spacing: 0.05em;
-  }
-  .rsvp-btn {
-    display: inline-block;
+  .prologue-quote .em { color: var(--rose-deep); }
+  .prologue-attr {
     margin-top: 36px;
-    padding: clamp(14px, 2vw, 18px) clamp(28px, 6vw, 48px);
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-bright);
-    font-family: 'Cinzel', serif;
-    font-size: clamp(10px, 1.6vw, 12px);
-    letter-spacing: 0.4em;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .rsvp-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gold);
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
-    z-index: -1;
-  }
-  .rsvp-btn:hover { color: var(--ink); }
-  .rsvp-btn:hover::before { transform: translateY(0); }
-  .rsvp-btn { isolation: isolate; }
-
-  /* ============ FOOTER ============ */
-  footer {
-    text-align: center;
-    padding: 60px 24px 40px;
-    background: var(--ink);
-    border-top: 1px solid rgba(200, 147, 136, 0.15);
-  }
-  footer .ornament { margin: 16px 0; }
-  .footer-text {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.45em;
-    color: var(--gold);
-    opacity: 0.6;
-  }
-  .footer-names {
-    font-family: 'Italiana', serif;
-    font-size: 20px;
-    color: var(--cream);
-    margin: 12px 0;
-    letter-spacing: 0.1em;
-  }
-
-  /* ============ REVEAL ON SCROLL ============ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ============ RESPONSIVE BREAKPOINTS ============ */
-
-  /* Large desktop */
-  @media (min-width: 1440px) {
-    .container { max-width: 1180px; }
-    .gallery-grid { grid-auto-rows: 220px; }
-  }
-
-  /* Tablet landscape */
-  @media (max-width: 1024px) {
-    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-    .gallery-item.wide { grid-column: span 2; }
-  }
-
-  /* Tablet portrait */
-  @media (max-width: 820px) {
-    .couple-grid { grid-template-columns: 1fr; }
-    .couple-amp { transform: rotate(90deg); margin: 8px 0; }
-  }
-
-  /* Mobile */
-  @media (max-width: 640px) {
-    body { font-size: 16px; }
-
-    .music-toggle { width: 42px; height: 42px; }
-    .music-toggle svg { width: 18px; height: 18px; }
-
-    .hero { min-height: 520px; }
-    .hero-bg { background-position: center 25%; }
-    .hero-inner { padding: 0 16px; }
-
-    .scroll-cue { bottom: 24px; font-size: 9px; }
-    .scroll-cue::after { height: 36px; }
-
-    /* Gallery: 2 cols, ignore tall/wide so layout stays balanced */
-    .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: clamp(130px, 32vw, 170px);
-      gap: 10px;
-    }
-    .gallery-item.tall { grid-row: auto; }
-    .gallery-item.wide { grid-column: span 2; }
-
-    .closing { background-attachment: scroll; }
-
-    /* Disable kenburns to save GPU on mobile */
-    .hero-bg { animation-duration: 30s; }
-  }
-
-  /* Small mobile */
-  @media (max-width: 380px) {
-    section { padding: 56px 16px; }
-    .countdown { padding: 48px 14px; }
-    .countdown-grid { gap: 6px; }
-    .cd-unit { padding: 14px 4px; }
-    .cd-num { font-size: 24px; }
-    .cd-label { font-size: 7px; letter-spacing: 0.15em; }
-    .hero-eyebrow { gap: 10px; letter-spacing: 0.35em; }
-    .hero-date { letter-spacing: 0.25em; gap: 8px; font-size: 10px; }
-    .ornament::before, .ornament::after { width: 40px; }
-    .footer-text { letter-spacing: 0.3em; }
-  }
-
-  /* Mobile landscape — short height */
-  @media (max-height: 480px) and (orientation: landscape) {
-    .hero { min-height: 100vh; padding: 40px 20px; }
-    .hero-names { font-size: clamp(36px, 8vw, 64px); }
-    .scroll-cue { display: none; }
-  }
-
-  /* Reduce motion */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-bg, .particle, .scroll-cue::after, .music-toggle.playing .bar {
-      animation: none !important;
-    }
-    .reveal { opacity: 1; transform: none; }
-    * { transition-duration: 0.01ms !important; }
-  }
-
-  /* Print */
-  @media print {
-    body { background: #fff; color: #000; }
-    .music-toggle, .particles, .scroll-cue, .rsvp-btn { display: none; }
-    .hero { height: auto; min-height: auto; padding: 40px 20px; }
-    .hero-bg, .hero::before { display: none; }
-    .hero-names, .closing-title, .section-title { color: #000; }
-    section { padding: 30px 20px; page-break-inside: avoid; }
-    .envelope-overlay, .comments { display: none !important; }
-  }
-
-  /* ============ ENVELOPE OPENING ANIMATION ============ */
-  .envelope-overlay {
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at center, #fbf5f1 0%, #f4e1d8 60%, #e7c8bc 100%);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 24px;
-    transition: opacity 1s ease, visibility 1s;
-  }
-  .envelope-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  body.envelope-active { overflow: hidden; height: 100vh; }
-
-  .envelope-hint {
-    position: absolute;
-    bottom: 12%;
-    left: 50%;
-    transform: translateX(-50%);
     font-family: 'Cinzel', serif;
     font-size: 11px;
     letter-spacing: 0.5em;
-    color: var(--gold);
-    opacity: 0;
-    animation: hintFade 2.4s ease-in-out 1.2s infinite;
-    text-align: center;
-    white-space: nowrap;
-  }
-  @keyframes hintFade {
-    0%, 100% { opacity: 0; transform: translate(-50%, 8px); }
-    50%      { opacity: 0.9; transform: translate(-50%, 0); }
+    color: var(--rose-deep);
   }
 
-  .envelope {
+  /* ============ CHAPTER ============ */
+  .chapter {
+    padding: clamp(80px, 12vw, 160px) 0;
     position: relative;
-    width: min(420px, 88vw);
-    aspect-ratio: 420 / 270;
-    cursor: pointer;
-    transform: scale(0.6);
-    opacity: 0;
-    animation: envelopeIn 1.2s cubic-bezier(.2,.9,.3,1.2) 0.3s forwards;
-    perspective: 1200px;
   }
-  @keyframes envelopeIn {
-    to { transform: scale(1); opacity: 1; }
+  .chapter.alt { background: var(--bone-soft); }
+  .chapter.dark { background: var(--ink); color: var(--bone); }
+  .chapter.dark .eyebrow,
+  .chapter.dark .folio,
+  .chapter.dark .chapter-title,
+  .chapter.dark .chapter-lead { color: var(--bone); }
+  .chapter.dark .eyebrow { color: var(--rose-pale); }
+
+  .chapter-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: clamp(16px, 3vw, 40px);
+    padding-bottom: clamp(32px, 5vw, 64px);
+    border-bottom: 1px solid rgba(122, 70, 60, 0.18);
+    margin-bottom: clamp(48px, 7vw, 96px);
   }
-  .envelope-body {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #1f1a14 0%, #2a221a 50%, #1a140f 100%);
-    border: 1px solid var(--gold);
-    box-shadow:
-      0 30px 80px rgba(0,0,0,0.7),
-      0 0 0 1px rgba(201,169,110,0.15),
-      inset 0 0 60px rgba(0,0,0,0.5);
+  .chapter.dark .chapter-head { border-bottom-color: rgba(244, 236, 227, 0.16); }
+  .chapter-number {
+    font-family: 'Italiana', serif;
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1;
+    color: var(--rose-deep);
+  }
+  .chapter.dark .chapter-number { color: var(--rose-pale); }
+  .chapter-title-wrap {
+    display: flex; flex-direction: column;
+    gap: 8px;
+  }
+  .chapter-title-wrap .eyebrow { margin-bottom: 2px; }
+  .chapter-title {
+    font-family: 'Italiana', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: 0.005em;
+  }
+  .title-ornament {
+    width: 64px;
+    height: 10px;
+    color: var(--rose);
+    margin-top: 14px;
+    overflow: visible;
+  }
+  .chapter.dark .title-ornament { color: var(--rose-pale); }
+  .title-ornament path { fill: none; stroke: currentColor; stroke-width: 0.6; }
+  .title-ornament circle { fill: currentColor; }
+  .chapter-meta {
+    display: flex; flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .chapter-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 580px;
+    margin: 0 auto clamp(48px, 6vw, 80px);
+    text-align: center;
+  }
+  .chapter.dark .chapter-lead { color: rgba(244, 236, 227, 0.78); }
+
+  /* ============ STORY (CH. I) ============ */
+  .story-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(20px, 4vw, 56px);
+    align-items: center;
+  }
+  .story-text { grid-column: 1 / span 6; }
+  .story-image {
+    grid-column: 8 / span 5;
+    position: relative;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
   }
-  .envelope-body::after {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px solid rgba(201,169,110,0.3);
-    pointer-events: none;
+  .story-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 1.4s ease;
   }
-
-  /* Letter inside envelope */
-  .envelope-letter {
+  .story-image:hover img { transform: scale(1.06); }
+  .story-image .img-caption {
     position: absolute;
-    left: 8%;
-    right: 8%;
-    top: 18%;
-    bottom: 18%;
-    background: linear-gradient(180deg, #f4ecd8, #ebe2c8);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 12px;
-    transform: translateY(0);
-    transition: transform 1.4s cubic-bezier(.4,0,.2,1) 0.5s;
-    z-index: 1;
-  }
-  .envelope-letter-eyebrow {
+    bottom: -32px; left: 0;
     font-family: 'Cinzel', serif;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.4em;
-    color: var(--gold-deep);
-    margin-bottom: 6px;
+    color: var(--ink-3);
   }
-  .envelope-letter-names {
+  .story-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin-bottom: 1.2em;
+  }
+  .story-text p:last-child { margin-bottom: 0; }
+  .dropcap::first-letter {
+    float: left;
     font-family: 'Italiana', serif;
-    font-size: clamp(20px, 5vw, 32px);
-    color: var(--ink);
-    line-height: 1.05;
+    font-size: 5.2em;
+    line-height: 0.86;
+    margin: 0.04em 0.14em -0.05em 0;
+    color: var(--rose-deep);
   }
-  .envelope-letter-names .amp {
-    display: block;
-    font-family: 'Great Vibes', cursive;
-    color: var(--gold-deep);
-    font-size: 0.7em;
-    margin: 2px 0;
-  }
-
-  /* Flap — top trapezoid */
-  .envelope-flap {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #2a221a 0%, #1a140f 100%);
-    border: 1px solid var(--gold);
-    clip-path: polygon(0 0, 100% 0, 50% 65%);
-    transform-origin: top center;
-    transition: transform 1.2s cubic-bezier(.5,.05,.2,1);
-    z-index: 3;
-  }
-  .envelope-flap::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border: 1px solid rgba(201,169,110,0.3);
-    clip-path: polygon(0 0, 100% 0, 50% 65%);
-  }
-
-  /* Wax seal */
-  .envelope-seal {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    width: 64px;
-    height: 64px;
-    margin-left: -32px;
-    margin-top: -32px;
-    background: radial-gradient(circle at 35% 35%, #e0a094, var(--gold-deep) 50%, #5a2f28 100%);
-    border-radius: 50%;
-    box-shadow:
-      0 4px 12px rgba(0,0,0,0.6),
-      inset -2px -2px 8px rgba(0,0,0,0.4),
-      inset 2px 2px 6px rgba(255,220,160,0.3);
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Italiana', serif;
-    font-size: 22px;
-    color: rgba(40,28,15,0.8);
-    transition: transform 0.6s ease, opacity 0.6s ease;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-  }
-  .envelope-seal::before {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 1px solid rgba(40,28,15,0.4);
-    border-radius: 50%;
-  }
-
-  /* Front pocket — covers letter bottom */
-  .envelope-pocket {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #20180f 0%, #2a221a 100%);
-    border: 1px solid var(--gold);
-    clip-path: polygon(0 100%, 0 0, 50% 65%, 100% 0, 100% 100%);
-    z-index: 2;
-  }
-  .envelope-pocket::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border: 1px solid rgba(201,169,110,0.3);
-    clip-path: polygon(0 100%, 0 0, 50% 65%, 100% 0, 100% 100%);
-  }
-
-  /* OPENING STATE */
-  .envelope.opening .envelope-flap { transform: rotateX(-180deg); }
-  .envelope.opening .envelope-seal { transform: scale(0); opacity: 0; }
-  .envelope.opening .envelope-letter { transform: translateY(-130%); }
-  .envelope.opening { cursor: default; }
-
-  /* ============ COMMENTS / WISHES ============ */
-  .comments {
-    background: linear-gradient(180deg, var(--ink-soft) 0%, var(--ink) 100%);
-    border-top: 1px solid rgba(200, 147, 136, 0.15);
-    border-bottom: 1px solid rgba(200, 147, 136, 0.15);
-  }
-  .wishes-form,
-  .rsvp-form,
-  .gifts-form {
-    max-width: 560px;
-    margin: 0 auto 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: #ffffff;
-    border-radius: 20px;
-    padding: clamp(28px, 5vw, 40px) clamp(22px, 5vw, 36px);
-    box-shadow: 0 14px 44px rgba(160, 97, 85, 0.1);
-    border: 1px solid rgba(200, 147, 136, 0.18);
-  }
-  .wishes-form input,
-  .wishes-form textarea,
-  .rsvp-form input,
-  .rsvp-form textarea,
-  .gifts-form input {
-    width: 100%;
-    padding: 14px 18px;
-    background: #faf4f1;
-    border: 1px solid rgba(200, 147, 136, 0.25);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 12px;
-  }
-  .wishes-form input:focus,
-  .wishes-form textarea:focus,
-  .rsvp-form input:focus,
-  .rsvp-form textarea:focus,
-  .gifts-form input:focus {
-    border-color: var(--gold);
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(200, 147, 136, 0.12);
-  }
-  .wishes-form input::placeholder,
-  .wishes-form textarea::placeholder,
-  .rsvp-form input::placeholder,
-  .rsvp-form textarea::placeholder,
-  .gifts-form input::placeholder {
-    color: rgba(42, 34, 26, 0.4);
+  .story-text .signature {
+    margin-top: 32px;
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
+    font-size: 18px;
+    color: var(--rose-deep);
   }
-  .wishes-form textarea {
-    resize: vertical;
-    min-height: 120px;
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
+
+  /* ============ COUNTDOWN INTERLUDE ============ */
+  .interlude {
+    padding: clamp(80px, 12vw, 140px) 0;
+    text-align: center;
+    background: var(--ink);
+    color: var(--bone);
+    position: relative;
+    overflow: hidden;
   }
-  .wishes-submit {
+  .interlude::before, .interlude::after {
+    content: '※';
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--rose);
+    font-size: 22px;
+    opacity: 0.7;
+  }
+  .interlude::before { top: 40px; }
+  .interlude::after  { bottom: 40px; }
+  .interlude .eyebrow { color: var(--rose-pale); margin-bottom: clamp(36px, 5vw, 56px); }
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(8px, 3vw, 36px);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .cd-unit {
+    display: flex; flex-direction: column;
+    align-items: center;
+    border-left: 1px solid rgba(244, 236, 227, 0.18);
+    padding-left: clamp(8px, 2vw, 16px);
+  }
+  .cd-unit:first-child { border-left: none; }
+  .cd-num {
+    font-family: 'Italiana', serif;
+    font-size: clamp(44px, 8vw, 88px);
+    line-height: 1;
+    color: var(--bone);
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-label {
+    margin-top: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.44em;
+    color: var(--rose-pale);
+    text-transform: uppercase;
+  }
+
+  /* ============ COUPLE (CH. II) ============ */
+  .couple-spread {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(20px, 4vw, 48px);
+    align-items: start;
+    position: relative;
+  }
+  .couple-block { display: flex; flex-direction: column; }
+  .couple-block.groom { grid-column: 1 / span 5; }
+  .couple-block.bride { grid-column: 8 / span 5; margin-top: clamp(40px, 8vw, 140px); }
+  .couple-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--paper);
+    margin-bottom: 28px;
+  }
+  .couple-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.4s ease, filter 1.4s ease;
+    filter: contrast(0.95) saturate(0.92);
+  }
+  .couple-photo:hover img { transform: scale(1.04); filter: contrast(1) saturate(1); }
+  .couple-role {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    color: var(--rose-deep);
+    margin-bottom: 12px;
+  }
+  .couple-name {
+    font-family: 'Italiana', serif;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .couple-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.75;
+    color: var(--ink-2);
+    max-width: 340px;
+  }
+  .couple-amp {
+    grid-column: 6 / span 2;
     align-self: center;
-    margin-top: 8px;
-    padding: 15px 52px;
-    background: var(--gold);
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(64px, 10vw, 140px);
+    color: var(--rose);
+    line-height: 1;
+    margin-top: clamp(60px, 10vw, 160px);
+  }
+
+  /* ============ EVENT (CH. III & IV) ============ */
+  .event {
+    padding: clamp(80px, 12vw, 140px) 0;
+  }
+  .event.alt { background: var(--bone-soft); }
+  .event-spread {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(20px, 4vw, 64px);
+    align-items: center;
+  }
+  .event-image-col { grid-column: 1 / span 6; }
+  .event-text-col  { grid-column: 8 / span 5; }
+  .event.reverse .event-image-col { grid-column: 7 / span 6; order: 2; }
+  .event.reverse .event-text-col  { grid-column: 1 / span 5; order: 1; }
+  .event-image {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .event-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.4s ease;
+  }
+  .event-image:hover img { transform: scale(1.04); }
+  .event-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px; }
+  .event-chapter-num {
+    font-family: 'Italiana', serif;
+    font-size: clamp(44px, 7vw, 80px);
+    line-height: 0.9;
+    color: var(--rose-deep);
+  }
+  .event-kind {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    color: var(--rose-deep);
+  }
+  .event-title {
+    font-family: 'Italiana', serif;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .event-meta {
+    border-top: 1px solid rgba(122, 70, 60, 0.22);
+  }
+  .event-meta-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(122, 70, 60, 0.16);
+  }
+  .event-meta-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    padding-top: 3px;
+  }
+  .event-meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.6vw, 19px);
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .event-meta-value strong {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: 1.15em;
+    letter-spacing: 0.01em;
+  }
+  .event-meta-value .small {
+    display: block;
+    font-style: italic;
+    font-size: 0.92em;
+    color: var(--ink-3);
+    margin-top: 4px;
+  }
+  .event-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    color: var(--rose-deep);
+    border-bottom: 1px solid var(--rose-deep);
+    padding-bottom: 6px;
+    transition: gap 0.3s ease, color 0.3s ease;
+  }
+  .event-cta:hover { gap: 22px; color: var(--ink); border-bottom-color: var(--ink); }
+  .event-cta-arrow { font-family: serif; font-size: 14px; letter-spacing: 0; }
+
+  /* ============ GALLERY (CH. V) ============ */
+  .gallery-strip {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    margin-bottom: clamp(32px, 5vw, 72px);
+  }
+  .gallery-strip img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 12s ease;
+  }
+  .gallery-strip:hover img { transform: scale(1.08); }
+
+  .gallery-mosaic {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 120px;
+    gap: clamp(12px, 2vw, 20px);
+  }
+  .gm-item { overflow: hidden; }
+  .gm-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+  .gm-item:hover img { transform: scale(1.05); }
+  .gm-1 { grid-column: 1 / span 4; grid-row: span 4; }
+  .gm-2 { grid-column: 5 / span 4; grid-row: span 3; }
+  .gm-3 { grid-column: 9 / span 4; grid-row: span 4; }
+  .gm-4 { grid-column: 5 / span 4; grid-row: span 3; }
+  .gm-5 { grid-column: 1 / span 6; grid-row: span 3; }
+  .gm-6 { grid-column: 7 / span 6; grid-row: span 3; }
+  .gm-7 { grid-column: 1 / span 4; grid-row: span 3; }
+  .gm-8 { grid-column: 5 / span 8; grid-row: span 3; }
+
+  .gallery-quote {
+    text-align: center;
+    margin: clamp(48px, 7vw, 96px) auto 0;
+    max-width: 720px;
+  }
+  .gallery-quote .quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.6vw, 28px);
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .gallery-quote .attr {
+    margin-top: 24px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.48em;
+    color: var(--rose-deep);
+  }
+
+  /* ============ RSVP ============ */
+  .rsvp-section {
+    padding: clamp(80px, 12vw, 140px) 0;
+    background: var(--bone-soft);
+  }
+  .rsvp-form {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .rsvp-form > * + * { margin-top: 26px; }
+  .rsvp-form input[type=text],
+  .rsvp-form input[type=number] {
+    width: 100%;
+    padding: 16px 4px;
+    background: transparent;
     border: none;
-    color: #ffffff;
+    border-bottom: 1px solid rgba(122, 70, 60, 0.34);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.5vw, 19px);
+    color: var(--ink);
+    transition: border-color 0.3s ease;
+    border-radius: 0;
+  }
+  .rsvp-form input::placeholder {
+    color: var(--ink-3);
+    font-style: italic;
+    opacity: 1;
+  }
+  .rsvp-form input:focus {
+    outline: none;
+    border-bottom-color: var(--rose-deep);
+  }
+  .rsvp-radio-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    color: var(--rose-deep);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .rsvp-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .rsvp-radio {
+    flex: 1 1 calc(33% - 10px);
+    min-width: 140px;
+    cursor: pointer;
+  }
+  .rsvp-radio input { position: absolute; opacity: 0; pointer-events: none; }
+  .rsvp-radio span {
+    display: block;
+    padding: 14px 18px;
+    border: 1px solid rgba(122, 70, 60, 0.32);
+    text-align: center;
     font-family: 'Cinzel', serif;
     font-size: 11px;
     letter-spacing: 0.32em;
+    color: var(--ink-2);
+    transition: all 0.25s ease;
+    background: transparent;
+  }
+  .rsvp-radio:hover span { border-color: var(--rose-deep); color: var(--rose-deep); }
+  .rsvp-radio input:checked + span {
+    background: var(--ink);
+    color: var(--bone);
+    border-color: var(--ink);
+  }
+  .rsvp-honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+  }
+  .wishes-submit, .rsvp-submit {
+    display: inline-block;
+    width: auto;
+    padding: 18px 44px;
+    background: var(--ink);
+    color: var(--bone);
+    border: 1px solid var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
     cursor: pointer;
-    border-radius: 999px;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 6px 18px rgba(200, 147, 136, 0.4);
-    -webkit-tap-highlight-color: transparent;
+    transition: all 0.3s ease;
+    border-radius: 0;
   }
-  .wishes-submit:hover {
-    background: var(--gold-deep);
-    transform: translateY(-1px);
-    box-shadow: 0 10px 26px rgba(160, 97, 85, 0.45);
-    color: #ffffff;
+  .wishes-submit:hover, .rsvp-submit:hover {
+    background: var(--rose-deep);
+    border-color: var(--rose-deep);
   }
-  .wishes-submit:disabled {
-    opacity: 0.7;
-    cursor: wait;
-    transform: none;
+  .wishes-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .rsvp-thanks {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.5;
+    color: var(--rose-deep);
+    padding: 40px 20px;
+  }
+  .rsvp-thanks::before {
+    content: '※';
+    display: block;
+    color: var(--rose);
+    font-size: 22px;
+    margin-bottom: 22px;
+  }
+
+  /* ============ WISHES (CH. VI) ============ */
+  .wishes-form {
+    max-width: 620px;
+    margin: 0 auto clamp(48px, 6vw, 72px);
+  }
+  .wishes-form > * + * { margin-top: 22px; }
+  .wishes-form input[type=text],
+  .wishes-form textarea {
+    width: 100%;
+    padding: 16px 4px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(122, 70, 60, 0.34);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.5vw, 19px);
+    color: var(--ink);
+    border-radius: 0;
+    transition: border-color 0.3s ease;
+  }
+  .wishes-form textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+  .wishes-form input::placeholder,
+  .wishes-form textarea::placeholder {
+    color: var(--ink-3);
+    font-style: italic;
+    opacity: 1;
+  }
+  .wishes-form input:focus,
+  .wishes-form textarea:focus {
+    outline: none;
+    border-bottom-color: var(--rose-deep);
   }
 
   .wishes-list {
-    max-width: 760px;
-    margin: 0 auto;
-    height: 520px;
     position: relative;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 86%, transparent 100%);
+    min-height: 260px;
+    max-width: 880px;
+    margin: 0 auto;
   }
   .wishes-list.is-empty {
-    height: auto;
-    overflow: visible;
-    -webkit-mask-image: none;
-            mask-image: none;
+    display: flex; align-items: center; justify-content: center;
   }
   .wishes-empty {
-    text-align: center;
-    color: rgba(42, 34, 26, 0.4);
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    padding: 40px 20px;
-    font-size: 16px;
+    font-size: clamp(17px, 1.6vw, 19px);
+    color: var(--ink-3);
+    text-align: center;
+    padding: 60px 20px;
   }
   .wish-card {
-    padding: 24px 28px;
-    border: 1px solid rgba(200, 147, 136, 0.2);
-    background: rgba(200, 147, 136, 0.025);
+    background: var(--bone);
+    border: 1px solid rgba(122, 70, 60, 0.18);
+    padding: clamp(22px, 3vw, 32px);
+    max-width: 480px;
+    margin: 0 auto;
     position: relative;
   }
   .wish-float {
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    width: min(100%, 620px);
-    transform: translateX(-50%);
-    animation: wishFloat 13s linear forwards;
-    will-change: top, opacity;
+    animation: wishFade 13s ease-in-out forwards;
+    opacity: 0;
   }
-  @keyframes wishFloat {
-    0%   { top: 100%;  opacity: 0; }
-    10%  {              opacity: 1; }
-    90%  {              opacity: 1; }
-    100% { top: -45%;  opacity: 0; }
-  }
-  .wish-card::before {
-    content: '“';
-    position: absolute;
-    top: 4px;
-    left: 12px;
-    font-family: 'Italiana', serif;
-    font-size: 48px;
-    color: var(--gold);
-    opacity: 0.4;
-    line-height: 1;
+  @keyframes wishFade {
+    0%   { opacity: 0; transform: translateY(20px); }
+    10%  { opacity: 1; transform: translateY(0); }
+    85%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-12px); }
   }
   .wish-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(122, 70, 60, 0.16);
   }
   .wish-name {
     font-family: 'Italiana', serif;
-    font-size: 20px;
-    color: var(--gold-bright);
-    letter-spacing: 0.05em;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--ink);
+    letter-spacing: 0.01em;
   }
   .wish-time {
     font-family: 'Cinzel', serif;
     font-size: 9px;
-    letter-spacing: 0.3em;
-    color: rgba(200, 147, 136, 0.6);
-    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--ink-3);
   }
   .wish-message {
-    color: rgba(42, 34, 26, 0.85);
-    font-size: 16px;
-    line-height: 1.7;
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    padding-left: 24px;
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.7;
+    color: var(--ink-2);
   }
   .wishes-count {
     text-align: center;
     margin-top: 32px;
     font-family: 'Cinzel', serif;
     font-size: 10px;
-    letter-spacing: 0.45em;
-    color: var(--gold);
+    letter-spacing: 0.46em;
+    color: var(--rose-deep);
+  }
+
+  /* ============ EPILOGUE / CLOSING ============ */
+  .epilogue {
+    padding: clamp(96px, 14vw, 180px) 0;
+    background: var(--ink);
+    color: var(--bone);
+    text-align: center;
+    position: relative;
+  }
+  .epilogue::before, .epilogue::after {
+    content: '※';
+    color: var(--rose);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    display: block;
     opacity: 0.7;
   }
+  .epilogue::before { margin-bottom: 56px; }
+  .epilogue::after  { margin-top: 56px; }
+  .epilogue .eyebrow { color: var(--rose-pale); margin-bottom: 24px; }
+  .closing-title {
+    font-family: 'Italiana', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1;
+    color: var(--bone);
+    margin-bottom: 32px;
+  }
+  .closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.7;
+    color: rgba(244, 236, 227, 0.82);
+    max-width: 620px;
+    margin: 0 auto 56px;
+  }
+  .closing-couple {
+    font-family: 'Italiana', serif;
+    font-size: clamp(20px, 2.6vw, 28px);
+    letter-spacing: 0.1em;
+    color: var(--rose-pale);
+  }
+  .closing-couple .amp {
+    color: var(--rose);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    margin: 0 0.4em;
+  }
+  .closing-date {
+    margin-top: 18px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--bone);
+    opacity: 0.65;
+  }
 
-  /* ============ RSVP ============ */
-  .rsvp-radio-label {
+  /* ============ COLOPHON (footer) ============ */
+  .colophon {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 36px clamp(20px, 5vw, 64px);
+    border-top: 1px solid rgba(244, 236, 227, 0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .colophon-left, .colophon-right {
     font-family: 'Cinzel', serif;
     font-size: 10px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    text-align: center;
-    margin: 6px 0 2px;
-    text-transform: uppercase;
-    opacity: 0.85;
+    letter-spacing: 0.46em;
+    color: var(--bone);
+    opacity: 0.6;
   }
-  .rsvp-radio-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-  }
-  .rsvp-radio {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    padding: 14px 12px;
-    border: 1px solid rgba(200, 147, 136, 0.25);
-    background: #faf4f1;
-    border-radius: 12px;
-    transition: border-color 0.25s, background 0.25s, transform 0.2s;
-    text-align: center;
-  }
-  .rsvp-radio:hover {
-    border-color: rgba(200, 147, 136, 0.55);
-    background: #fceee9;
-    transform: translateY(-1px);
-  }
-  .rsvp-radio input[type="radio"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid var(--gold);
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    margin: 0;
-    cursor: pointer;
-  }
-  .rsvp-radio input[type="radio"]:checked::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: var(--gold);
-    border-radius: 50%;
-  }
-  .rsvp-radio:has(input:checked) {
-    border-color: var(--gold);
-    background: #fce0d6;
-  }
-  .rsvp-radio span {
-    color: rgba(42, 34, 26, 0.85);
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
-  }
-  .rsvp-radio:has(input:checked) span {
-    color: var(--gold-bright);
-  }
-  .rsvp-honeypot {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-  }
-  .rsvp-thanks,
-  .gifts-thanks {
-    text-align: center;
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 48px 32px;
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow: 0 14px 44px rgba(160, 97, 85, 0.1);
-    border: 1px solid rgba(200, 147, 136, 0.2);
-    color: var(--gold-deep);
+  .colophon-mark {
     font-family: 'Italiana', serif;
-    font-size: clamp(18px, 2.4vw, 22px);
-    letter-spacing: 0.05em;
-    line-height: 1.6;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: var(--rose-pale);
+    opacity: 0.9;
   }
 
-  /* ============ GIFT REGISTRY ============ */
-  .gifts-subtitle {
-    text-align: center;
-    max-width: 560px;
-    margin: 0 auto 36px;
-    color: rgba(42, 34, 26, 0.7);
-    font-style: italic;
-    font-size: clamp(15px, 2vw, 17px);
-    line-height: 1.7;
-  }
-  .gifts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-  .gift-item {
-    position: relative;
-    cursor: pointer;
-    padding: 18px 10px 14px;
-    border: 1px solid rgba(200, 147, 136, 0.25);
-    background: #faf4f1;
-    border-radius: 14px;
-    text-align: center;
-    transition: border-color 0.25s, background 0.25s, transform 0.2s, box-shadow 0.3s;
-  }
-  .gift-item input[type="radio"] {
-    position: absolute;
+  /* ============ REVEAL-ON-SCROLL ============ */
+  .reveal {
     opacity: 0;
-    pointer-events: none;
-    width: 0;
-    height: 0;
+    transform: translateY(36px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
   }
-  .gift-item:hover {
-    border-color: rgba(200, 147, 136, 0.55);
-    background: #fceee9;
-    transform: translateY(-2px);
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .gift-item:has(input:checked) {
-    border-color: var(--gold);
-    background: #fce0d6;
-    box-shadow: 0 8px 22px rgba(200, 147, 136, 0.35);
-  }
-  .gift-emoji {
-    font-size: clamp(34px, 5vw, 42px);
-    line-height: 1;
-    margin-bottom: 8px;
-    filter: drop-shadow(0 2px 4px rgba(160, 97, 85, 0.15));
-  }
-  .gift-name {
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', serif;
-    font-size: 13px;
-    color: rgba(42, 34, 26, 0.85);
-    letter-spacing: 0.04em;
-    line-height: 1.3;
-  }
-  .gift-item:has(input:checked) .gift-name {
-    color: var(--gold-deep);
-    font-weight: 500;
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 880px) {
+    .chapter-head {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .chapter-meta { align-items: flex-start; }
+    .story-row { grid-template-columns: 1fr; }
+    .story-text { grid-column: 1; }
+    .story-image { grid-column: 1; aspect-ratio: 4 / 5; margin-top: 32px; }
+
+    .couple-spread { grid-template-columns: 1fr; }
+    .couple-block.groom,
+    .couple-block.bride { grid-column: 1; margin-top: 0; }
+    .couple-block.bride { margin-top: 32px; }
+    .couple-amp {
+      grid-column: 1;
+      margin: 24px 0;
+      font-size: 80px;
+    }
+
+    .event-spread { grid-template-columns: 1fr; gap: 32px; }
+    .event-image-col,
+    .event-text-col,
+    .event.reverse .event-image-col,
+    .event.reverse .event-text-col {
+      grid-column: 1; order: initial;
+    }
+
+    .gallery-mosaic {
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 100px;
+    }
+    .gm-1 { grid-column: 1 / span 6; grid-row: span 3; }
+    .gm-2 { grid-column: 1 / span 3; grid-row: span 2; }
+    .gm-3 { grid-column: 4 / span 3; grid-row: span 2; }
+    .gm-4 { grid-column: 1 / span 6; grid-row: span 3; }
+    .gm-5 { grid-column: 1 / span 6; grid-row: span 3; }
+    .gm-6 { grid-column: 1 / span 6; grid-row: span 3; }
+    .gm-7 { grid-column: 1 / span 3; grid-row: span 2; }
+    .gm-8 { grid-column: 4 / span 3; grid-row: span 2; }
+
+    .rsvp-radio { flex: 1 1 100%; }
+    .event-meta-row { grid-template-columns: 1fr; gap: 4px; }
+
+    .colophon {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-top { padding-top: max(24px, env(safe-area-inset-top)); }
   }
 
   @media (max-width: 480px) {
-    .wishes-form input, .wishes-form textarea { padding: 14px 16px; font-size: 15px; }
-    .wishes-list { height: 440px; }
-    .wish-card { padding: 20px 22px; }
-    .wish-float { width: 96%; }
-    .wish-name { font-size: 18px; }
-    .wish-message { font-size: 15px; padding-left: 18px; }
-    .rsvp-radio-group { grid-template-columns: 1fr; }
-    .rsvp-radio { padding: 14px 16px; justify-content: flex-start; }
-    .envelope-hint { font-size: 9px; letter-spacing: 0.4em; bottom: 8%; }
-    .envelope-seal { width: 52px; height: 52px; margin-left: -26px; margin-top: -26px; font-size: 18px; }
+    .hero-eyebrow { letter-spacing: 0.4em; }
+    .hero-eyebrow::before, .hero-eyebrow::after { width: 24px; }
+    .chapter { padding: 80px 0; }
+    .countdown-grid { gap: 4px; }
+    .cd-unit { padding-left: 6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg, .particle, .gallery-strip img,
+    .scroll-cue::after, .interlude, .envelope, .envelope-flap, .envelope-letter,
+    .reveal { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body class="envelope-active">
 
-  <!-- ENVELOPE OPENING ANIMATION -->
+  <!-- ENVELOPE OPENING -->
   <div class="envelope-overlay" id="envelopeOverlay">
     <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thiệp cưới">
       <div class="envelope-body"></div>
@@ -1248,7 +1263,7 @@
   <div class="particles" id="particles"></div>
 
   <!-- MUSIC TOGGLE -->
-  <button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc nền">
+  <button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc nền" aria-label="Bật/tắt nhạc nền">
     <svg viewBox="0 0 24 24" id="musicIcon">
       <path d="M9 18V5l12-2v13" />
       <circle cx="6" cy="18" r="3" />
@@ -1256,16 +1271,27 @@
     </svg>
   </button>
 
-  <!-- HERO -->
+  <!-- ===========================================================
+       HERO
+       =========================================================== -->
   <header class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-inner">
+
+    <div class="hero-top">
+      <div class="eyebrow light">A Wedding Story · MMXXVI</div>
+      <div class="hero-mark">T &amp; D</div>
+    </div>
+
+    <div class="hero-center">
       <div class="hero-eyebrow">SAVE THE DATE</div>
       <h1 class="hero-names">
         Thiện Tâm
         <span class="amp">&amp;</span>
         Kỳ Duyên
       </h1>
+    </div>
+
+    <div class="hero-bottom">
       <div class="hero-date">
         <span>DD</span>
         <span class="dot"></span>
@@ -1273,14 +1299,66 @@
         <span class="dot"></span>
         <span>YYYY</span>
       </div>
+      <div class="scroll-cue">SCROLL</div>
     </div>
-    <div class="scroll-cue">SCROLL</div>
   </header>
 
-  <!-- COUNTDOWN -->
-  <section class="countdown">
-    <div class="container">
-      <div class="section-eyebrow">COUNTING DOWN TO FOREVER</div>
+  <!-- ===========================================================
+       PROLOGUE
+       =========================================================== -->
+  <section class="prologue reveal">
+    <div class="stage">
+      <blockquote class="prologue-quote">
+        Yêu thương không phải là tìm ra một người hoàn hảo<br/>
+        — mà là <span class="em">học cách nhìn thấy sự hoàn hảo</span><br/>
+        trong một người chưa hoàn hảo.
+      </blockquote>
+      <div class="prologue-attr">— PROLOGUE —</div>
+    </div>
+  </section>
+
+  <!-- ===========================================================
+       CHAPTER I — DUYÊN KHỞI
+       =========================================================== -->
+  <section class="chapter alt reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">I</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER ONE · OUR STORY</div>
+          <h2 class="chapter-title">Duyên Khởi</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 02</div>
+          <div class="folio">— T &amp; D —</div>
+        </div>
+      </div>
+
+      <div class="story-row">
+        <div class="story-text">
+          <p class="dropcap">Trong một thành phố bận rộn với hàng triệu con đường giao nhau, hai chúng tôi đã chọn rẽ vào cùng một ngõ. Không phải vì tình cờ — mà vì có lẽ đã định.</p>
+          <p>Những lần đầu là ánh nhìn ngại ngùng, là tin nhắn đêm khuya, là những bữa cà phê dài hơn dự định. Chúng tôi học cách kể chuyện đời mình cho nhau nghe, học cách lắng nghe trong im lặng.</p>
+          <p>Và rồi một ngày, không có lời tỏ tình hoa mỹ nào, không có nhạc nền dạt dào — chỉ có một câu rất giản đơn: <em>“mình về cùng một nhà nhé”</em>. Câu chuyện chính thức bắt đầu từ đó.</p>
+          <div class="signature">— Thiện Tâm &amp; Kỳ Duyên</div>
+        </div>
+        <div class="story-image">
+          <img src="images/LAT06909.jpg" alt="Thiện Tâm và Kỳ Duyên" loading="lazy" />
+          <div class="img-caption">FIG. 01 — THE FIRST CHAPTER</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================================
+       INTERLUDE — COUNTDOWN
+       =========================================================== -->
+  <section class="interlude reveal">
+    <div class="stage">
+      <div class="eyebrow">COUNTING DOWN TO FOREVER</div>
       <div class="countdown-grid" id="countdown">
         <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ngày</div></div>
         <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Giờ</div></div>
@@ -1290,32 +1368,44 @@
     </div>
   </section>
 
-  <!-- COUPLE -->
-  <section class="reveal">
-    <div class="container">
-      <div class="section-eyebrow">THE BRIDE &amp; GROOM</div>
-      <h2 class="section-title">Hai Nửa Yêu Thương</h2>
-      <div class="ornament">
-        <div class="ornament-diamond"></div>
+  <!-- ===========================================================
+       CHAPTER II — ĐÔI TA
+       =========================================================== -->
+  <section class="chapter reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">II</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER TWO · THE BRIDE &amp; THE GROOM</div>
+          <h2 class="chapter-title">Đôi Ta</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 04</div>
+          <div class="folio">— PORTRAITS —</div>
+        </div>
       </div>
 
-      <div class="couple-grid">
-        <div class="couple-card">
+      <div class="couple-spread">
+        <div class="couple-block groom">
           <div class="couple-photo">
             <img src="images/LAT06410.jpg" alt="Thiện Tâm" loading="lazy" />
           </div>
-          <div class="couple-role">THE GROOM &mdash; CHÚ RỂ</div>
+          <div class="couple-role">THE GROOM — CHÚ RỂ</div>
           <div class="couple-name">Thiện Tâm</div>
           <p class="couple-bio">Một người mơ mộng, kiên định và luôn tin rằng tình yêu là điều quý giá nhất một đời người có được.</p>
         </div>
 
         <div class="couple-amp">&amp;</div>
 
-        <div class="couple-card">
+        <div class="couple-block bride">
           <div class="couple-photo">
             <img src="images/LAT07605.jpg" alt="Kỳ Duyên" loading="lazy" />
           </div>
-          <div class="couple-role">THE BRIDE &mdash; CÔ DÂU</div>
+          <div class="couple-role">THE BRIDE — CÔ DÂU</div>
           <div class="couple-name">Kỳ Duyên</div>
           <p class="couple-bio">Dịu dàng như nắng sớm, là mảnh ghép cuối cùng làm trọn vẹn câu chuyện cổ tích của đôi ta.</p>
         </div>
@@ -1323,62 +1413,195 @@
     </div>
   </section>
 
-  <!-- STORY QUOTE -->
-  <section class="reveal" style="padding-top: 60px; padding-bottom: 60px;">
-    <div class="container">
-      <div class="story-quote">
-        Yêu thương không phải là tìm ra một người hoàn hảo,
-        mà là học cách nhìn thấy sự hoàn hảo trong một người chưa hoàn hảo.
-        <div class="story-author">— OUR STORY —</div>
+  <!-- ===========================================================
+       CHAPTER III — VU QUY
+       =========================================================== -->
+  <section class="event alt reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">III</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER THREE · BRIDE'S CEREMONY</div>
+          <h2 class="chapter-title">Lễ Vu Quy</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 06</div>
+          <div class="folio">— NHÀ GÁI —</div>
+        </div>
+      </div>
+
+      <div class="event-spread">
+        <div class="event-image-col">
+          <div class="event-image">
+            <img src="images/LAT07668.jpg" alt="Lễ Vu Quy" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="event-text-col">
+          <div class="event-head">
+            <div class="event-kind">CEREMONY</div>
+          </div>
+          <h3 class="event-title">Tại tư gia nhà gái</h3>
+
+          <div class="event-meta">
+            <div class="event-meta-row">
+              <div class="event-meta-label">Ngày</div>
+              <div class="event-meta-value"><strong>DD . MM . YYYY</strong></div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Giờ</div>
+              <div class="event-meta-value">Vào lúc <strong>HH : MM</strong></div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Địa điểm</div>
+              <div class="event-meta-value">
+                Tư gia nhà gái
+                <span class="small">[Địa chỉ chi tiết sẽ cập nhật]</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="event-cta">
+            XEM BẢN ĐỒ
+            <span class="event-cta-arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- EVENTS -->
-  <section class="events reveal">
-    <div class="container">
-      <div class="section-eyebrow">WEDDING CEREMONY</div>
-      <h2 class="section-title">Chương Trình Lễ Cưới</h2>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
+  <!-- ===========================================================
+       CHAPTER IV — TÂN HÔN
+       =========================================================== -->
+  <section class="event reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">IV</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER FOUR · WEDDING BANQUET</div>
+          <h2 class="chapter-title">Tiệc Tân Hôn</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 08</div>
+          <div class="folio">— LỄ ĐƯỜNG —</div>
+        </div>
+      </div>
 
-      <div class="event-grid">
-        <div class="event-card">
-          <div class="event-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="event-spread reverse">
+        <div class="event-image-col">
+          <div class="event-image">
+            <img src="images/LAT07812.jpg" alt="Tiệc Tân Hôn" loading="lazy" />
           </div>
-          <div class="event-type">LỄ VU QUY</div>
-          <div class="event-name">Nhà Gái</div>
-          <div class="event-detail"><strong>DD.MM.YYYY</strong></div>
-          <div class="event-detail">Vào lúc <strong>HH:MM</strong></div>
-          <div class="event-divider"></div>
-          <div class="event-detail">Tư gia nhà gái</div>
-          <div class="event-detail" style="font-style: italic; opacity: 0.7; margin-top: 8px;">[Địa chỉ chi tiết]</div>
         </div>
 
-        <div class="event-card">
-          <div class="event-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h6"/></svg>
+        <div class="event-text-col">
+          <div class="event-head">
+            <div class="event-kind">RECEPTION</div>
           </div>
-          <div class="event-type">TIỆC THÀNH HÔN</div>
-          <div class="event-name">Lễ Đường</div>
-          <div class="event-detail"><strong>DD.MM.YYYY</strong></div>
-          <div class="event-detail">Vào lúc <strong>HH:MM</strong></div>
-          <div class="event-divider"></div>
-          <div class="event-detail">Trung tâm tiệc cưới</div>
-          <div class="event-detail" style="font-style: italic; opacity: 0.7; margin-top: 8px;">[Tên & địa chỉ nhà hàng]</div>
+          <h3 class="event-title">Trung tâm tiệc cưới</h3>
+
+          <div class="event-meta">
+            <div class="event-meta-row">
+              <div class="event-meta-label">Ngày</div>
+              <div class="event-meta-value"><strong>DD . MM . YYYY</strong></div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Giờ</div>
+              <div class="event-meta-value">Vào lúc <strong>HH : MM</strong></div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Địa điểm</div>
+              <div class="event-meta-value">
+                Trung tâm tiệc cưới
+                <span class="small">[Tên &amp; địa chỉ nhà hàng]</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="event-cta">
+            XEM BẢN ĐỒ
+            <span class="event-cta-arrow">→</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RSVP -->
-  <section class="comments reveal">
-    <div class="container">
-      <div class="section-eyebrow">R.S.V.P</div>
-      <h2 class="section-title">Xác Nhận Tham Dự</h2>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
-      <p style="text-align:center; max-width:560px; margin: 0 auto 40px; color: rgba(244,236,216,0.7); font-style: italic; font-size: clamp(15px, 2vw, 17px); line-height: 1.7;">
-        Sự hiện diện của anh chị là niềm vinh hạnh của gia đình chúng tôi.
+  <!-- ===========================================================
+       CHAPTER V — KHOẢNH KHẮC (GALLERY)
+       =========================================================== -->
+  <section class="chapter alt reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">V</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER FIVE · OUR MOMENTS</div>
+          <h2 class="chapter-title">Khoảnh Khắc</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 10</div>
+          <div class="folio">— A GALLERY —</div>
+        </div>
+      </div>
+
+      <div class="gallery-strip">
+        <img src="images/LAT08258.jpg" alt="" loading="lazy" />
+      </div>
+
+      <div class="gallery-mosaic">
+        <div class="gm-item gm-1"><img src="images/LAT06447.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-2"><img src="images/LAT06696.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-3"><img src="images/LAT06688.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-4"><img src="images/PLT08078.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-5"><img src="images/LAT08060.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-6"><img src="images/PLT08330.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-7"><img src="images/LAT07711.jpg" alt="" loading="lazy" /></div>
+        <div class="gm-item gm-8"><img src="images/LAT06963.jpg" alt="" loading="lazy" /></div>
+      </div>
+
+      <div class="gallery-quote">
+        <div class="quote">“Chúng ta không nhớ những ngày — chúng ta nhớ những khoảnh khắc.”</div>
+        <div class="attr">— CESARE PAVESE —</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================================================
+       RSVP
+       =========================================================== -->
+  <section class="rsvp-section reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">·</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">R.S.V.P · KÍNH MỜI XÁC NHẬN</div>
+          <h2 class="chapter-title">Xác Nhận Tham Dự</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
+        </div>
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 12</div>
+          <div class="folio">— PRESENCE —</div>
+        </div>
+      </div>
+
+      <p class="chapter-lead">
+        Sự hiện diện của anh chị là niềm vinh hạnh của gia đình chúng tôi.<br/>
+        Mong nhận được lời xác nhận trước ngày trọng đại.
       </p>
 
       <form class="rsvp-form" id="rsvpForm" autocomplete="off">
@@ -1389,15 +1612,15 @@
           <div class="rsvp-radio-group">
             <label class="rsvp-radio">
               <input type="radio" name="side" value="Tiệc Nhà Trai" required />
-              <span>Tiệc Nhà Trai</span>
+              <span>TIỆC NHÀ TRAI</span>
             </label>
             <label class="rsvp-radio">
               <input type="radio" name="side" value="Tiệc Nhà Gái" />
-              <span>Tiệc Nhà Gái</span>
+              <span>TIỆC NHÀ GÁI</span>
             </label>
             <label class="rsvp-radio">
               <input type="radio" name="side" value="Không thể tham dự" />
-              <span>Không tham dự</span>
+              <span>KHÔNG THAM DỰ</span>
             </label>
           </div>
         </div>
@@ -1406,7 +1629,9 @@
 
         <input type="text" name="website" class="rsvp-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-        <button type="submit" class="wishes-submit">XÁC NHẬN THAM DỰ</button>
+        <div style="text-align: center; padding-top: 12px;">
+          <button type="submit" class="wishes-submit">XÁC NHẬN THAM DỰ</button>
+        </div>
       </form>
 
       <div class="rsvp-thanks" id="rsvpThanks" style="display:none;">
@@ -1416,98 +1641,37 @@
     </div>
   </section>
 
-  <!-- GIFT REGISTRY -->
-  <section class="comments reveal">
-    <div class="container">
-      <div class="section-eyebrow">VIRTUAL GIFTS</div>
-      <h2 class="section-title">Tặng Quà</h2>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
-      <p class="gifts-subtitle">
-        Hãy gửi đến cô dâu chú rể một món quà nhỏ thay lời chúc mừng.
-      </p>
-
-      <form class="gifts-form" id="giftsForm" autocomplete="off">
-        <div class="gifts-grid">
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Bó hoa" required />
-            <div class="gift-emoji">💐</div>
-            <div class="gift-name">Bó hoa</div>
-          </label>
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Nhẫn cưới" />
-            <div class="gift-emoji">💍</div>
-            <div class="gift-name">Nhẫn cưới</div>
-          </label>
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Đôi thiên nga" />
-            <div class="gift-emoji">🦢</div>
-            <div class="gift-name">Đôi thiên nga</div>
-          </label>
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Ly champagne" />
-            <div class="gift-emoji">🥂</div>
-            <div class="gift-name">Ly champagne</div>
-          </label>
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Hộp quà" />
-            <div class="gift-emoji">🎁</div>
-            <div class="gift-name">Hộp quà</div>
-          </label>
-          <label class="gift-item">
-            <input type="radio" name="gift" value="Hộp tim" />
-            <div class="gift-emoji">💝</div>
-            <div class="gift-name">Hộp tim</div>
-          </label>
+  <!-- ===========================================================
+       CHAPTER VI — LỜI CHÚC
+       =========================================================== -->
+  <section class="chapter reveal">
+    <div class="stage">
+      <div class="chapter-head">
+        <div class="chapter-number">VI</div>
+        <div class="chapter-title-wrap">
+          <div class="eyebrow">CHAPTER SIX · GUEST BOOK</div>
+          <h2 class="chapter-title">Lời Chúc</h2>
+          <svg class="title-ornament" viewBox="0 0 80 10" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 5 Q 16 1, 32 5 Q 48 9, 64 5"/>
+            <circle cx="72" cy="5" r="1.4"/>
+          </svg>
         </div>
-
-        <input type="text" name="name" placeholder="Tên của bạn" required maxlength="60" />
-        <input type="text" name="website" class="rsvp-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit" class="wishes-submit">GỬI QUÀ</button>
-      </form>
-
-      <div class="gifts-thanks" id="giftsThanks" style="display:none;">
-        Cảm ơn anh chị đã gửi quà.<br/>
-        Tâm ý này sẽ luôn được trân trọng.
+        <div class="chapter-meta">
+          <div class="folio">FOLIO 14</div>
+          <div class="folio">— WISHES —</div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- GALLERY -->
-  <section class="reveal">
-    <div class="container">
-      <div class="section-eyebrow">OUR MOMENTS</div>
-      <h2 class="section-title">Khoảnh Khắc</h2>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item tall"><img src="images/LAT06447.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/LAT06696.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/LAT06688.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item tall"><img src="images/LAT07668.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item wide"><img src="images/LAT07812.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/LAT08060.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/LAT06909.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/LAT07711.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item wide"><img src="images/LAT08258.jpg" alt="" loading="lazy" /></div>
-        <div class="gallery-item"><img src="images/PLT08078.jpg" alt="" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMMENTS / WISHES -->
-  <section class="comments reveal">
-    <div class="container">
-      <div class="section-eyebrow">GUEST BOOK</div>
-      <h2 class="section-title">Sổ Lưu Bút</h2>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
-      <p style="text-align:center; max-width:560px; margin: 0 auto 40px; color: rgba(244,236,216,0.7); font-style: italic; font-size: clamp(15px, 2vw, 17px); line-height: 1.7;">
+      <p class="chapter-lead">
         Gửi đến Thiện Tâm &amp; Kỳ Duyên một lời chúc tốt đẹp cho ngày trọng đại.
       </p>
 
       <form class="wishes-form" id="wishesForm" autocomplete="off">
         <input type="text" name="name" id="wishName" placeholder="Tên của bạn" required maxlength="60" />
         <textarea name="message" id="wishMessage" placeholder="Lời chúc dành cho cô dâu chú rể..." required maxlength="500"></textarea>
-        <button type="submit" class="wishes-submit">GỬI LỜI CHÚC</button>
+        <div style="text-align: center; padding-top: 8px;">
+          <button type="submit" class="wishes-submit">GỬI LỜI CHÚC</button>
+        </div>
       </form>
 
       <div class="wishes-list" id="wishesList"></div>
@@ -1515,41 +1679,45 @@
     </div>
   </section>
 
-  <!-- CLOSING -->
-  <section class="closing reveal">
-    <div class="container">
-      <div class="section-eyebrow">WITH LOVE</div>
+  <!-- ===========================================================
+       EPILOGUE
+       =========================================================== -->
+  <section class="epilogue reveal">
+    <div class="stage">
+      <div class="eyebrow">EPILOGUE · WITH LOVE</div>
       <div class="closing-title">Hẹn gặp bạn</div>
       <p class="closing-text">
         Sự hiện diện của Quý vị và các bạn trong ngày trọng đại của chúng tôi
         chính là món quà ý nghĩa nhất.<br/>
         Trân trọng kính mời!
       </p>
-      <div class="ornament"><div class="ornament-diamond"></div></div>
-      <div class="closing-couple">THIỆN TÂM &nbsp;&amp;&nbsp; KỲ DUYÊN</div>
-      <a href="#" class="rsvp-btn" onclick="alert('Cảm ơn bạn! Vui lòng phản hồi qua số điện thoại 09xx xxx xxx'); return false;">XÁC NHẬN THAM DỰ</a>
+      <div class="closing-couple">
+        THIỆN TÂM <span class="amp">&amp;</span> KỲ DUYÊN
+      </div>
+      <div class="closing-date">DD · MM · YYYY</div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-text">FOREVER &amp; ALWAYS</div>
-    <div class="footer-names">T &nbsp;&amp;&nbsp; D</div>
-    <div class="ornament"><div class="ornament-diamond"></div></div>
-    <div class="footer-text" style="opacity: 0.4;">DD . MM . YYYY</div>
+  <!-- ===========================================================
+       COLOPHON
+       =========================================================== -->
+  <footer class="colophon">
+    <div class="colophon-left">FOREVER &amp; ALWAYS</div>
+    <div class="colophon-mark">T &amp; D</div>
+    <div class="colophon-right">MMXXVI · DD · MM</div>
   </footer>
 
 <script>
   // ===== Floating particles =====
   (function spawnParticles() {
     const wrap = document.getElementById('particles');
-    const count = 24;
+    const count = 22;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
       p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDelay = (Math.random() * 12) + 's';
-      p.style.animationDuration = (8 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 14) + 's';
+      p.style.animationDuration = (10 + Math.random() * 12) + 's';
       const size = 2 + Math.random() * 4;
       p.style.width = p.style.height = size + 'px';
       wrap.appendChild(p);
@@ -1650,7 +1818,6 @@
       try { localStorage.setItem(CACHE_KEY, JSON.stringify(arr)); } catch (e) {}
     };
 
-    // Render ngay từ cache để khách thấy lời chúc cũ trong khi đợi mạng
     wishesCache = loadLocal();
 
     const fetchRemote = async () => {
@@ -1664,7 +1831,6 @@
         useLocalOnly = false;
         render();
       } catch (err) {
-        // Chưa deploy hoặc KV chưa bind → fallback localStorage
         useLocalOnly = true;
         render();
       }
@@ -1777,11 +1943,13 @@
       const original = submitBtn.dataset.original || submitBtn.textContent;
       submitBtn.dataset.original = original;
       submitBtn.textContent = text;
-      submitBtn.style.background = ok ? 'var(--gold)' : '#8a3a3a';
-      submitBtn.style.color = ok ? 'var(--ink)' : 'var(--cream)';
+      submitBtn.style.background = ok ? 'var(--rose-deep)' : '#8a3a3a';
+      submitBtn.style.borderColor = ok ? 'var(--rose-deep)' : '#8a3a3a';
+      submitBtn.style.color = 'var(--bone)';
       setTimeout(() => {
         submitBtn.textContent = original;
         submitBtn.style.background = '';
+        submitBtn.style.borderColor = '';
         submitBtn.style.color = '';
         submitBtn.disabled = false;
       }, 1800);
@@ -1811,7 +1979,6 @@
         render();
         flashBtn('✓ ĐÃ GỬI');
       } catch (err) {
-        // Network fail → save local làm phương án dự phòng
         wishesCache.push({ name, message, ts: Date.now() });
         saveLocal(wishesCache);
         form.reset();
@@ -1820,11 +1987,9 @@
       }
     });
 
-    // Render từ cache trước, sau đó fetch về để cập nhật
     render();
     fetchRemote();
 
-    // Tạm dừng khi tab ẩn, tiếp tục khi quay lại
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stopStage();
@@ -1835,6 +2000,7 @@
     });
   })();
 
+  // ===== RSVP (Google Apps Script endpoint, honeypot) =====
   (function rsvpSystem() {
     const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyheMK5SrJGw99_rxeE73nq0JR9Zj0ZF5JMDw73zXn_9CoFw7Ee0LY8i_bwLIVbIkjc/exec';
 
@@ -1848,7 +2014,6 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Honeypot: bot điền field 'website' → giả vờ thành công, bỏ qua
       if (form.website.value) {
         form.style.display = 'none';
         thanks.style.display = 'block';
@@ -1877,55 +2042,14 @@
         btn.disabled = false;
         btn.textContent = 'THỬ LẠI';
         btn.style.background = '#8a3a3a';
-        btn.style.color = 'var(--cream)';
+        btn.style.borderColor = '#8a3a3a';
+        btn.style.color = 'var(--bone)';
         setTimeout(() => {
           btn.textContent = originalText;
           btn.style.background = '';
+          btn.style.borderColor = '';
           btn.style.color = '';
         }, 2400);
-      }
-    });
-  })();
-
-  (function giftsSystem() {
-    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyheMK5SrJGw99_rxeE73nq0JR9Zj0ZF5JMDw73zXn_9CoFw7Ee0LY8i_bwLIVbIkjc/exec';
-
-    const form = document.getElementById('giftsForm');
-    const thanks = document.getElementById('giftsThanks');
-    if (!form || !thanks) return;
-
-    const btn = form.querySelector('button[type=submit]');
-    const originalText = btn.textContent;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (form.website.value) {
-        form.style.display = 'none';
-        thanks.style.display = 'block';
-        return;
-      }
-
-      const name = form.name.value.trim();
-      const gift = (form.querySelector('input[name=gift]:checked') || {}).value;
-      if (!name || !gift) return;
-
-      btn.disabled = true;
-      btn.textContent = 'ĐANG GỬI...';
-
-      try {
-        await fetch(ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'content-type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ name, gift }),
-        });
-        form.style.display = 'none';
-        thanks.style.display = 'block';
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = 'THỬ LẠI';
-        setTimeout(() => { btn.textContent = originalText; }, 2400);
       }
     });
   })();

@@ -3,7 +3,13 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(grep -v \"^.\\\\{1,2\\\\}:\")"
+      "Bash(grep -v \"^.\\\\{1,2\\\\}:\")",
+      "Bash(npx skills *)",
+      "Bash(grep -E \"^\\(node|npm|npx\\)$\")",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(npm --version)",
+      "Bash(npx *)",
+      "Bash(git -C \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web\" status --short)"
     ]
   }
 }

@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Skills installed locally per dev — không push lên repo
+.agents/
+.claude/skills/
+skills-lock.json
+
+# Claude Code local-only settings
+.claude/settings.local.json
