@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cinzel:wght@500;600&family=Be+Vietnam+Pro:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
   /* ============================================================
      EDITORIAL CINEMATIC — Thiện Tâm & Kỳ Duyên
@@ -222,15 +223,17 @@
     transition: transform 0.5s ease;
   }
 
-  /* Envelope body (back face — what you see initially) */
+  /* Envelope body — pure white paper */
   .env-body {
     position: absolute;
     inset: 0;
     border-radius: 2px;
-    background: linear-gradient(165deg, #fefcf6 0%, #f4ece3 60%, #ead9c5 100%);
+    background:
+      radial-gradient(120% 100% at 50% 50%, #ffffff 0%, #fafafa 80%, #f0ece4 100%);
     box-shadow:
-      0 28px 56px -22px rgba(26, 22, 20, 0.34),
-      0 0 0 1px rgba(122, 70, 60, 0.10);
+      0 36px 70px -22px rgba(26, 22, 20, 0.38),
+      0 8px 18px -8px rgba(26, 22, 20, 0.22),
+      0 0 0 1px rgba(122, 70, 60, 0.12);
     z-index: 1;
   }
 
@@ -240,11 +243,11 @@
     inset: 0;
     border-radius: 2px;
     background:
-      radial-gradient(45% 55% at 50% 38%, rgba(232, 201, 189, 0.35) 0%, transparent 70%),
+      radial-gradient(45% 55% at 50% 38%, rgba(232, 201, 189, 0.4) 0%, transparent 70%),
       linear-gradient(165deg, #faf3e6 0%, #ead9c5 100%);
     box-shadow:
       inset 0 0 0 1px rgba(122, 70, 60, 0.18),
-      inset 0 0 50px rgba(122, 70, 60, 0.12);
+      inset 0 0 50px rgba(122, 70, 60, 0.14);
     z-index: 2;
   }
   .env-inside::before {
@@ -255,15 +258,18 @@
     border-radius: 1px;
   }
 
-  /* V-shaped flap — triangle pointing down to center */
+  /* V-shaped flap — pure white, with crisp crease shadow */
   .env-flap {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 62%;
-    background: linear-gradient(168deg, #ffffff 0%, #f5ede1 100%);
+    background:
+      linear-gradient(180deg, #ffffff 0%, #fafafa 85%, #f0ece4 100%);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
-    filter: drop-shadow(0 3px 5px rgba(26, 22, 20, 0.10));
+    filter:
+      drop-shadow(0 4px 6px rgba(26, 22, 20, 0.14))
+      drop-shadow(0 1px 1px rgba(26, 22, 20, 0.08));
     transform-origin: top center;
     transform: rotateX(0deg);
     transition:
@@ -273,56 +279,95 @@
     backface-visibility: hidden;
   }
 
-  /* T & D wax seal at the V-point of the flap */
+  /* Subtle horizontal seam line below flap V-point (where flap meets body) */
+  .wcard::after {
+    content: '';
+    position: absolute;
+    left: 6%; right: 6%;
+    top: 62%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(122, 70, 60, 0.18) 25%, rgba(122, 70, 60, 0.22) 50%, rgba(122, 70, 60, 0.18) 75%, transparent 100%);
+    transform: translateY(-0.5px);
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .envelope:hover .wcard::after { opacity: 1; }
+
+  /* T & D wax seal — bigger, embossed, sits on the V-point */
   .env-seal {
     position: absolute;
     top: 62%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(60px, 16vw, 82px);
-    height: clamp(60px, 16vw, 82px);
+    transform: translate(-50%, -50%) rotate(-3deg);
+    width: clamp(78px, 19vw, 102px);
+    height: clamp(78px, 19vw, 102px);
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #9a4f43 0%, #7a463c 55%, #5d352d 100%);
-    color: var(--bone);
+    background:
+      radial-gradient(circle at 32% 28%, #b25a4d 0%, #8a4a3e 40%, #6b3a31 75%, #4a2820 100%);
+    color: #fbeee5;
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+    font-weight: 700;
     font-style: italic;
-    font-size: clamp(20px, 5vw, 26px);
+    font-size: clamp(26px, 6vw, 34px);
     letter-spacing: 0.02em;
     display: flex; align-items: center; justify-content: center;
     z-index: 5;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 -1px 1px rgba(255, 255, 255, 0.1);
     box-shadow:
-      0 10px 24px -8px rgba(122, 70, 60, 0.6),
-      0 2px 4px rgba(0, 0, 0, 0.18),
-      inset 0 2px 4px rgba(255, 255, 255, 0.15),
-      inset 0 -3px 6px rgba(0, 0, 0, 0.18);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.5, 1), opacity 0.4s ease;
+      /* outer drop shadows (depth on paper) */
+      0 14px 28px -8px rgba(74, 40, 32, 0.55),
+      0 6px 12px -3px rgba(74, 40, 32, 0.35),
+      0 2px 4px rgba(0, 0, 0, 0.2),
+      /* embossed look on the seal */
+      inset 0 3px 6px rgba(255, 200, 180, 0.18),
+      inset 0 -4px 8px rgba(0, 0, 0, 0.32),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.5s cubic-bezier(0.4, 0, 0.5, 1),
+      opacity 0.4s ease,
+      box-shadow 0.4s ease;
   }
   .env-seal::before {
+    /* embossed inner ring */
     content: '';
     position: absolute;
-    inset: 5px;
+    inset: 7px;
     border-radius: 50%;
-    border: 1px solid rgba(244, 236, 227, 0.42);
+    border: 1.5px solid rgba(251, 238, 229, 0.32);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
     pointer-events: none;
   }
   .env-seal::after {
-    /* glossy highlight */
+    /* glossy top-left highlight */
     content: '';
     position: absolute;
-    top: 12%; left: 18%;
-    width: 32%; height: 26%;
-    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.35) 0%, transparent 70%);
+    top: 10%; left: 14%;
+    width: 38%; height: 30%;
+    background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 40%, transparent 75%);
     border-radius: 50%;
     pointer-events: none;
   }
 
-  .envelope:hover .wcard { transform: translateY(-3px); }
   .envelope:hover .env-body {
     box-shadow:
-      0 34px 64px -22px rgba(26, 22, 20, 0.42),
-      0 0 0 1px rgba(122, 70, 60, 0.14);
+      0 42px 80px -24px rgba(26, 22, 20, 0.46),
+      0 10px 22px -8px rgba(26, 22, 20, 0.26),
+      0 0 0 1px rgba(122, 70, 60, 0.18);
   }
-  .envelope:hover .env-flap { filter: drop-shadow(0 4px 8px rgba(26, 22, 20, 0.16)); }
+  .envelope:hover .env-flap {
+    filter:
+      drop-shadow(0 6px 10px rgba(26, 22, 20, 0.18))
+      drop-shadow(0 2px 2px rgba(26, 22, 20, 0.1));
+  }
+  /* Seal pulse while envelope is hovered (works without JS too) */
+  .envelope:hover .env-seal {
+    animation: sealPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes sealPulse {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-3deg) scale(1); }
+    50%      { transform: translate(-50%, -50%) rotate(-3deg) scale(1.05); }
+  }
 
   /* ===== Opening sequence =====
      0–0.4s : seal peels off (scale down + fade)
@@ -344,8 +389,9 @@
     transition-delay: 0.25s;
   }
   .envelope.opening .env-seal {
-    transform: translate(-50%, -50%) scale(0.3) rotate(8deg);
+    transform: translate(-50%, -50%) rotate(18deg) scale(0.35);
     opacity: 0;
+    animation: none;
   }
 
   /* ========== Butterflies ========== */
@@ -1451,11 +1497,11 @@
 
     <div class="hero-bottom">
       <div class="hero-date">
-        <span>DD</span>
+        <span>25</span>
         <span class="dot"></span>
-        <span>MM</span>
+        <span>07</span>
         <span class="dot"></span>
-        <span>YYYY</span>
+        <span>2026</span>
       </div>
       <div class="scroll-cue">SCROLL</div>
     </div>
@@ -1610,29 +1656,42 @@
 
         <div class="event-text-col">
           <div class="event-head">
-            <div class="event-kind">CEREMONY</div>
+            <div class="event-kind">CEREMONY · NHÀ GÁI</div>
           </div>
-          <h3 class="event-title">Tại tư gia nhà gái</h3>
+          <h3 class="event-title">Tại Tư Gia</h3>
 
           <div class="event-meta">
             <div class="event-meta-row">
               <div class="event-meta-label">Ngày</div>
-              <div class="event-meta-value"><strong>DD . MM . YYYY</strong></div>
+              <div class="event-meta-value">
+                <strong>Thứ Bảy · 25 . 07 . 2026</strong>
+                <span class="small">Nhằm ngày 12 tháng 06 năm Bính Ngọ</span>
+              </div>
             </div>
             <div class="event-meta-row">
               <div class="event-meta-label">Giờ</div>
-              <div class="event-meta-value">Vào lúc <strong>HH : MM</strong></div>
+              <div class="event-meta-value">
+                Lễ Vu Quy lúc <strong>08:00</strong>
+                <span class="small">Tiệc chính lúc 09:00</span>
+              </div>
             </div>
             <div class="event-meta-row">
               <div class="event-meta-label">Địa điểm</div>
               <div class="event-meta-value">
                 Tư gia nhà gái
-                <span class="small">[Địa chỉ chi tiết sẽ cập nhật]</span>
+                <span class="small">264/14 Trung Bình Nhì, Vĩnh Trạch,<br/>Thoại Sơn, An Giang</span>
+              </div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Nhà gái</div>
+              <div class="event-meta-value">
+                Ông Bà <strong>Phan Văn Mẫu Anh</strong>
+                <span class="small">&amp; Bà Lê Hồng Tiền — Thoại Sơn, An Giang</span>
               </div>
             </div>
           </div>
 
-          <a href="#" class="event-cta">
+          <a href="https://www.google.com/maps/search/?api=1&query=264%2F14+Trung+B%C3%ACnh+Nh%C3%AC%2C+V%C4%A9nh+Tr%E1%BA%A1ch%2C+Tho%E1%BA%A1i+S%C6%A1n%2C+An+Giang" target="_blank" rel="noopener" class="event-cta">
             XEM BẢN ĐỒ
             <span class="event-cta-arrow">→</span>
           </a>
@@ -1674,29 +1733,41 @@
 
         <div class="event-text-col">
           <div class="event-head">
-            <div class="event-kind">RECEPTION</div>
+            <div class="event-kind">RECEPTION · NHÀ TRAI</div>
           </div>
-          <h3 class="event-title">Trung tâm tiệc cưới</h3>
+          <h3 class="event-title">Tại Tư Gia</h3>
 
           <div class="event-meta">
             <div class="event-meta-row">
               <div class="event-meta-label">Ngày</div>
-              <div class="event-meta-value"><strong>DD . MM . YYYY</strong></div>
+              <div class="event-meta-value">
+                <strong>Chủ Nhật · 02 . 08 . 2026</strong>
+              </div>
             </div>
             <div class="event-meta-row">
               <div class="event-meta-label">Giờ</div>
-              <div class="event-meta-value">Vào lúc <strong>HH : MM</strong></div>
+              <div class="event-meta-value">
+                Vào lúc <strong>HH : MM</strong>
+                <span class="small">Sẽ cập nhật giờ cụ thể</span>
+              </div>
             </div>
             <div class="event-meta-row">
               <div class="event-meta-label">Địa điểm</div>
               <div class="event-meta-value">
-                Trung tâm tiệc cưới
-                <span class="small">[Tên &amp; địa chỉ nhà hàng]</span>
+                Tư gia nhà trai
+                <span class="small">An Nhơn, Bình Định<br/>[Địa chỉ chi tiết sẽ cập nhật]</span>
+              </div>
+            </div>
+            <div class="event-meta-row">
+              <div class="event-meta-label">Nhà trai</div>
+              <div class="event-meta-value">
+                Ông Bà <strong>Phạm Hữu Hùng</strong>
+                <span class="small">&amp; Bà Đinh Thị Hạnh — An Nhơn, Bình Định</span>
               </div>
             </div>
           </div>
 
-          <a href="#" class="event-cta">
+          <a href="https://www.google.com/maps/search/?api=1&query=An+Nh%C6%A1n%2C+B%C3%ACnh+%C4%90%E1%BB%8Bnh" target="_blank" rel="noopener" class="event-cta">
             XEM BẢN ĐỒ
             <span class="event-cta-arrow">→</span>
           </a>
@@ -1873,7 +1944,7 @@
       <div class="closing-couple">
         THIỆN TÂM <span class="amp">&amp;</span> KỲ DUYÊN
       </div>
-      <div class="closing-date">DD · MM · YYYY</div>
+      <div class="closing-date">25 · 07 · 2026</div>
     </div>
   </section>
 
@@ -1883,7 +1954,7 @@
   <footer class="colophon">
     <div class="colophon-left">FOREVER &amp; ALWAYS</div>
     <div class="colophon-mark">T &amp; D</div>
-    <div class="colophon-right">MMXXVI · DD · MM</div>
+    <div class="colophon-right">MMXXVI · 25 · 07</div>
   </footer>
 
 <script>
@@ -1905,7 +1976,7 @@
 
   // ===== Countdown — set the target wedding date when known =====
   // TODO: thay YYYY-MM-DDTHH:MM:SS bên dưới bằng ngày giờ cưới thật
-  const weddingDate = new Date('2026-12-31T17:00:00').getTime();
+  const weddingDate = new Date('2026-07-25T09:00:00+07:00').getTime();
   function updateCountdown() {
     const now = Date.now();
     const diff = weddingDate - now;
@@ -2222,6 +2293,118 @@
       else if (stageQueue.length) startStage();
     });
   })();
+
+  // ===== jQuery — đặc sắc hover effects =====
+  if (window.jQuery) (function($) {
+    $(function() {
+      // 1) Envelope card — 3D mouse-tracking tilt while hovering before click
+      const $envelope = $('#envelope');
+      const $wcard    = $envelope.find('.wcard');
+
+      $envelope.on('mousemove.tilt', function(e) {
+        if ($envelope.hasClass('opening')) return;
+        const rect = this.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const dx = (e.clientX - rect.left - cx) / cx;
+        const dy = (e.clientY - rect.top  - cy) / cy;
+        $wcard.css({
+          'transform':  'translateY(-4px) rotateX(' + (-dy * 8) + 'deg) rotateY(' + (dx * 12) + 'deg)',
+          'transition': 'transform 0.12s ease-out'
+        });
+      }).on('mouseleave.tilt', function() {
+        $wcard.css({
+          'transform':  '',
+          'transition': 'transform 0.7s cubic-bezier(0.2, 0.8, 0.3, 1)'
+        });
+      });
+
+      // 2) Magnetic buttons — slight pull toward cursor
+      $('.wishes-submit, .event-cta').each(function() {
+        const $btn = $(this);
+        $btn.on('mousemove.mag', function(e) {
+          const r = this.getBoundingClientRect();
+          const mx = (e.clientX - r.left - r.width / 2) * 0.28;
+          const my = (e.clientY - r.top  - r.height / 2) * 0.28;
+          $btn.css({
+            'transform':  'translate(' + mx + 'px, ' + my + 'px)',
+            'transition': 'transform 0.12s ease-out'
+          });
+        }).on('mouseleave.mag', function() {
+          $btn.css({
+            'transform':  '',
+            'transition': 'transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1)'
+          });
+        });
+      });
+
+      // 3) Couple photos — 3D tilt with parallax depth
+      $('.couple-photo').each(function() {
+        const $el = $(this);
+        $el.on('mousemove.tilt', function(e) {
+          const r = this.getBoundingClientRect();
+          const cx = r.width / 2, cy = r.height / 2;
+          const dx = (e.clientX - r.left - cx) / cx;
+          const dy = (e.clientY - r.top  - cy) / cy;
+          $el.css({
+            'transform':  'perspective(1200px) rotateX(' + (-dy * 5) + 'deg) rotateY(' + (dx * 5) + 'deg) translateZ(10px)',
+            'transition': 'transform 0.1s ease-out'
+          });
+        }).on('mouseleave.tilt', function() {
+          $el.css({
+            'transform':  '',
+            'transition': 'transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1)'
+          });
+        });
+      });
+
+      // 4) Gallery mosaic — 3D tilt
+      $('.gm-item').each(function() {
+        const $el = $(this);
+        $el.on('mousemove.tilt', function(e) {
+          const r = this.getBoundingClientRect();
+          const cx = r.width / 2, cy = r.height / 2;
+          const dx = (e.clientX - r.left - cx) / cx;
+          const dy = (e.clientY - r.top  - cy) / cy;
+          $el.css({
+            'transform':  'perspective(1000px) rotateX(' + (-dy * 6) + 'deg) rotateY(' + (dx * 6) + 'deg) translateZ(6px) scale(1.02)',
+            'transition': 'transform 0.12s ease-out'
+          });
+        }).on('mouseleave.tilt', function() {
+          $el.css({
+            'transform':  '',
+            'transition': 'transform 0.55s cubic-bezier(0.2, 0.8, 0.3, 1)'
+          });
+        });
+      });
+
+      // 5) Music toggle — spin on hover
+      $('#musicToggle').on('mouseenter.spin', function() {
+        $(this).css({
+          'transform':  'scale(1.08) rotate(180deg)',
+          'transition': 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+      }).on('mouseleave.spin', function() {
+        $(this).css({
+          'transform':  '',
+          'transition': 'transform 0.4s ease'
+        });
+      });
+
+      // 6) Section title ornaments — gentle drift when in view
+      $('.title-ornament').each(function() {
+        const $el = $(this);
+        $el.parent().on('mouseenter.orn', function() {
+          $el.css({
+            'transform':  'translateY(-3px) scale(1.04)',
+            'transition': 'transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1)'
+          });
+        }).on('mouseleave.orn', function() {
+          $el.css({ 'transform': '' });
+        });
+      });
+    });
+  })(window.jQuery);
 
   // ===== RSVP (Google Apps Script endpoint, honeypot) =====
   (function rsvpSystem() {
