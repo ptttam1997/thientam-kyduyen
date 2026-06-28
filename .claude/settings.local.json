@@ -10,7 +10,20 @@
       "Bash(npm --version)",
       "Bash(npx *)",
       "Bash(git -C \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web\" status --short)",
-      "Bash(open *)"
+      "Bash(open *)",
+      "Bash(curl *)",
+      "Read(//private/tmp/**)",
+      "Bash(awk 'NR==451' /tmp/miuwedding.html)",
+      "Bash(awk 'NR==452' /tmp/miuwedding.html)",
+      "Bash(python3 -m http.server 8765)",
+      "Bash(echo \"PID=$!\")",
+      "Bash(osascript *)",
+      "Bash(kill 3807 4539)",
+      "Bash(pkill -f \"remote-debugging-port=9222\")",
+      "Bash(gh --version)",
+      "Bash(git push *)",
+      "Read(//Users/phamtuthientam/.ssh/**)",
+      "Bash(ssh -T git@github.com)"
     ]
   }
 }

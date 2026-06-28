@@ -3,2477 +3,1677 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#f4ece3" />
+<meta name="theme-color" content="#f5f0e6" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="description" content="Thiệp cưới Thiện Tâm & Kỳ Duyên — trân trọng kính mời quý vị đến chung vui ngày trọng đại của chúng tôi." />
-<title>Thiện Tâm & Kỳ Duyên — A Wedding Story</title>
+<meta name="description" content="Thiệp cưới Thiện Tâm và Kỳ Duyên. Trân trọng kính mời quý vị đến chung vui ngày trọng đại của chúng tôi." />
+<title>Thiện Tâm và Kỳ Duyên · Thiệp cưới</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cinzel:wght@500;600&family=Be+Vietnam+Pro:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
-  /* ============================================================
-     EDITORIAL CINEMATIC — Thiện Tâm & Kỳ Duyên
-     Palette: bone + warm black + dusty rose, magazine-style asymmetry
-     ============================================================ */
+  /* =========================================================
+     GARDEN WATERCOLOR · Thiện Tâm & Kỳ Duyên
+     Palette: sage + cream + warm ink, single rose accent
+     One radius scale (16px soft), one theme (light), one accent
+     ========================================================= */
 
   :root {
-    --bone:        #f4ece3;
-    --bone-soft:   #ebe1d5;
-    --paper:       #e8dccd;
-    --ink:         #14100e;   /* darker, more legible body text */
-    --ink-2:       #3a3128;
-    --ink-3:       #6e6358;
-    --rose:        #b87a6e;
-    --rose-deep:   #7a463c;
-    --rose-pale:   #e8c9bd;
-    --gold:        #b89968;
+    /* Surfaces */
+    --cream: #f5f0e6;
+    --cream-deep: #ebe5d6;
+    --paper: #fbf8f1;
+    --paper-warm: #f8f2e4;
 
-    /* legacy aliases kept so old JS color tweaks still parse */
-    --cream:       #14100e;
-    --gold-bright: #b87a6e;
-    --gold-deep:   #7a463c;
+    /* Sage scale */
+    --sage-deep: #5e6b51;
+    --sage: #8b9a78;
+    --sage-soft: #b9c2a9;
+    --sage-mist: #d8dfcd;
+
+    /* Ink scale (text) */
+    --ink: #2c2a24;
+    --ink-soft: #4d4a40;
+    --ink-faded: #6c6757;
+
+    /* Accent: rose (the ONE accent for the whole page) */
+    --rose: #c97a6e;
+    --rose-deep: #9d4a3e;
+    --rose-mist: #f0d8d3;
+
+    /* Lines */
+    --line: rgba(94, 107, 81, 0.18);
+    --line-strong: rgba(94, 107, 81, 0.34);
+
+    /* Shadows (tinted to background hue, never pure black) */
+    --shadow-soft: 0 1px 2px rgba(94, 107, 81, 0.08), 0 8px 24px rgba(94, 107, 81, 0.06);
+    --shadow-lift: 0 12px 36px rgba(94, 107, 81, 0.14);
+
+    /* Radius (one scale, locked) */
+    --r-sm: 6px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-pill: 999px;
+
+    /* Type */
+    --display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --hand: 'Pinyon Script', cursive;
+    --body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+
+    /* Motion */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
   body {
-    background: var(--bone);
+    background: var(--cream);
     color: var(--ink);
-    font-family: 'Cormorant Garamond', 'Be Vietnam Pro', Georgia, serif;
-    font-size: 19px;
-    font-weight: 500;
-    line-height: 1.68;
-    -webkit-text-size-adjust: 100%;
+    font-family: var(--body);
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
   }
-  body.envelope-active { overflow: hidden; }
+
+  /* Paper texture overlay: very subtle warm grain, fixed, no repaint cost */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(139, 154, 120, 0.04) 0, transparent 38%),
+      radial-gradient(circle at 82% 78%, rgba(201, 122, 110, 0.03) 0, transparent 42%);
+    mix-blend-mode: multiply;
+  }
 
   img { max-width: 100%; height: auto; display: block; }
-  a  { color: inherit; text-decoration: none; }
 
-  ::selection { background: var(--rose); color: var(--bone); }
+  a { color: var(--sage-deep); text-decoration: none; transition: color 0.3s var(--ease); }
+  a:hover { color: var(--rose-deep); }
 
-  /* ============ TYPOGRAPHIC PRIMITIVES ============ */
+  ::selection { background: var(--rose-mist); color: var(--ink); }
 
-  .eyebrow {
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    font-size: clamp(10px, 1.2vw, 12px);
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--rose-deep);
-  }
-  .eyebrow.light { color: var(--bone); }
+  /* ----------------------------------------------------------
+     Typography
+  ---------------------------------------------------------- */
+  .display { font-family: var(--display); font-weight: 500; font-style: italic; letter-spacing: 0.005em; }
+  .display-up { font-family: var(--display); font-weight: 500; font-style: normal; }
+  .hand { font-family: var(--hand); font-weight: 400; }
+  .small-cap { font-family: var(--body); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
 
-  .folio {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    color: var(--ink-3);
-    text-transform: uppercase;
-  }
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; color: var(--ink); line-height: 1.1; }
 
-  .display {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    line-height: 0.98;
-    letter-spacing: 0.005em;
+  /* ----------------------------------------------------------
+     Reveal-on-scroll
+  ---------------------------------------------------------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .petals, .petal, .envelope-petal { display: none !important; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   }
 
-  .display-italic {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.05;
-  }
-
-  .asterism {
-    display: block;
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--rose);
-    font-size: 18px;
-    letter-spacing: 0.6em;
-    margin: 0 0 0 0.6em;
-  }
-  .asterism::before { content: '※'; }
-
-  /* SVG line ornament used as chapter rule */
-  .chapter-rule {
-    display: block;
-    width: 100%;
-    max-width: 240px;
-    height: 8px;
-    margin: 18px 0 0;
-  }
-  .chapter-rule.centered { margin-left: auto; margin-right: auto; }
-
-  /* ============ LAYOUT ============ */
-
-  .stage {
-    max-width: 1340px;
-    margin: 0 auto;
-    padding: 0 clamp(20px, 5vw, 64px);
-  }
-  .narrow {
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .editorial-row {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(20px, 4vw, 48px);
-    align-items: start;
-  }
-
-  /* ============ FLOATING PARTICLES (kept, retuned) ============ */
-  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
-  .particle {
-    position: absolute;
-    width: 3px; height: 3px;
-    background: var(--rose);
-    border-radius: 50%;
-    opacity: 0;
-    animation: float 18s linear infinite;
-    box-shadow: 0 0 8px rgba(184, 122, 110, 0.4);
-  }
-  @keyframes float {
-    0%   { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
-    10%  { opacity: 0.38; transform: translateY(85vh) translateX(8px) scale(1); }
-    50%  { opacity: 0.22; }
-    100% { transform: translateY(-10vh) translateX(40px) scale(0.3); opacity: 0; }
-  }
-
-  /* ============ MUSIC TOGGLE ============ */
-  .music-toggle {
-    position: fixed;
-    top: max(20px, env(safe-area-inset-top));
-    right: max(20px, env(safe-area-inset-right));
-    width: 46px; height: 46px;
-    border-radius: 50%;
-    background: rgba(244, 236, 227, 0.82);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--rose);
-    cursor: pointer;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.3s ease, transform 0.3s ease;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .music-toggle:hover { background: var(--rose); transform: scale(1.04); }
-  .music-toggle:hover svg { stroke: var(--bone); }
-  .music-toggle svg { width: 20px; height: 20px; stroke: var(--rose-deep); fill: none; stroke-width: 1.5; transition: stroke 0.3s; }
-  .music-toggle.playing .bar { animation: bar-pulse 1s ease-in-out infinite; transform-origin: bottom; }
-  .music-toggle .bar:nth-child(2) { animation-delay: 0.2s; }
-  .music-toggle .bar:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bar-pulse { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
-
-  /* ============ INTRO — Vertical Wedding Card with Save-the-Date Wrap ============ */
+  /* ----------------------------------------------------------
+     Envelope overlay (opens on click)
+  ---------------------------------------------------------- */
   .envelope-overlay {
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(120% 80% at 50% 50%, #f4ece3 0%, #ebe1d5 70%, #ddd0bf 100%);
-    z-index: 9999;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 24px;
-    transition: opacity 1.1s ease, visibility 1.1s ease;
-    overflow: hidden;
-  }
-  .envelope-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-  /* Subtle paper grain */
-  .envelope-overlay::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
-    opacity: 0.08;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-  }
-
-  .envelope {
-    position: relative;
-    z-index: 2;
-    cursor: pointer;
-    display: flex; flex-direction: column;
-    align-items: center;
-    gap: clamp(20px, 3vw, 32px);
-    padding: clamp(12px, 2vw, 24px);
-    transition: transform 0.4s ease;
-    outline: none;
-  }
-  .envelope:hover .wcard { transform: translateY(-3px); box-shadow: 0 36px 70px -22px rgba(26, 22, 20, 0.36), 0 0 0 1px rgba(122, 70, 60, 0.18); }
-  .envelope:focus-visible { outline: 1px dashed var(--rose); outline-offset: 24px; }
-
-  /* ========== Vertical Wedding Card with Save-the-Date Wrap ========== */
-  .wcard {
-    position: relative;
-    width: min(78vw, 320px);
-    aspect-ratio: 9 / 14;
-    overflow: hidden;
-    background: #3e5044;
-    border-radius: 3px;
-    box-shadow:
-      0 50px 90px -28px rgba(26, 22, 20, 0.5),
-      0 14px 30px -10px rgba(26, 22, 20, 0.28),
-      0 0 0 1px rgba(0, 0, 0, 0.06);
-    z-index: 2;
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.6s ease;
-  }
-  .envelope:hover .wcard {
-    transform: translateY(-4px);
-    box-shadow:
-      0 58px 100px -28px rgba(26, 22, 20, 0.55),
-      0 16px 34px -10px rgba(26, 22, 20, 0.32),
-      0 0 0 1px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Wedding photo background */
-  .wcard-photo {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    z-index: 1;
+    z-index: 200;
+    background: var(--cream);
+    display: grid;
+    place-items: center;
+    padding: 32px 24px;
+    transition: opacity 0.9s var(--ease), visibility 0.9s var(--ease);
   }
-  /* Sage-green tint over photo for elegant tone */
-  .wcard-tint {
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(40, 56, 44, 0.55) 0%, rgba(40, 56, 44, 0.32) 40%, rgba(40, 56, 44, 0.48) 75%, rgba(28, 40, 32, 0.78) 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
+  .envelope-overlay.open { opacity: 0; visibility: hidden; }
 
-  /* Names + date overlay on photo (revealed after wrap opens) */
-  .wcard-photo-text {
-    position: absolute;
-    bottom: 9%;
-    left: 0; right: 0;
-    text-align: center;
-    color: #fefcf6;
-    z-index: 2;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.9s ease 0.7s, transform 0.9s ease 0.7s;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-  }
-  .envelope.opening .wcard-photo-text {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .wcard-photo-text .ot-script {
-    font-family: 'Pinyon Script', cursive;
-    font-size: clamp(34px, 9vw, 44px);
-    line-height: 0.95;
-    color: #fefcf6;
-  }
-  .wcard-photo-text .ot-names {
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    font-size: clamp(11px, 2.8vw, 13px);
-    margin-top: 6px;
-  }
-  .wcard-photo-text .ot-date {
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.42em;
-    font-size: clamp(9px, 2.2vw, 11px);
-    margin-top: 8px;
-    opacity: 0.85;
-  }
-
-  /* White wrap — two halves meeting in the center */
-  .wcard-wrap {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 50%;
-    background: linear-gradient(180deg, #ffffff 0%, #f9f5ec 100%);
-    z-index: 3;
-    transition:
-      transform 1.6s cubic-bezier(0.45, 0, 0.22, 1),
-      opacity 0.9s ease 1.0s;
-  }
-  .wcard-wrap-left {
-    left: 0;
-    box-shadow: 4px 0 14px -2px rgba(0, 0, 0, 0.18);
-  }
-  .wcard-wrap-right {
-    right: 0;
-    box-shadow: -4px 0 14px -2px rgba(0, 0, 0, 0.18);
-  }
-  .envelope.opening .wcard-wrap-left  { transform: translateX(-102%); opacity: 0; }
-  .envelope.opening .wcard-wrap-right { transform: translateX(102%);  opacity: 0; }
-
-  /* "Save the Date" calligraphy on the wrap */
-  .wcard-wrap-label {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 4;
-    width: 100%;
-    pointer-events: none;
-    transition: opacity 0.8s ease;
-  }
-  .envelope.opening .wcard-wrap-label { opacity: 0; }
-  .wcard-wrap-label .save {
-    font-family: 'Pinyon Script', cursive;
-    font-size: clamp(46px, 14vw, 60px);
-    color: #2a2a26;
-    line-height: 0.9;
-    letter-spacing: 0.01em;
-  }
-  .wcard-wrap-label .small {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    font-size: clamp(8px, 1.8vw, 10px);
-    letter-spacing: 0.46em;
-    color: #6a604f;
-    margin-top: 16px;
-    text-transform: uppercase;
-  }
-
-  /* Wax seal — bronze with olive-leaf engraving */
-  .wcard-seal {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: clamp(72px, 19vw, 92px);
-    height: clamp(72px, 19vw, 92px);
-    transform: translate(-50%, -50%) rotate(-2deg);
-    border-radius: 50%;
-    background:
-      radial-gradient(circle at 30% 26%, #c9876a 0%, #a06250 35%, #7d4a3a 70%, #4f2d22 100%);
-    box-shadow:
-      0 10px 24px -6px rgba(79, 45, 34, 0.65),
-      0 3px 6px rgba(0, 0, 0, 0.22),
-      inset 0 -4px 8px rgba(0, 0, 0, 0.3),
-      inset 0 3px 6px rgba(255, 210, 180, 0.22);
-    z-index: 5;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.5, 1), opacity 0.5s ease;
-  }
-  .wcard-seal svg {
-    width: 60%; height: 60%;
-    color: rgba(255, 232, 210, 0.78);
-  }
-  .wcard-seal svg path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.2;
-    stroke-linecap: round;
-  }
-  .wcard-seal::before {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 220, 192, 0.32);
-    pointer-events: none;
-  }
-  .wcard-seal::after {
-    content: '';
-    position: absolute;
-    top: 12%; left: 16%;
-    width: 32%; height: 26%;
-    background: radial-gradient(ellipse, rgba(255, 240, 220, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  /* On open: seal scales + rotates away */
-  .envelope.opening .wcard-seal {
-    transform: translate(-50%, -50%) rotate(14deg) scale(0.5);
-    opacity: 0;
-  }
-  /* Hover seal pulse */
-  .envelope:hover .wcard-seal {
-    animation: wcardSealPulse 1.8s ease-in-out infinite;
-  }
-  @keyframes wcardSealPulse {
-    0%, 100% { transform: translate(-50%, -50%) rotate(-2deg) scale(1); }
-    50%      { transform: translate(-50%, -50%) rotate(-2deg) scale(1.04); }
-  }
-
-  /* Card-level lift animation */
-  .envelope.opening .wcard {
-    animation: wcardOpen 3.0s cubic-bezier(0.4, 0, 0.25, 1) forwards;
-  }
-  @keyframes wcardOpen {
-    0%   { transform: scale(1);    opacity: 1; }
-    8%   { transform: scale(1.02); opacity: 1; }
-    80%  { transform: scale(1);    opacity: 1; }
-    100% { transform: scale(0.98) translateY(-12px); opacity: 0; }
-  }
-
-  /* ========== Hint ========== */
-  .envelope-hint {
-    margin-top: clamp(36px, 5vw, 52px);
-    font-family: 'Cinzel', serif;
-    font-weight: 500;
-    font-size: clamp(10px, 1.3vw, 11px);
-    letter-spacing: 0.48em;
-    color: var(--rose-deep);
-    animation: hint-pulse 2.4s ease-in-out infinite;
-    z-index: 1;
-  }
-  @keyframes hint-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-  .envelope.opening ~ .envelope-hint { opacity: 0; transition: opacity 0.4s ease; }
-
-  /* ============ HERO ============ */
-  .hero {
+  .envelope-card {
     position: relative;
-    height: 100vh;
-    height: 100svh;
-    min-height: 600px;
-    overflow: hidden;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-    color: var(--bone);
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background-image: url('images/LAT06963.jpg');
-    background-size: cover;
-    background-position: center 35%;
-    filter: brightness(0.92) contrast(0.96) saturate(0.9);
-    animation: kenburns 28s ease-in-out infinite alternate;
-    z-index: 0;
-  }
-  @keyframes kenburns {
-    0%   { transform: scale(1) translate(0, 0); }
-    100% { transform: scale(1.12) translate(-2%, -1.5%); }
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg,
-        rgba(26, 22, 20, 0.55) 0%,
-        rgba(26, 22, 20, 0.15) 28%,
-        rgba(26, 22, 20, 0.18) 65%,
-        rgba(26, 22, 20, 0.7) 100%);
-    z-index: 1;
-  }
-  /* Film grain — cinematic texture over hero */
-  .hero::after {
-    content: '';
-    position: absolute; inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 240px 240px;
-    opacity: 0.22;
-    mix-blend-mode: overlay;
-    animation: grainShift 1.6s steps(6) infinite;
-  }
-  @keyframes grainShift {
-    0%   { transform: translate(0, 0); }
-    20%  { transform: translate(-4%, 3%); }
-    40%  { transform: translate(2%, -5%); }
-    60%  { transform: translate(-6%, -2%); }
-    80%  { transform: translate(4%, 4%); }
-    100% { transform: translate(0, 0); }
-  }
-  .hero-top, .hero-bottom, .hero-center {
-    position: relative; z-index: 2;
-    padding: clamp(24px, 4vw, 48px) clamp(20px, 5vw, 64px);
-  }
-  .hero-top {
-    display: flex; justify-content: space-between; align-items: center;
-    color: var(--bone);
-    animation: fadeUp 1.4s ease-out;
-  }
-  .hero-top .eyebrow { color: var(--bone); opacity: 0.78; }
-  .hero-mark {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 22px;
-    letter-spacing: 0.08em;
-    color: var(--bone);
-  }
-  .hero-center {
-    flex: 1;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+    width: min(440px, 92vw);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 56px 36px 44px;
+    box-shadow: var(--shadow-lift);
     text-align: center;
-    animation: fadeUp 1.8s ease-out 0.1s both;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .envelope-card:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(94, 107, 81, 0.18); }
+  .envelope-card:focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 4px; }
+
+  .envelope-card::before,
+  .envelope-card::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-image: var(--euc-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.65;
+    pointer-events: none;
   }
-  .hero-eyebrow {
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.55em;
-    font-size: clamp(10px, 1.4vw, 12px);
-    color: var(--rose-pale);
-    margin-bottom: clamp(26px, 4vw, 40px);
+  .envelope-card::before { top: -22px; left: -28px; transform: rotate(-22deg); }
+  .envelope-card::after { bottom: -22px; right: -28px; transform: rotate(158deg); }
+
+  .envelope-eyebrow { font-family: var(--body); font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 14px; }
+  .envelope-hand { font-family: var(--hand); font-size: 38px; color: var(--rose-deep); line-height: 1; margin-bottom: 18px; }
+  .envelope-names { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 30px; color: var(--ink); margin-bottom: 4px; letter-spacing: 0.01em; }
+  .envelope-and { font-family: var(--hand); font-size: 26px; color: var(--sage-deep); display: block; margin: 4px 0; }
+  .envelope-date { font-family: var(--body); font-size: 13px; letter-spacing: 0.22em; color: var(--ink-soft); margin: 22px 0 28px; }
+  .envelope-date::before, .envelope-date::after { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--sage); vertical-align: middle; margin: 0 14px; }
+
+  .envelope-btn {
     display: inline-flex;
     align-items: center;
-    gap: 16px;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    width: clamp(28px, 7vw, 56px);
-    height: 1px;
-    background: var(--rose-pale);
-    opacity: 0.7;
-  }
-  .hero-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: clamp(44px, 11vw, 138px);
-    line-height: 1.02;
-    color: var(--bone);
-    letter-spacing: 0.005em;
-    text-shadow: 0 4px 32px rgba(0, 0, 0, 0.22);
-  }
-  .hero-names .amp {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 0.4em;
-    color: var(--rose-pale);
-    margin: 0.04em 0;
-    line-height: 1;
-  }
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 24px;
-    color: var(--bone);
-    animation: fadeUp 1.6s ease-out 0.25s both;
-  }
-  .hero-date {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(11px, 1.4vw, 13px);
-    letter-spacing: 0.46em;
-    color: var(--bone);
-    display: flex; align-items: center; gap: clamp(10px, 2.4vw, 18px);
-  }
-  .hero-date .dot {
-    width: 3px; height: 3px; background: var(--rose-pale); border-radius: 50%;
-  }
-  .scroll-cue {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.5em;
-    color: var(--bone);
-    opacity: 0.7;
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .scroll-cue::after {
-    content: '';
-    display: inline-block;
-    width: 1px; height: 28px;
-    background: var(--bone);
-    animation: cue-line 2.2s ease-in-out infinite;
-    transform-origin: top;
-  }
-  @keyframes cue-line {
-    0%, 100% { transform: scaleY(0.3); opacity: 0.6; }
-    50%      { transform: scaleY(1);   opacity: 1; }
-  }
-
-  /* ============ PROLOGUE (pull quote) ============ */
-  .prologue {
-    padding: clamp(96px, 14vw, 180px) 0;
-    background: var(--bone);
-    text-align: center;
-  }
-  .prologue-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    gap: 10px;
+    background: var(--sage-deep);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     font-weight: 500;
-    font-size: clamp(22px, 3.2vw, 36px);
-    line-height: 1.46;
-    color: var(--ink);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 24px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    transition: background 0.3s var(--ease), transform 0.2s var(--ease);
   }
-  .prologue-quote .em { color: var(--rose-deep); }
-  .prologue-attr {
-    margin-top: 36px;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    color: var(--rose-deep);
+  .envelope-btn:hover { background: var(--ink); transform: translateY(-1px); }
+  .envelope-btn:active { transform: translateY(0); }
+  .envelope-btn svg { width: 14px; height: 14px; }
+
+  /* Petals raining inside envelope */
+  .envelope-petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .envelope-petal { position: absolute; width: 7px; height: 9px; background: var(--rose-mist); border-radius: 50% 0 50% 50%; opacity: 0; animation: petalFall 7s linear infinite; }
+
+  @keyframes petalFall {
+    0%   { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+    10%  { opacity: 0.7; }
+    100% { opacity: 0; transform: translateY(440px) rotate(360deg); }
   }
 
-  /* ============ CHAPTER ============ */
-  .chapter {
-    padding: clamp(80px, 12vw, 160px) 0;
-    position: relative;
+  /* ----------------------------------------------------------
+     Music toggle
+  ---------------------------------------------------------- */
+  .music-toggle {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    z-index: 90;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--sage-deep);
+    transition: transform 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  .chapter.alt { background: var(--bone-soft); }
-  .chapter.dark { background: var(--ink); color: var(--bone); }
-  .chapter.dark .eyebrow,
-  .chapter.dark .folio,
-  .chapter.dark .chapter-title,
-  .chapter.dark .chapter-lead { color: var(--bone); }
-  .chapter.dark .eyebrow { color: var(--rose-pale); }
+  .music-toggle:hover { color: var(--rose-deep); border-color: var(--rose); }
+  .music-toggle svg { width: 18px; height: 18px; }
+  .music-toggle.playing { color: var(--rose-deep); border-color: var(--rose); animation: musicSpin 8s linear infinite; }
+  @keyframes musicSpin { to { transform: rotate(360deg); } }
 
-  .chapter-head {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 14px;
-    margin-bottom: clamp(48px, 7vw, 88px);
+  /* ----------------------------------------------------------
+     Floating petals (page-wide, very subtle)
+  ---------------------------------------------------------- */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+  .petal {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    border-radius: 50% 0 50% 50%;
+    opacity: 0;
+    animation: petalDrift linear infinite;
   }
-  /* chapter-number kept for legacy HTML but hidden — eyebrow + title carry the info */
-  .chapter-number { display: none; }
-  .chapter-title-wrap {
-    display: flex; flex-direction: column;
+  .petal:nth-child(odd) { background: var(--rose-mist); }
+  .petal:nth-child(even) { background: var(--sage-mist); }
+  @keyframes petalDrift {
+    0%   { opacity: 0; transform: translate3d(0, -40px, 0) rotate(0deg); }
+    8%   { opacity: 0.55; }
+    100% { opacity: 0; transform: translate3d(40px, 110vh, 0) rotate(720deg); }
+  }
+
+  /* ----------------------------------------------------------
+     Page shell
+  ---------------------------------------------------------- */
+  main { position: relative; z-index: 10; }
+  .wrap { width: min(1200px, 100% - 40px); margin: 0 auto; }
+  .wrap-narrow { width: min(880px, 100% - 40px); margin: 0 auto; }
+  .wrap-wide { width: min(1320px, 100% - 32px); margin: 0 auto; }
+
+  section { padding: 88px 0; position: relative; }
+  @media (min-width: 768px) { section { padding: 120px 0; } }
+
+  .section-tag {
+    display: inline-flex;
     align-items: center;
     gap: 12px;
-    max-width: 760px;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 18px;
   }
-  .chapter-title-wrap .eyebrow { margin-top: 2px; }
-  .chapter-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: clamp(34px, 5.2vw, 62px);
-    line-height: 1.08;
-    color: var(--ink);
-    letter-spacing: 0.005em;
+  .section-tag::before { content: ''; width: 26px; height: 1px; background: var(--sage); }
+
+  /* Watercolor SVG sprig as a reusable motif (defined inline in HTML, sized via class) */
+  .motif { display: block; color: var(--sage); opacity: 0.85; }
+  .motif-md { width: 180px; }
+  .motif-sm { width: 110px; }
+  .motif-lg { width: 280px; }
+  .motif-rose { color: var(--rose); opacity: 0.7; }
+
+  /* ----------------------------------------------------------
+     HERO (Section 1 - opening)
+  ---------------------------------------------------------- */
+  .hero {
+    min-height: 100dvh;
+    padding-top: 72px;
+    padding-bottom: 64px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
   }
-  /* hand-drawn wedding ornament under chapter titles */
-  .title-ornament {
-    width: clamp(140px, 18vw, 200px);
-    height: 18px;
-    color: var(--rose);
-    margin-top: 6px;
-    overflow: visible;
+  .hero-motif-tl { position: absolute; top: 24px; left: -20px; width: 240px; opacity: 0.55; }
+  .hero-motif-br { position: absolute; bottom: 0; right: -28px; width: 260px; opacity: 0.55; transform: rotate(180deg); }
+
+  .hero-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    align-items: center;
+    padding: 24px 0;
   }
-  .chapter.dark .title-ornament { color: var(--rose-pale); }
-  .title-ornament path { fill: none; stroke: currentColor; stroke-width: 0.8; stroke-linecap: round; }
-  .title-ornament circle { fill: currentColor; }
-  /* hide editorial folio meta — wedding cards don't have page numbers */
-  .chapter-meta { display: none; }
-  .chapter-lead {
-    font-family: 'Cormorant Garamond', serif;
+  @media (min-width: 900px) {
+    .hero-stage {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 64px;
+    }
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow { font-family: var(--body); font-size: 11px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 24px; display: inline-flex; align-items: center; gap: 12px; }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--sage); }
+
+  .hero-and { font-family: var(--hand); font-size: clamp(38px, 6vw, 60px); color: var(--rose-deep); line-height: 1; margin: 6px 0 6px 6vw; display: block; }
+
+  .hero-name {
+    font-family: var(--display);
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(18px, 1.9vw, 22px);
-    line-height: 1.72;
-    color: var(--ink-2);
-    max-width: 600px;
-    margin: 0 auto clamp(48px, 6vw, 80px);
-    text-align: center;
+    font-size: clamp(54px, 10vw, 108px);
+    line-height: 1.02;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    margin: 0;
   }
-  .chapter.dark .chapter-lead { color: rgba(244, 236, 227, 0.82); }
+  .hero-name + .hero-name { margin-left: 12vw; }
+  @media (min-width: 900px) {
+    .hero-name + .hero-name { margin-left: 8vw; }
+  }
 
-  /* ============ STORY (CH. I) ============ */
-  .story-row {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(20px, 4vw, 56px);
+  .hero-date-row {
+    display: flex;
     align-items: center;
+    gap: 18px;
+    margin-top: 38px;
+    font-family: var(--body);
+    color: var(--ink-soft);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
-  .story-text { grid-column: 1 / span 6; }
-  .story-image {
-    grid-column: 8 / span 5;
+  .hero-date-row .num { font-family: var(--display); font-style: italic; font-size: clamp(20px, 2.5vw, 26px); color: var(--ink); letter-spacing: 0; text-transform: none; }
+  .hero-date-row .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rose); display: inline-block; }
+
+  .hero-blessing { font-family: var(--display); font-style: italic; font-size: 18px; color: var(--ink-soft); margin-top: 28px; max-width: 38ch; line-height: 1.55; padding-bottom: 4px; }
+
+  .hero-photo-col { position: relative; }
+  .hero-photo-frame {
     position: relative;
     aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
     overflow: hidden;
+    background: var(--paper-warm);
+    box-shadow: var(--shadow-lift);
   }
-  .story-image img {
-    width: 100%; height: 100%; object-fit: cover;
-    transform: scale(1.02);
-    transition: transform 1.4s ease;
-  }
-  .story-image:hover img { transform: scale(1.06); }
-  .story-image .img-caption {
+  .hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); transition: transform 1.4s var(--ease); }
+  .hero-photo-frame:hover img { transform: scale(1.06); }
+  .hero-photo-stamp {
     position: absolute;
-    bottom: -32px; left: 0;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    color: var(--ink-3);
-  }
-  .story-text p {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: clamp(18px, 1.7vw, 20px);
-    line-height: 1.78;
-    color: var(--ink-2);
-    margin-bottom: 1.2em;
-  }
-  .story-text p:last-child { margin-bottom: 0; }
-  .dropcap::first-letter {
-    float: left;
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 5.2em;
-    line-height: 0.86;
-    margin: 0.04em 0.14em -0.05em 0;
-    color: var(--rose-deep);
-  }
-  .story-text .signature {
-    margin-top: 32px;
-    font-family: 'Cormorant Garamond', serif;
+    bottom: -18px;
+    left: 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    padding: 8px 18px;
+    font-family: var(--display);
     font-style: italic;
-    font-size: 18px;
-    color: var(--rose-deep);
+    font-size: 16px;
+    color: var(--sage-deep);
+    box-shadow: var(--shadow-soft);
   }
 
-  /* ============ COUNTDOWN INTERLUDE ============ */
-  .interlude {
-    padding: clamp(80px, 12vw, 140px) 0;
-    text-align: center;
-    background: var(--ink);
-    color: var(--bone);
-    position: relative;
-    overflow: hidden;
+  .hero-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    margin-top: 32px;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
   }
+  .hero-foot-cta { color: var(--sage-deep); display: inline-flex; align-items: center; gap: 8px; }
+  .hero-foot-cta::after {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.4s var(--ease);
+    display: inline-block;
+  }
+  .hero-foot-cta:hover::after { width: 32px; }
+
+  /* ----------------------------------------------------------
+     COUNTDOWN + CALENDAR
+  ---------------------------------------------------------- */
+  .interlude { background: var(--paper-warm); position: relative; padding: 96px 0; }
   .interlude::before, .interlude::after {
-    content: '※';
+    content: '';
     position: absolute;
-    left: 50%; transform: translateX(-50%);
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--rose);
-    font-size: 22px;
-    opacity: 0.7;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--line);
   }
-  .interlude::before { top: 40px; }
-  .interlude::after  { bottom: 40px; }
-  .interlude .eyebrow { color: var(--rose-pale); margin-bottom: clamp(36px, 5vw, 56px); }
+  .interlude::before { top: 0; }
+  .interlude::after { bottom: 0; }
+
+  .interlude-inner { display: grid; gap: 56px; }
+  @media (min-width: 900px) {
+    .interlude-inner { grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: center; }
+  }
+
+  .interlude-head { text-align: left; }
+  .interlude-head h2 { font-style: italic; font-size: clamp(36px, 5vw, 56px); color: var(--ink); margin: 8px 0 12px; line-height: 1.1; padding-bottom: 8px; }
+  .interlude-head p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 18px; max-width: 36ch; }
+
   .countdown-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(8px, 3vw, 36px);
-    max-width: 760px;
-    margin: 0 auto;
+    gap: 12px;
+    margin-top: 32px;
   }
   .cd-unit {
-    display: flex; flex-direction: column;
-    align-items: center;
-    border-left: 1px solid rgba(244, 236, 227, 0.18);
-    padding-left: clamp(8px, 2vw, 16px);
-  }
-  .cd-unit:first-child { border-left: none; }
-  .cd-num {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(44px, 8vw, 88px);
-    line-height: 1;
-    color: var(--bone);
-    font-variant-numeric: tabular-nums;
-  }
-  .cd-label {
-    margin-top: 14px;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.44em;
-    color: var(--rose-pale);
-    text-transform: uppercase;
-  }
-
-  /* ---- Mini calendar inside interlude ---- */
-  .cal-wrap {
-    max-width: 460px;
-    margin: clamp(56px, 8vw, 96px) auto 0;
-    padding-top: clamp(40px, 6vw, 64px);
-    border-top: 1px solid rgba(244, 236, 227, 0.14);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 18px 8px 14px;
     text-align: center;
   }
-  .cal-month {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.44em;
-    color: var(--rose-pale);
-    text-transform: uppercase;
-    margin-bottom: clamp(22px, 3vw, 32px);
-  }
-  .cal-month b {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
+  .cd-num {
+    font-family: var(--display);
     font-style: italic;
-    font-weight: 400;
-    font-size: clamp(30px, 4.4vw, 42px);
-    letter-spacing: 0.02em;
-    color: var(--bone);
+    font-weight: 500;
+    font-size: clamp(30px, 5vw, 46px);
+    color: var(--sage-deep);
+    line-height: 1;
+    padding-bottom: 4px;
+  }
+  .cd-label {
+    font-family: var(--body);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
     margin-top: 8px;
   }
+
+  /* Calendar */
+  .calendar { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px; box-shadow: var(--shadow-soft); position: relative; }
+  .cal-corner { position: absolute; top: -14px; right: -14px; width: 96px; opacity: 0.8; transform: rotate(20deg); }
+  .cal-month { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink); display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .cal-month .label { font-family: var(--body); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage-deep); }
+
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
+    font-family: var(--body);
   }
-  .cal-head {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    color: var(--rose-pale);
-    text-transform: uppercase;
-    padding: 6px 0 12px;
-    opacity: 0.85;
-  }
+  .cal-dow { text-align: center; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); padding: 6px 0; font-weight: 500; }
   .cal-cell {
     aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(15px, 1.8vw, 18px);
-    font-weight: 500;
-    color: var(--bone);
-    opacity: 0.78;
-  }
-  .cal-cell.empty { opacity: 0; }
-  .cal-cell.is-day { font-weight: 600; opacity: 1; }
-  .cal-heart {
+    display: grid;
+    place-items: center;
+    border-radius: var(--r-sm);
+    font-size: 13px;
+    color: var(--ink-soft);
     position: relative;
-    width: 36px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: drop-shadow(0 6px 14px rgba(184, 122, 110, 0.45));
-    animation: cal-heartbeat 1.6s ease-in-out infinite;
   }
-  .cal-heart::before,
-  .cal-heart::after {
+  .cal-cell.muted { color: transparent; }
+  .cal-cell.today { background: var(--sage-mist); color: var(--sage-deep); }
+  .cal-cell.wedding {
+    background: var(--rose);
+    color: var(--paper);
+    font-weight: 600;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    box-shadow: 0 6px 18px rgba(201, 122, 110, 0.32);
+  }
+  .cal-cell.wedding::after {
     content: '';
     position: absolute;
-    width: 18px;
-    height: 29px;
-    background: var(--rose-deep);
-    border-radius: 14px 14px 0 0;
-    top: 0;
-  }
-  .cal-heart::before { left: 18px; transform: rotate(-45deg); transform-origin: 0 100%; }
-  .cal-heart::after  { left: 0;    transform: rotate(45deg);  transform-origin: 100% 100%; }
-  .cal-heart span {
-    position: relative;
-    z-index: 1;
-    color: var(--bone);
-    font-family: 'Cinzel', serif;
-    font-size: 12px;
-    font-weight: 600;
-    transform: translateY(-1px);
-  }
-  @keyframes cal-heartbeat {
-    0%, 100% { transform: scale(1); }
-    18%      { transform: scale(1.12); }
-    36%      { transform: scale(0.96); }
-    54%      { transform: scale(1.05); }
+    inset: -6px;
+    border: 1px dashed var(--rose);
+    border-radius: var(--r-md);
+    opacity: 0.6;
   }
 
-  /* ============ COUPLE (CH. II) ============ */
-  .couple-spread {
+  /* ----------------------------------------------------------
+     COUPLE
+  ---------------------------------------------------------- */
+  .couple { padding: 100px 0; }
+  .couple-head { text-align: center; margin-bottom: 56px; }
+  .couple-head .small-cap { display: block; margin-bottom: 14px; }
+  .couple-head h2 { font-style: italic; font-size: clamp(38px, 5vw, 60px); line-height: 1.05; padding-bottom: 6px; }
+  .couple-head .motif { margin: 18px auto 0; }
+
+  .couple-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(20px, 4vw, 48px);
+    grid-template-columns: 1fr;
+    gap: 48px;
     align-items: start;
-    position: relative;
   }
-  .couple-block { display: flex; flex-direction: column; }
-  .couple-block.groom { grid-column: 1 / span 5; }
-  .couple-block.bride { grid-column: 8 / span 5; margin-top: clamp(40px, 8vw, 140px); }
-  .couple-photo {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background: var(--paper);
-    margin-bottom: 28px;
-  }
-  .couple-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 1.4s ease, filter 1.4s ease;
-    filter: contrast(0.95) saturate(0.92);
-  }
-  .couple-photo:hover img { transform: scale(1.04); filter: contrast(1) saturate(1); }
-  .couple-role {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.42em;
-    color: var(--rose-deep);
-    margin-bottom: 12px;
-  }
-  .couple-name {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(40px, 6vw, 68px);
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 18px;
-  }
-  .couple-bio {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(17px, 1.5vw, 19px);
-    line-height: 1.7;
-    color: var(--ink-2);
-    max-width: 360px;
-  }
-  .couple-amp {
-    grid-column: 6 / span 2;
-    align-self: center;
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(64px, 10vw, 140px);
-    color: var(--rose);
-    line-height: 1;
-    margin-top: clamp(60px, 10vw, 160px);
+  @media (min-width: 768px) {
+    .couple-grid { grid-template-columns: 1fr auto 1fr; gap: 32px; }
   }
 
-  /* ============ EVENT (CH. III & IV) ============ */
-  .event {
-    padding: clamp(80px, 12vw, 140px) 0;
+  .couple-card { text-align: center; }
+  .couple-photo {
+    aspect-ratio: 3 / 4;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--paper-warm);
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
   }
-  .event.alt { background: var(--bone-soft); }
-  .event-spread {
+  .couple-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .couple-photo:hover img { transform: scale(1.04); }
+  .couple-card:nth-child(1) .couple-photo { transform: rotate(-1.5deg); }
+  .couple-card:nth-child(3) .couple-photo { transform: rotate(1.5deg); }
+  @media (max-width: 767px) {
+    .couple-card .couple-photo { transform: none !important; max-width: 360px; margin-left: auto; margin-right: auto; }
+  }
+
+  .couple-role { font-family: var(--body); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 8px; }
+  .couple-name { font-family: var(--display); font-style: italic; font-size: clamp(30px, 4vw, 44px); color: var(--ink); line-height: 1.05; padding-bottom: 6px; }
+  .couple-bio { font-family: var(--display); font-style: italic; color: var(--ink-soft); margin-top: 12px; font-size: 17px; line-height: 1.55; max-width: 28ch; margin-left: auto; margin-right: auto; }
+
+  .couple-and {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(20px, 4vw, 64px);
+    place-items: center;
+    padding-top: 40px;
+  }
+  .couple-and span {
+    font-family: var(--hand);
+    font-size: clamp(56px, 8vw, 96px);
+    color: var(--rose-deep);
+    line-height: 1;
+  }
+  @media (max-width: 767px) {
+    .couple-and { padding: 0; }
+    .couple-and span { font-size: 64px; }
+  }
+
+  /* ----------------------------------------------------------
+     EVENT (Vu Quy / Tân Hôn)
+  ---------------------------------------------------------- */
+  .event { padding: 110px 0; position: relative; }
+  .event-mirror { background: var(--paper-warm); }
+  .event-mirror::before, .event-mirror::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; background: var(--line); }
+  .event-mirror::before { top: 0; }
+  .event-mirror::after { bottom: 0; }
+
+  .event-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
     align-items: center;
   }
-  .event-image-col { grid-column: 1 / span 6; }
-  .event-text-col  { grid-column: 8 / span 5; }
-  .event.reverse .event-image-col { grid-column: 7 / span 6; order: 2; }
-  .event.reverse .event-text-col  { grid-column: 1 / span 5; order: 1; }
-  .event-image {
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
+  @media (min-width: 900px) {
+    .event-grid { grid-template-columns: 1fr 1fr; gap: 64px; }
+    .event-grid.reverse { direction: rtl; }
+    .event-grid.reverse > * { direction: ltr; }
   }
-  .event-image img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 1.4s ease;
-  }
-  .event-image:hover img { transform: scale(1.04); }
-  .event-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 18px; }
-  .event-chapter-num {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(44px, 7vw, 80px);
-    line-height: 0.9;
-    color: var(--rose-deep);
-  }
-  .event-kind {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.42em;
-    color: var(--rose-deep);
-  }
+
+  .event-photo { aspect-ratio: 4 / 5; border-radius: var(--r-lg); overflow: hidden; background: var(--paper); box-shadow: var(--shadow-lift); position: relative; }
+  .event-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+  .event-photo:hover img { transform: scale(1.04); }
+
+  .event-body { position: relative; }
+  .event-body-motif { position: absolute; top: -28px; left: -8px; width: 130px; opacity: 0.6; pointer-events: none; }
+  .event-roman { font-family: var(--display); font-style: italic; font-size: 14px; color: var(--rose-deep); letter-spacing: 0.1em; margin-bottom: 6px; }
   .event-title {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(40px, 6vw, 64px);
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 28px;
-  }
-  .event-meta {
-    border-top: 1px solid rgba(122, 70, 60, 0.22);
-  }
-  .event-meta-row {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 12px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(122, 70, 60, 0.16);
-  }
-  .event-meta-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.42em;
-    color: var(--ink-3);
-    text-transform: uppercase;
-    padding-top: 3px;
-  }
-  .event-meta-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: clamp(18px, 1.7vw, 20px);
-    line-height: 1.58;
-    color: var(--ink);
-  }
-  .event-meta-value strong {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    font-size: 1.18em;
-    letter-spacing: 0.01em;
-  }
-  .event-meta-value .small {
-    display: block;
+    font-family: var(--display);
     font-style: italic;
-    font-size: 0.92em;
-    color: var(--ink-3);
-    margin-top: 4px;
-  }
-  /* Parents block — both names in same bold weight, same colour, same font */
-  .event-meta-value .parents {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+    font-size: clamp(42px, 5.5vw, 64px);
     color: var(--ink);
-    font-size: 1em;
-    line-height: 1.55;
-    letter-spacing: 0.01em;
-    font-style: normal;
+    line-height: 1.05;
+    padding-bottom: 8px;
   }
+  .event-sub { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 19px; margin-top: 12px; max-width: 38ch; }
+
+  .event-meta { margin-top: 32px; display: grid; gap: 20px; }
+  .event-row { display: grid; grid-template-columns: 100px 1fr; gap: 18px; align-items: baseline; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .event-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .event-row-label { font-family: var(--body); font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; padding-top: 4px; }
+  .event-row-value { font-family: var(--body); color: var(--ink); line-height: 1.55; }
+  .event-row-value strong { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 20px; color: var(--ink); display: block; padding-bottom: 4px; }
+  .event-row-value .small { display: block; color: var(--ink-faded); font-size: 13px; margin-top: 4px; }
+  .event-row-value em { font-style: normal; color: var(--ink-faded); font-size: 13px; }
+
   .event-cta {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 32px;
-    font-family: 'Cinzel', serif;
+    gap: 12px;
+    background: var(--sage-deep);
+    color: var(--paper);
+    font-family: var(--body);
     font-size: 11px;
-    letter-spacing: 0.42em;
-    color: var(--rose-deep);
-    border-bottom: 1px solid var(--rose-deep);
-    padding-bottom: 6px;
-    transition: gap 0.3s ease, color 0.3s ease;
-  }
-  .event-cta:hover { gap: 22px; color: var(--ink); border-bottom-color: var(--ink); }
-  .event-cta-arrow { font-family: serif; font-size: 14px; letter-spacing: 0; }
-
-  /* ============ GALLERY (CH. V) ============ */
-  .gallery-strip {
-    width: 100%;
-    aspect-ratio: 21 / 9;
-    overflow: hidden;
-    margin-bottom: clamp(32px, 5vw, 72px);
-  }
-  .gallery-strip img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 12s ease;
-  }
-  .gallery-strip:hover img { transform: scale(1.08); }
-
-  .gallery-mosaic {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 120px;
-    gap: clamp(12px, 2vw, 20px);
-  }
-  .gm-item { overflow: hidden; }
-  .gm-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 1.2s ease;
-  }
-  .gm-item:hover img { transform: scale(1.05); }
-  .gm-1 { grid-column: 1 / span 4; grid-row: span 4; }
-  .gm-2 { grid-column: 5 / span 4; grid-row: span 3; }
-  .gm-3 { grid-column: 9 / span 4; grid-row: span 4; }
-  .gm-4 { grid-column: 5 / span 4; grid-row: span 3; }
-  .gm-5 { grid-column: 1 / span 6; grid-row: span 3; }
-  .gm-6 { grid-column: 7 / span 6; grid-row: span 3; }
-  .gm-7 { grid-column: 1 / span 4; grid-row: span 3; }
-  .gm-8 { grid-column: 5 / span 8; grid-row: span 3; }
-
-  .gallery-quote {
-    text-align: center;
-    margin: clamp(48px, 7vw, 96px) auto 0;
-    max-width: 720px;
-  }
-  .gallery-quote .quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     font-weight: 500;
-    font-size: clamp(20px, 2.5vw, 26px);
-    line-height: 1.5;
-    color: var(--ink);
+    padding: 14px 26px;
+    border-radius: var(--r-pill);
+    margin-top: 32px;
+    transition: background 0.3s var(--ease), transform 0.2s var(--ease);
   }
-  .gallery-quote .attr {
-    margin-top: 24px;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.48em;
-    color: var(--rose-deep);
+  .event-cta:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+  .event-cta svg { width: 14px; height: 14px; }
+
+  /* ----------------------------------------------------------
+     GALLERY (bento with real photos)
+  ---------------------------------------------------------- */
+  .gallery { padding: 110px 0; }
+  .gallery-head { display: grid; gap: 24px; margin-bottom: 56px; }
+  @media (min-width: 768px) {
+    .gallery-head { grid-template-columns: 1fr 1fr; align-items: end; }
+  }
+  .gallery-head h2 { font-style: italic; font-size: clamp(38px, 5vw, 60px); padding-bottom: 6px; }
+  .gallery-head p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 18px; max-width: 40ch; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 140px;
+    gap: 14px;
+  }
+  .gallery-cell { border-radius: var(--r-md); overflow: hidden; background: var(--paper-warm); position: relative; }
+  .gallery-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .gallery-cell:hover img { transform: scale(1.05); }
+  .gallery-cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: inherit;
+    pointer-events: none;
   }
 
-  /* ============ RSVP ============ */
-  .rsvp-section {
-    padding: clamp(80px, 12vw, 140px) 0;
-    background: var(--bone-soft);
+  /* Bento layout: 9 cells, distinct sizes */
+  .gc-1 { grid-column: span 3; grid-row: span 3; }
+  .gc-2 { grid-column: span 3; grid-row: span 2; }
+  .gc-3 { grid-column: span 2; grid-row: span 2; }
+  .gc-4 { grid-column: span 2; grid-row: span 2; }
+  .gc-5 { grid-column: span 2; grid-row: span 3; }
+  .gc-6 { grid-column: span 2; grid-row: span 2; }
+  .gc-7 { grid-column: span 4; grid-row: span 2; }
+  .gc-8 { grid-column: span 3; grid-row: span 2; }
+  .gc-9 { grid-column: span 3; grid-row: span 2; }
+
+  @media (max-width: 767px) {
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 130px;
+      gap: 10px;
+    }
+    .gc-1 { grid-column: span 2; grid-row: span 3; }
+    .gc-2, .gc-3, .gc-4, .gc-5, .gc-6, .gc-7, .gc-8, .gc-9 { grid-column: span 1; grid-row: span 2; }
   }
-  .rsvp-form {
-    max-width: 620px;
-    margin: 0 auto;
+
+  /* ----------------------------------------------------------
+     RSVP
+  ---------------------------------------------------------- */
+  .rsvp { background: var(--paper-warm); padding: 110px 0; position: relative; }
+  .rsvp::before, .rsvp::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; background: var(--line); }
+  .rsvp::before { top: 0; }
+  .rsvp::after { bottom: 0; }
+
+  .rsvp-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 56px 36px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .rsvp-form > * + * { margin-top: 26px; }
-  .rsvp-form input[type=text],
-  .rsvp-form input[type=number] {
+  .rsvp-card-motif-tl { position: absolute; top: -22px; left: -22px; width: 120px; opacity: 0.55; transform: rotate(-20deg); }
+  .rsvp-card-motif-br { position: absolute; bottom: -22px; right: -22px; width: 120px; opacity: 0.55; transform: rotate(160deg); }
+
+  @media (min-width: 768px) {
+    .rsvp-card { padding: 80px 64px; }
+  }
+
+  .rsvp-card .small-cap { display: inline-flex; }
+  .rsvp-card h2 { font-style: italic; font-size: clamp(36px, 5vw, 54px); margin: 14px 0 16px; padding-bottom: 6px; }
+  .rsvp-card p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 17px; max-width: 50ch; margin: 0 auto; }
+
+  .rsvp-form { margin-top: 40px; display: grid; gap: 22px; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .rsvp-field { text-align: left; }
+  .rsvp-label { font-family: var(--body); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; margin-bottom: 8px; display: block; }
+  .rsvp-input,
+  .rsvp-select {
     width: 100%;
-    padding: 16px 4px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(122, 70, 60, 0.34);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 1.5vw, 19px);
+    background: var(--paper-warm);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 13px 16px;
+    font-family: var(--body);
+    font-size: 15px;
     color: var(--ink);
-    transition: border-color 0.3s ease;
-    border-radius: 0;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
   }
-  .rsvp-form input::placeholder {
-    color: var(--ink-3);
-    font-style: italic;
-    opacity: 1;
-  }
-  .rsvp-form input:focus {
-    outline: none;
-    border-bottom-color: var(--rose-deep);
-  }
-  .rsvp-radio-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.42em;
-    color: var(--rose-deep);
-    margin-bottom: 14px;
-    text-transform: uppercase;
-  }
-  .rsvp-radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .rsvp-radio {
-    flex: 1 1 calc(33% - 10px);
-    min-width: 140px;
+  .rsvp-input:focus,
+  .rsvp-select:focus { outline: none; border-color: var(--sage-deep); background: var(--paper); }
+  .rsvp-input::placeholder { color: var(--ink-faded); }
+
+  .rsvp-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rsvp-side-opt {
+    position: relative;
     cursor: pointer;
   }
-  .rsvp-radio input { position: absolute; opacity: 0; pointer-events: none; }
-  .rsvp-radio span {
+  .rsvp-side-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .rsvp-side-opt span {
     display: block;
-    padding: 14px 18px;
-    border: 1px solid rgba(122, 70, 60, 0.32);
     text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    color: var(--ink-2);
-    transition: all 0.25s ease;
-    background: transparent;
-  }
-  .rsvp-radio:hover span { border-color: var(--rose-deep); color: var(--rose-deep); }
-  .rsvp-radio input:checked + span {
-    background: var(--ink);
-    color: var(--bone);
-    border-color: var(--ink);
-  }
-  .rsvp-honeypot {
-    position: absolute !important;
-    left: -9999px !important;
-    width: 1px !important;
-    height: 1px !important;
-    opacity: 0 !important;
-  }
-  .wishes-submit, .rsvp-submit {
-    display: inline-block;
-    width: auto;
-    padding: 18px 44px;
-    background: var(--ink);
-    color: var(--bone);
-    border: 1px solid var(--ink);
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.5em;
+    padding: 13px 12px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    font-family: var(--body);
+    font-size: 13px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 0;
+    color: var(--ink-soft);
+    transition: all 0.3s var(--ease);
   }
-  .wishes-submit:hover, .rsvp-submit:hover {
+  .rsvp-side-opt input:checked + span {
+    background: var(--sage-deep);
+    color: var(--paper);
+    border-color: var(--sage-deep);
+  }
+
+  .rsvp-honey { position: absolute; left: -9999px; top: -9999px; }
+
+  .rsvp-submit {
     background: var(--rose-deep);
-    border-color: var(--rose-deep);
+    color: var(--paper);
+    border: none;
+    border-radius: var(--r-pill);
+    padding: 15px 32px;
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s var(--ease), transform 0.2s var(--ease);
+    margin-top: 12px;
   }
-  .wishes-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .rsvp-submit:hover:not(:disabled) { background: var(--ink); transform: translateY(-2px); }
+  .rsvp-submit:disabled { opacity: 0.6; cursor: wait; }
 
-  .rsvp-thanks {
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(20px, 2.4vw, 26px);
-    line-height: 1.5;
-    color: var(--rose-deep);
-    padding: 40px 20px;
-  }
-  .rsvp-thanks::before {
-    content: '※';
-    display: block;
-    color: var(--rose);
-    font-size: 22px;
-    margin-bottom: 22px;
-  }
+  .rsvp-thanks { padding: 24px; }
+  .rsvp-thanks .hand-thank { font-family: var(--hand); font-size: 48px; color: var(--rose-deep); margin-bottom: 12px; line-height: 1; }
+  .rsvp-thanks h3 { font-family: var(--display); font-style: italic; font-size: 28px; color: var(--ink); margin-bottom: 8px; padding-bottom: 4px; }
+  .rsvp-thanks p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 16px; }
 
-  /* ============ WISHES (CH. VI) ============ */
-  .wishes-form {
-    max-width: 620px;
-    margin: 0 auto clamp(48px, 6vw, 72px);
+  /* ----------------------------------------------------------
+     WISHES (Sổ Lưu Bút)
+  ---------------------------------------------------------- */
+  .wishes { padding: 110px 0; }
+  .wishes-head { text-align: center; margin-bottom: 48px; }
+  .wishes-head .small-cap { display: block; margin-bottom: 14px; }
+  .wishes-head h2 { font-style: italic; font-size: clamp(36px, 5vw, 54px); margin-bottom: 14px; padding-bottom: 6px; }
+  .wishes-head p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 17px; max-width: 50ch; margin: 0 auto; }
+
+  .wishes-form { display: grid; gap: 14px; max-width: 560px; margin: 0 auto 56px; }
+  .wishes-form .row { display: grid; gap: 14px; }
+  @media (min-width: 600px) {
+    .wishes-form .row { grid-template-columns: 1fr auto; align-items: end; }
   }
-  .wishes-form > * + * { margin-top: 22px; }
   .wishes-form input[type=text],
   .wishes-form textarea {
     width: 100%;
-    padding: 16px 4px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(122, 70, 60, 0.34);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 1.5vw, 19px);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    padding: 13px 16px;
+    font-family: var(--body);
+    font-size: 15px;
     color: var(--ink);
-    border-radius: 0;
-    transition: border-color 0.3s ease;
-  }
-  .wishes-form textarea {
-    min-height: 120px;
+    transition: border-color 0.3s var(--ease);
     resize: vertical;
-    line-height: 1.6;
   }
-  .wishes-form input::placeholder,
-  .wishes-form textarea::placeholder {
-    color: var(--ink-3);
-    font-style: italic;
-    opacity: 1;
-  }
-  .wishes-form input:focus,
-  .wishes-form textarea:focus {
-    outline: none;
-    border-bottom-color: var(--rose-deep);
-  }
-
-  .wishes-list {
-    position: relative;
-    min-height: 260px;
-    max-width: 880px;
-    margin: 0 auto;
-  }
-  .wishes-list.is-empty {
-    display: flex; align-items: center; justify-content: center;
-  }
-  .wishes-empty {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(17px, 1.6vw, 19px);
-    color: var(--ink-3);
-    text-align: center;
-    padding: 60px 20px;
-  }
-  .wish-card {
-    background: var(--bone);
-    border: 1px solid rgba(122, 70, 60, 0.18);
-    padding: clamp(22px, 3vw, 32px);
-    max-width: 480px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .wish-float {
-    animation: wishFade 13s ease-in-out forwards;
-    opacity: 0;
-  }
-  @keyframes wishFade {
-    0%   { opacity: 0; transform: translateY(20px); }
-    10%  { opacity: 1; transform: translateY(0); }
-    85%  { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-12px); }
-  }
-  .wish-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 16px;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(122, 70, 60, 0.16);
-  }
-  .wish-name {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(18px, 2vw, 22px);
-    color: var(--ink);
-    letter-spacing: 0.01em;
-  }
-  .wish-time {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.4em;
-    color: var(--ink-3);
-  }
-  .wish-message {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(17px, 1.55vw, 19px);
-    line-height: 1.68;
-    color: var(--ink-2);
-  }
-  .wishes-count {
-    text-align: center;
-    margin-top: 32px;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.46em;
-    color: var(--rose-deep);
-  }
-
-  /* ============ EPILOGUE / CLOSING ============ */
-  .epilogue {
-    padding: clamp(96px, 14vw, 180px) 0;
-    background: var(--ink);
-    color: var(--bone);
-    text-align: center;
-    position: relative;
-  }
-  .epilogue::before, .epilogue::after {
-    content: '※';
-    color: var(--rose);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    display: block;
-    opacity: 0.7;
-  }
-  .epilogue::before { margin-bottom: 56px; }
-  .epilogue::after  { margin-top: 56px; }
-  .epilogue .eyebrow { color: var(--rose-pale); margin-bottom: 24px; }
-  .closing-title {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(48px, 8vw, 96px);
-    line-height: 1;
-    color: var(--bone);
-    margin-bottom: 32px;
-  }
-  .closing-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: clamp(18px, 2vw, 22px);
-    line-height: 1.7;
-    color: rgba(244, 236, 227, 0.88);
-    max-width: 620px;
-    margin: 0 auto 56px;
-  }
-  .closing-couple {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: clamp(20px, 2.6vw, 28px);
-    letter-spacing: 0.1em;
-    color: var(--rose-pale);
-  }
-  .closing-couple .amp {
-    color: var(--rose);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    margin: 0 0.4em;
-  }
-  .closing-date {
-    margin-top: 18px;
-    font-family: 'Cinzel', serif;
+  .wishes-form textarea { min-height: 110px; }
+  .wishes-form input[type=text]:focus,
+  .wishes-form textarea:focus { outline: none; border-color: var(--sage-deep); }
+  .wishes-form input[type=text]::placeholder,
+  .wishes-form textarea::placeholder { color: var(--ink-faded); }
+  .wishes-form button {
+    background: var(--sage-deep);
+    color: var(--paper);
+    border: none;
+    border-radius: var(--r-pill);
+    padding: 13px 28px;
+    font-family: var(--body);
     font-size: 11px;
-    letter-spacing: 0.5em;
-    color: var(--bone);
-    opacity: 0.65;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.3s var(--ease), transform 0.2s var(--ease);
   }
+  .wishes-form button:hover:not(:disabled) { background: var(--ink); transform: translateY(-2px); }
+  .wishes-form button:disabled { opacity: 0.6; cursor: wait; }
 
-  /* ============ COLOPHON (footer) ============ */
-  .colophon {
-    background: var(--ink);
-    color: var(--bone);
-    padding: 36px clamp(20px, 5vw, 64px);
-    border-top: 1px solid rgba(244, 236, 227, 0.12);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+  .wishes-list { display: grid; gap: 22px; max-width: 760px; margin: 0 auto; }
+  .wish {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--rose);
+    border-radius: var(--r-md);
+    padding: 22px 26px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
   }
-  .colophon-left, .colophon-right {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.46em;
-    color: var(--bone);
-    opacity: 0.6;
+  .wish-quote {
+    position: absolute;
+    top: 6px;
+    right: 18px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 64px;
+    color: var(--sage-mist);
+    line-height: 1;
+    pointer-events: none;
   }
-  .colophon-mark {
-    font-family: 'Cormorant Garamond', serif; font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 0.1em;
-    color: var(--rose-pale);
-    opacity: 0.9;
+  .wish-name { font-family: var(--display); font-style: italic; font-weight: 600; font-size: 18px; color: var(--ink); padding-bottom: 2px; }
+  .wish-time { font-family: var(--body); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faded); margin-bottom: 12px; }
+  .wish-msg { font-family: var(--body); font-size: 15px; color: var(--ink-soft); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+
+  .wishes-count { text-align: center; margin-top: 32px; font-family: var(--display); font-style: italic; color: var(--ink-faded); font-size: 16px; }
+
+  /* ----------------------------------------------------------
+     EPILOGUE / closing
+  ---------------------------------------------------------- */
+  .epilogue {
+    background: var(--paper);
+    padding: 130px 0 100px;
+    text-align: center;
+    position: relative;
+    border-top: 1px solid var(--line);
   }
-
-  /* ============ REVEAL-ON-SCROLL ============ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 1.2s ease, transform 1.2s ease;
+  .epilogue-motif { margin: 0 auto 26px; width: 260px; opacity: 0.75; }
+  .epilogue-eyebrow { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--sage-deep); margin-bottom: 18px; }
+  .epilogue-names {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(48px, 7vw, 84px);
+    color: var(--ink);
+    line-height: 1.05;
+    padding-bottom: 6px;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .epilogue-and { font-family: var(--hand); font-size: clamp(40px, 5vw, 60px); color: var(--rose-deep); line-height: 1; display: block; margin: 6px 0; }
+  .epilogue-date {
+    font-family: var(--body);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 30px;
   }
-
-  /* ============ MOBILE ============ */
-  @media (max-width: 880px) {
-    .chapter-head {
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    .chapter-meta { align-items: flex-start; }
-    .story-row { grid-template-columns: 1fr; }
-    .story-text { grid-column: 1; }
-    .story-image { grid-column: 1; aspect-ratio: 4 / 5; margin-top: 32px; }
-
-    .couple-spread { grid-template-columns: 1fr; }
-    .couple-block.groom,
-    .couple-block.bride { grid-column: 1; margin-top: 0; }
-    .couple-block.bride { margin-top: 32px; }
-    .couple-amp {
-      grid-column: 1;
-      margin: 24px 0;
-      font-size: 80px;
-    }
-
-    .event-spread { grid-template-columns: 1fr; gap: 32px; }
-    .event-image-col,
-    .event-text-col,
-    .event.reverse .event-image-col,
-    .event.reverse .event-text-col {
-      grid-column: 1; order: initial;
-    }
-
-    .gallery-mosaic {
-      grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 100px;
-    }
-    .gm-1 { grid-column: 1 / span 6; grid-row: span 3; }
-    .gm-2 { grid-column: 1 / span 3; grid-row: span 2; }
-    .gm-3 { grid-column: 4 / span 3; grid-row: span 2; }
-    .gm-4 { grid-column: 1 / span 6; grid-row: span 3; }
-    .gm-5 { grid-column: 1 / span 6; grid-row: span 3; }
-    .gm-6 { grid-column: 1 / span 6; grid-row: span 3; }
-    .gm-7 { grid-column: 1 / span 3; grid-row: span 2; }
-    .gm-8 { grid-column: 4 / span 3; grid-row: span 2; }
-
-    .rsvp-radio { flex: 1 1 100%; }
-    .event-meta-row { grid-template-columns: 1fr; gap: 4px; }
-
-    .colophon {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .hero-top { padding-top: max(24px, env(safe-area-inset-top)); }
+  .epilogue-date::before, .epilogue-date::after {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--sage);
+    vertical-align: middle;
+    margin: 0 12px;
   }
+  .epilogue-thanks { font-family: var(--display); font-style: italic; color: var(--ink-faded); font-size: 17px; margin-top: 26px; max-width: 44ch; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
-  @media (max-width: 480px) {
-    .hero-eyebrow { letter-spacing: 0.4em; }
-    .hero-eyebrow::before, .hero-eyebrow::after { width: 24px; }
-    .chapter { padding: 80px 0; }
-    .countdown-grid { gap: 4px; }
-    .cd-unit { padding-left: 6px; }
-  }
+  .footer-tiny { padding: 24px 0 32px; text-align: center; font-family: var(--body); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-faded); background: var(--paper); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-bg, .particle, .gallery-strip img,
-    .scroll-cue::after, .interlude, .envelope, .envelope-flap, .envelope-letter,
-    .reveal { animation: none !important; transition: none !important; }
-    .reveal { opacity: 1; transform: none; }
+  /* ----------------------------------------------------------
+     Italic descender clearance for display text
+  ---------------------------------------------------------- */
+  .hero-name, .event-title, .couple-name, .epilogue-names, .interlude-head h2, .rsvp-card h2, .wishes-head h2, .gallery-head h2 {
+    line-height: 1.1;
   }
 </style>
 </head>
-<body class="envelope-active">
+<body>
 
-  <!-- INTRO — Hỷ (囍) card gently splits sideways -->
+  <!-- =============================================================
+       Reusable watercolor SVG motifs (defined once via <symbol>)
+       ============================================================= -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="motif-euc" viewBox="0 0 240 100">
+        <path d="M 8 78 C 60 72, 110 60, 160 44 S 222 22, 234 18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.85"/>
+        <ellipse cx="32" cy="74" rx="11" ry="4.5" transform="rotate(-22 32 74)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="52" cy="64" rx="11" ry="4.5" transform="rotate(18 52 64)" fill="currentColor" opacity="0.7"/>
+        <ellipse cx="76" cy="58" rx="12" ry="4.8" transform="rotate(-18 76 58)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="100" cy="50" rx="12" ry="4.8" transform="rotate(20 100 50)" fill="currentColor" opacity="0.72"/>
+        <ellipse cx="126" cy="44" rx="13" ry="5" transform="rotate(-16 126 44)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="150" cy="38" rx="12" ry="4.8" transform="rotate(22 150 38)" fill="currentColor" opacity="0.7"/>
+        <ellipse cx="172" cy="32" rx="11" ry="4.5" transform="rotate(-18 172 32)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="192" cy="26" rx="10" ry="4.2" transform="rotate(20 192 26)" fill="currentColor" opacity="0.65"/>
+        <ellipse cx="210" cy="22" rx="8" ry="3.6" transform="rotate(-16 210 22)" fill="currentColor" opacity="0.5"/>
+      </symbol>
+
+      <symbol id="motif-rose" viewBox="0 0 120 100">
+        <path d="M 20 88 Q 36 70, 50 56" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 80 90 Q 70 76, 64 60" fill="none" stroke="var(--sage)" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+        <ellipse cx="30" cy="78" rx="7" ry="3.2" transform="rotate(-30 30 78)" fill="var(--sage)" opacity="0.55"/>
+        <ellipse cx="74" cy="80" rx="7" ry="3.2" transform="rotate(34 74 80)" fill="var(--sage)" opacity="0.55"/>
+        <!-- the rose bloom: layered semicircles in rose tones -->
+        <circle cx="58" cy="40" r="18" fill="var(--rose-mist)" opacity="0.85"/>
+        <path d="M 42 40 Q 58 26, 74 40 Q 58 50, 42 40 Z" fill="var(--rose)" opacity="0.65"/>
+        <path d="M 48 36 Q 58 28, 68 36 Q 58 44, 48 36 Z" fill="var(--rose-deep)" opacity="0.7"/>
+        <circle cx="58" cy="40" r="3.5" fill="var(--rose-deep)" opacity="0.85"/>
+      </symbol>
+
+      <symbol id="motif-fern" viewBox="0 0 200 80">
+        <path d="M 10 40 C 60 36, 110 32, 190 28" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+        <path d="M 30 40 q -4 -12, 6 -16" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 30 40 q -4 12, 6 16" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 50 38 q -4 -14, 6 -18" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 50 38 q -4 14, 6 18" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 72 36 q -4 -16, 6 -20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 72 36 q -4 16, 6 20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 96 34 q -4 -18, 6 -22" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 96 34 q -4 18, 6 22" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 122 32 q -4 -16, 6 -20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 122 32 q -4 16, 6 20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 148 31 q -4 -14, 6 -18" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 148 31 q -4 14, 6 18" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 172 30 q -3 -10, 4 -14" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+        <path d="M 172 30 q -3 10, 4 14" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+      </symbol>
+
+      <symbol id="motif-arch" viewBox="0 0 360 80">
+        <path d="M 10 70 Q 180 -10, 350 70" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.85"/>
+        <ellipse cx="50" cy="55" rx="10" ry="4.4" transform="rotate(-25 50 55)" fill="currentColor" opacity="0.6"/>
+        <ellipse cx="80" cy="38" rx="11" ry="4.6" transform="rotate(-12 80 38)" fill="currentColor" opacity="0.7"/>
+        <ellipse cx="120" cy="22" rx="12" ry="5" transform="rotate(-4 120 22)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="180" cy="12" rx="13" ry="5.2" fill="currentColor" opacity="0.7"/>
+        <circle cx="180" cy="12" r="2.4" fill="var(--rose)" opacity="0.85"/>
+        <ellipse cx="240" cy="22" rx="12" ry="5" transform="rotate(4 240 22)" fill="currentColor" opacity="0.55"/>
+        <ellipse cx="280" cy="38" rx="11" ry="4.6" transform="rotate(12 280 38)" fill="currentColor" opacity="0.7"/>
+        <ellipse cx="310" cy="55" rx="10" ry="4.4" transform="rotate(25 310 55)" fill="currentColor" opacity="0.6"/>
+      </symbol>
+
+      <symbol id="motif-divider" viewBox="0 0 240 16">
+        <path d="M 8 8 Q 60 4, 110 8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.85"/>
+        <circle cx="120" cy="8" r="3.5" fill="var(--rose)" opacity="0.85"/>
+        <circle cx="120" cy="8" r="6" fill="none" stroke="var(--rose-mist)" stroke-width="1" opacity="0.9"/>
+        <path d="M 130 8 Q 180 12, 232 8" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.85"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- =============================================================
+       Envelope overlay (initial state)
+       ============================================================= -->
   <div class="envelope-overlay" id="envelopeOverlay">
-    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Nhấn để mở thiệp cưới">
-
-      <div class="wcard">
-        <!-- Wedding photo background -->
-        <img class="wcard-photo" src="images/LAT06963.jpg" alt="Thiện Tâm và Kỳ Duyên" />
-        <div class="wcard-tint" aria-hidden="true"></div>
-
-        <!-- Names + date overlay (revealed after wrap opens) -->
-        <div class="wcard-photo-text" aria-hidden="true">
-          <div class="ot-script">Wedding</div>
-          <div class="ot-names">THIỆN TÂM &nbsp;&amp;&nbsp; KỲ DUYÊN</div>
-          <div class="ot-date">25 · 07 · 2026</div>
-        </div>
-
-        <!-- White wrap — two halves -->
-        <div class="wcard-wrap wcard-wrap-left"  aria-hidden="true"></div>
-        <div class="wcard-wrap wcard-wrap-right" aria-hidden="true"></div>
-
-        <!-- "Save the Date" calligraphy on the wrap -->
-        <div class="wcard-wrap-label" aria-hidden="true">
-          <div class="save">Save<br/>the Date</div>
-          <span class="small">Thiện Tâm &amp; Kỳ Duyên</span>
-        </div>
-
-        <!-- Bronze wax seal at center -->
-        <div class="wcard-seal" aria-hidden="true">
-          <svg viewBox="0 0 100 100">
-            <!-- olive-branch engraving -->
-            <path d="M50 22 L 50 78"/>
-            <path d="M50 32 Q 42 30, 34 26"/>
-            <path d="M50 42 Q 40 41, 30 38"/>
-            <path d="M50 52 Q 40 53, 30 56"/>
-            <path d="M50 62 Q 42 64, 34 68"/>
-            <path d="M50 32 Q 58 30, 66 26"/>
-            <path d="M50 42 Q 60 41, 70 38"/>
-            <path d="M50 52 Q 60 53, 70 56"/>
-            <path d="M50 62 Q 58 64, 66 68"/>
-          </svg>
-        </div>
-      </div>
+    <div class="envelope-card" id="envelopeCard" role="button" tabindex="0" aria-label="Nhấn để mở thiệp">
+      <div class="envelope-petals" id="envelopePetals" aria-hidden="true"></div>
+      <div class="envelope-eyebrow">Trân trọng kính mời</div>
+      <div class="envelope-hand">save the date</div>
+      <div class="envelope-names display">Thiện Tâm</div>
+      <span class="envelope-and">và</span>
+      <div class="envelope-names display">Kỳ Duyên</div>
+      <div class="envelope-date">25 . 07 . 2026</div>
+      <button class="envelope-btn" type="button" id="envelopeBtn">
+        Mở thiệp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+        </svg>
+      </button>
     </div>
-    <div class="envelope-hint">CHẠM ĐỂ MỞ THIỆP</div>
   </div>
 
-  <!-- FLOATING PARTICLES -->
-  <div class="particles" id="particles"></div>
+  <!-- =============================================================
+       Floating petals (decorative)
+       ============================================================= -->
+  <div class="petals" id="petals" aria-hidden="true"></div>
 
-  <!-- MUSIC TOGGLE -->
-  <button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc nền" aria-label="Bật/tắt nhạc nền">
-    <svg viewBox="0 0 24 24" id="musicIcon">
-      <path d="M9 18V5l12-2v13" />
-      <circle cx="6" cy="18" r="3" />
-      <circle cx="18" cy="16" r="3" />
+  <!-- =============================================================
+       Music toggle (placeholder until audio src is set)
+       ============================================================= -->
+  <button class="music-toggle" id="musicToggle" title="Bật/tắt nhạc nền" aria-label="Bật hoặc tắt nhạc nền">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 18V5l12-2v13"/>
+      <circle cx="6" cy="18" r="3"/>
+      <circle cx="18" cy="16" r="3"/>
     </svg>
   </button>
 
-  <!-- ===========================================================
-       HERO
-       =========================================================== -->
-  <header class="hero">
-    <div class="hero-bg"></div>
+  <main>
 
-    <div class="hero-top">
-      <div class="eyebrow light">A Wedding Story · MMXXVI</div>
-      <div class="hero-mark">T &amp; D</div>
-    </div>
+    <!-- ===========================================================
+         HERO
+         =========================================================== -->
+    <section class="hero">
+      <svg class="motif hero-motif-tl" aria-hidden="true"><use href="#motif-euc"/></svg>
+      <svg class="motif hero-motif-br" aria-hidden="true"><use href="#motif-euc"/></svg>
 
-    <div class="hero-center">
-      <div class="hero-eyebrow">SAVE THE DATE</div>
-      <h1 class="hero-names">
-        Thiện Tâm
-        <span class="amp">&amp;</span>
-        Kỳ Duyên
-      </h1>
-    </div>
+      <div class="wrap-wide hero-stage reveal">
+        <div class="hero-text">
+          <div class="hero-eyebrow">Save the date · 2026</div>
+          <h1 class="hero-name">Thiện Tâm</h1>
+          <span class="hero-and">và</span>
+          <h1 class="hero-name">Kỳ Duyên</h1>
 
-    <div class="hero-bottom">
-      <div class="hero-date">
-        <span>25</span>
-        <span class="dot"></span>
-        <span>07</span>
-        <span class="dot"></span>
-        <span>2026</span>
-      </div>
-      <div class="scroll-cue">SCROLL</div>
-    </div>
-  </header>
-
-  <!-- ===========================================================
-       PROLOGUE
-       =========================================================== -->
-  <section class="prologue reveal">
-    <div class="stage">
-      <blockquote class="prologue-quote">
-        Yêu thương không phải là tìm ra một người hoàn hảo<br/>
-        — mà là <span class="em">học cách nhìn thấy sự hoàn hảo</span><br/>
-        trong một người chưa hoàn hảo.
-      </blockquote>
-      <div class="prologue-attr">— PROLOGUE —</div>
-    </div>
-  </section>
-
-  <!-- ===========================================================
-       INTERLUDE — COUNTDOWN
-       =========================================================== -->
-  <section class="interlude reveal">
-    <div class="stage">
-      <div class="eyebrow">COUNTING DOWN TO FOREVER</div>
-      <div class="countdown-grid" id="countdown">
-        <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ngày</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Giờ</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Phút</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Giây</div></div>
-      </div>
-
-      <div class="cal-wrap reveal">
-        <div class="cal-month">Tháng<b id="cal-month-name">Bảy 2026</b></div>
-        <div class="cal-grid" id="cal-grid"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================================
-       CHAPTER II — ĐÔI TA
-       =========================================================== -->
-  <section class="chapter reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">II</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">CÔ DÂU &amp; CHÚ RỂ · THE COUPLE</div>
-          <h2 class="chapter-title">Đôi Ta</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 04</div>
-          <div class="folio">— PORTRAITS —</div>
-        </div>
-      </div>
-
-      <div class="couple-spread">
-        <div class="couple-block groom">
-          <div class="couple-photo">
-            <img src="images/LAT06410.jpg" alt="Thiện Tâm" loading="lazy" />
+          <div class="hero-date-row">
+            <span class="num">25</span>
+            <span class="dot"></span>
+            <span>Bảy</span>
+            <span class="dot"></span>
+            <span class="num">2026</span>
           </div>
-          <div class="couple-role">THE GROOM — CHÚ RỂ</div>
+
+          <p class="hero-blessing">
+            Hai mảnh ghép gặp nhau giữa đời, đi qua bao mùa, cuối cùng cũng về chung một mái nhà.
+            Trân trọng kính mời quý vị đến chung vui.
+          </p>
+        </div>
+
+        <div class="hero-photo-col">
+          <div class="hero-photo-frame">
+            <img src="images/LAT06963.jpg" alt="Thiện Tâm và Kỳ Duyên" />
+          </div>
+          <div class="hero-photo-stamp">A garden wedding</div>
+        </div>
+      </div>
+
+      <div class="wrap hero-foot reveal">
+        <span>Thoại Sơn · An Giang</span>
+        <a href="#thu-moi" class="hero-foot-cta">Lướt xuống xem thiệp</a>
+        <span>An Nhơn Đông · Gia Lai</span>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         COUNTDOWN + CALENDAR
+         =========================================================== -->
+    <section class="interlude" id="thu-moi">
+      <div class="wrap interlude-inner reveal">
+        <div class="interlude-head">
+          <span class="small-cap">Thời khắc</span>
+          <h2>Đếm từng ngày, đợi mùa hè 2026.</h2>
+          <p>Một buổi sáng tháng Bảy, dưới giàn hoa, hai gia đình sẽ chính thức gặp gỡ và trao lời chúc phúc.</p>
+
+          <div class="countdown-grid" id="countdown" aria-live="polite">
+            <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ngày</div></div>
+            <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Giờ</div></div>
+            <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Phút</div></div>
+            <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Giây</div></div>
+          </div>
+        </div>
+
+        <div class="calendar" aria-label="Lịch tháng Bảy 2026">
+          <svg class="motif motif-sm cal-corner" aria-hidden="true"><use href="#motif-rose"/></svg>
+          <div class="cal-month">
+            <span class="label">Tháng</span>
+            <b id="cal-month-name">Bảy 2026</b>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================================================
+         COUPLE
+         =========================================================== -->
+    <section class="couple">
+      <div class="wrap-narrow couple-head reveal">
+        <h2 class="display">Câu chuyện của chúng tôi.</h2>
+        <svg class="motif motif-md" aria-hidden="true"><use href="#motif-divider"/></svg>
+      </div>
+
+      <div class="wrap couple-grid reveal">
+        <div class="couple-card">
+          <div class="couple-photo">
+            <img src="images/LAT06410.jpg" alt="Chú rể Thiện Tâm" loading="lazy" />
+          </div>
+          <div class="couple-role">Chú rể</div>
           <div class="couple-name">Thiện Tâm</div>
-          <p class="couple-bio">Một người mơ mộng, kiên định và luôn tin rằng tình yêu là điều quý giá nhất một đời người có được.</p>
+          <p class="couple-bio">Sinh ra giữa nắng Tây Nguyên, mang trong tim một mùa hạ chưa bao giờ tắt.</p>
         </div>
 
-        <div class="couple-amp">&amp;</div>
+        <div class="couple-and"><span>&amp;</span></div>
 
-        <div class="couple-block bride">
+        <div class="couple-card">
           <div class="couple-photo">
-            <img src="images/LAT07605.jpg" alt="Kỳ Duyên" loading="lazy" />
+            <img src="images/LAT07605.jpg" alt="Cô dâu Kỳ Duyên" loading="lazy" />
           </div>
-          <div class="couple-role">THE BRIDE — CÔ DÂU</div>
+          <div class="couple-role">Cô dâu</div>
           <div class="couple-name">Kỳ Duyên</div>
-          <p class="couple-bio">Dịu dàng như nắng sớm, là mảnh ghép cuối cùng làm trọn vẹn câu chuyện cổ tích của đôi ta.</p>
+          <p class="couple-bio">Dịu dàng như con nước Hậu Giang, là mảnh ghép làm trọn vẹn câu chuyện cổ tích này.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================================
-       CHAPTER III — VU QUY
-       =========================================================== -->
-  <section class="event alt reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">III</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">LỄ NHÀ GÁI · BRIDE'S CEREMONY</div>
-          <h2 class="chapter-title">Lễ Vu Quy</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 06</div>
-          <div class="folio">— NHÀ GÁI —</div>
-        </div>
-      </div>
-
-      <div class="event-spread">
-        <div class="event-image-col">
-          <div class="event-image">
-            <img src="images/LAT07668.jpg" alt="Lễ Vu Quy" loading="lazy" />
-          </div>
+    <!-- ===========================================================
+         EVENT - LỄ VU QUY (nhà gái)
+         =========================================================== -->
+    <section class="event event-mirror">
+      <div class="wrap event-grid reveal">
+        <div class="event-photo">
+          <img src="images/LAT07668.jpg" alt="Lễ Vu Quy" loading="lazy" />
         </div>
 
-        <div class="event-text-col">
-          <div class="event-head">
-            <div class="event-kind">CEREMONY · NHÀ GÁI</div>
-          </div>
-          <h3 class="event-title">Tại Tư Gia</h3>
+        <div class="event-body">
+          <svg class="motif motif-sm event-body-motif" aria-hidden="true"><use href="#motif-fern"/></svg>
+          <div class="event-roman">Lễ thứ nhất</div>
+          <h2 class="event-title">Lễ Vu Quy</h2>
+          <p class="event-sub">Hai gia đình gặp gỡ, dâng trầu cau, chính thức đưa cô dâu về nhà chồng.</p>
 
           <div class="event-meta">
-            <div class="event-meta-row">
-              <div class="event-meta-label">Ngày</div>
-              <div class="event-meta-value">
-                <strong>Thứ Bảy · 25 . 07 . 2026</strong>
+            <div class="event-row">
+              <div class="event-row-label">Ngày</div>
+              <div class="event-row-value">
+                <strong>Thứ Bảy, 25 tháng 07 năm 2026</strong>
                 <span class="small">Nhằm ngày 12 tháng 06 năm Bính Ngọ</span>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Giờ</div>
-              <div class="event-meta-value">
-                Lễ Vu Quy lúc <strong>08:00</strong>
-                <span class="small">Tiệc chính lúc 09:00</span>
+            <div class="event-row">
+              <div class="event-row-label">Giờ</div>
+              <div class="event-row-value">
+                <strong>08:00 sáng</strong>
+                <span class="small">Tiệc chính khai vị lúc 09:00</span>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Địa điểm</div>
-              <div class="event-meta-value">
-                Tư gia nhà gái
+            <div class="event-row">
+              <div class="event-row-label">Địa điểm</div>
+              <div class="event-row-value">
+                <strong>Tư gia nhà gái</strong>
                 <span class="small">264/14 Trung Bình Nhì, Vĩnh Trạch,<br/>Thoại Sơn, An Giang</span>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Nhà gái</div>
-              <div class="event-meta-value">
-                <div class="parents">
-                  Ông Bà Phan Văn Mẫu Anh<br/>
-                  &amp; Bà Lê Hồng Tiền
-                </div>
-                <span class="small">Thoại Sơn, An Giang</span>
+            <div class="event-row">
+              <div class="event-row-label">Phụ huynh</div>
+              <div class="event-row-value">
+                Ông Phan Văn Mẫu Anh<br/>
+                Bà Lê Hồng Tiền
               </div>
             </div>
           </div>
 
-          <a href="https://www.google.com/maps/search/?api=1&query=264%2F14+Trung+B%C3%ACnh+Nh%C3%AC%2C+V%C4%A9nh+Tr%E1%BA%A1ch%2C+Tho%E1%BA%A1i+S%C6%A1n%2C+An+Giang" target="_blank" rel="noopener" class="event-cta">
-            XEM BẢN ĐỒ
-            <span class="event-cta-arrow">→</span>
+          <a class="event-cta" href="https://www.google.com/maps/search/?api=1&query=264%2F14+Trung+B%C3%ACnh+Nh%C3%AC%2C+V%C4%A9nh+Tr%E1%BA%A1ch%2C+Tho%E1%BA%A1i+S%C6%A1n%2C+An+Giang" target="_blank" rel="noopener">
+            Xem bản đồ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================================
-       CHAPTER IV — TÂN HÔN
-       =========================================================== -->
-  <section class="event reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">IV</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">TIỆC TÂN HÔN · WEDDING BANQUET</div>
-          <h2 class="chapter-title">Tiệc Tân Hôn</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 08</div>
-          <div class="folio">— LỄ ĐƯỜNG —</div>
-        </div>
-      </div>
-
-      <div class="event-spread reverse">
-        <div class="event-image-col">
-          <div class="event-image">
-            <img src="images/LAT07812.jpg" alt="Tiệc Tân Hôn" loading="lazy" />
-          </div>
+    <!-- ===========================================================
+         EVENT - TIỆC TÂN HÔN (nhà trai)
+         =========================================================== -->
+    <section class="event">
+      <div class="wrap event-grid reverse reveal">
+        <div class="event-photo">
+          <img src="images/LAT07812.jpg" alt="Tiệc Tân Hôn" loading="lazy" />
         </div>
 
-        <div class="event-text-col">
-          <div class="event-head">
-            <div class="event-kind">RECEPTION · NHÀ TRAI</div>
-          </div>
-          <h3 class="event-title">Tại Tư Gia</h3>
+        <div class="event-body">
+          <svg class="motif motif-sm event-body-motif" aria-hidden="true"><use href="#motif-fern"/></svg>
+          <div class="event-roman">Lễ thứ hai</div>
+          <h2 class="event-title">Tiệc Tân Hôn</h2>
+          <p class="event-sub">Sau Lễ Vu Quy một tuần, gia đình nhà trai mở tiệc đón cô dâu, đãi quan khách hai họ.</p>
 
           <div class="event-meta">
-            <div class="event-meta-row">
-              <div class="event-meta-label">Ngày</div>
-              <div class="event-meta-value">
-                <strong>Chủ Nhật · 02 . 08 . 2026</strong>
+            <div class="event-row">
+              <div class="event-row-label">Ngày</div>
+              <div class="event-row-value">
+                <strong>Chủ Nhật, 02 tháng 08 năm 2026</strong>
                 <span class="small">Nhằm ngày 20 tháng 06 năm Bính Ngọ</span>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Giờ</div>
-              <div class="event-meta-value">
-                Vào lúc <strong>HH : MM</strong>
-                <span class="small">Sẽ cập nhật giờ cụ thể</span>
+            <div class="event-row">
+              <div class="event-row-label">Giờ</div>
+              <div class="event-row-value">
+                <strong>Sẽ cập nhật</strong>
+                <span class="small">Thông tin giờ cụ thể sẽ được gửi tới quý khách</span>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Địa điểm</div>
-              <div class="event-meta-value">
-                Tư gia nhà trai
-                <span class="small">
-                  368 Thanh Liêm, Nhơn A,<br/>
-                  TX. An Nhơn, Bình Định (cũ)<br/>
-                  <em>Mới: Khu phố Thanh Liêm, P. An Nhơn Đông, T. Gia Lai</em>
-                </span>
+            <div class="event-row">
+              <div class="event-row-label">Địa điểm</div>
+              <div class="event-row-value">
+                <strong>Tư gia nhà trai</strong>
+                <span class="small">368 Thanh Liêm, Nhơn A,<br/>TX. An Nhơn, Bình Định (cũ)</span>
+                <em>Địa danh mới: Khu phố Thanh Liêm, P. An Nhơn Đông, T. Gia Lai</em>
               </div>
             </div>
-            <div class="event-meta-row">
-              <div class="event-meta-label">Nhà trai</div>
-              <div class="event-meta-value">
-                <div class="parents">
-                  Ông Bà Phạm Hữu Hùng<br/>
-                  &amp; Bà Đinh Thị Hạnh
-                </div>
-                <span class="small">An Nhơn Đông, Gia Lai</span>
+            <div class="event-row">
+              <div class="event-row-label">Phụ huynh</div>
+              <div class="event-row-value">
+                Ông Phạm Hữu Hùng<br/>
+                Bà Đinh Thị Hạnh
               </div>
             </div>
           </div>
 
-          <a href="https://www.google.com/maps/search/?api=1&query=368+Thanh+Li%C3%AAm%2C+An+Nh%C6%A1n+%C4%90%C3%B4ng%2C+Gia+Lai" target="_blank" rel="noopener" class="event-cta">
-            XEM BẢN ĐỒ
-            <span class="event-cta-arrow">→</span>
+          <a class="event-cta" href="https://www.google.com/maps/search/?api=1&query=368+Thanh+Li%C3%AAm%2C+An+Nh%C6%A1n+%C4%90%C3%B4ng%2C+Gia+Lai" target="_blank" rel="noopener">
+            Xem bản đồ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================================
-       CHAPTER V — KHOẢNH KHẮC (GALLERY)
-       =========================================================== -->
-  <section class="chapter alt reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">V</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">KHOẢNH KHẮC · OUR MOMENTS</div>
-          <h2 class="chapter-title">Khoảnh Khắc</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 10</div>
-          <div class="folio">— A GALLERY —</div>
-        </div>
+    <!-- ===========================================================
+         GALLERY
+         =========================================================== -->
+    <section class="gallery">
+      <div class="wrap gallery-head reveal">
+        <h2 class="display">Trước ngày trọng đại.</h2>
+        <p>Vài khung hình chúng tôi ghi lại trong những buổi chiều cuối hè, giữa một khu vườn nhỏ ở quê nhà.</p>
       </div>
 
-      <div class="gallery-strip">
-        <img src="images/LAT08258.jpg" alt="" loading="lazy" />
+      <div class="wrap-wide gallery-grid reveal">
+        <div class="gallery-cell gc-1"><img src="images/LAT06447.jpg" alt="Khoảnh khắc 1" loading="lazy" /></div>
+        <div class="gallery-cell gc-2"><img src="images/LAT06688.jpg" alt="Khoảnh khắc 2" loading="lazy" /></div>
+        <div class="gallery-cell gc-3"><img src="images/LAT06696.jpg" alt="Khoảnh khắc 3" loading="lazy" /></div>
+        <div class="gallery-cell gc-4"><img src="images/LAT06909.jpg" alt="Khoảnh khắc 4" loading="lazy" /></div>
+        <div class="gallery-cell gc-5"><img src="images/LAT07711.jpg" alt="Khoảnh khắc 5" loading="lazy" /></div>
+        <div class="gallery-cell gc-6"><img src="images/LAT08060.jpg" alt="Khoảnh khắc 6" loading="lazy" /></div>
+        <div class="gallery-cell gc-7"><img src="images/LAT08258.jpg" alt="Khoảnh khắc 7" loading="lazy" /></div>
+        <div class="gallery-cell gc-8"><img src="images/PLT08078.jpg" alt="Khoảnh khắc 8" loading="lazy" /></div>
+        <div class="gallery-cell gc-9"><img src="images/PLT08330.jpg" alt="Khoảnh khắc 9" loading="lazy" /></div>
       </div>
+    </section>
 
-      <div class="gallery-mosaic">
-        <div class="gm-item gm-1"><img src="images/LAT06447.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-2"><img src="images/LAT06696.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-3"><img src="images/LAT06688.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-4"><img src="images/PLT08078.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-5"><img src="images/LAT08060.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-6"><img src="images/PLT08330.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-7"><img src="images/LAT07711.jpg" alt="" loading="lazy" /></div>
-        <div class="gm-item gm-8"><img src="images/LAT06963.jpg" alt="" loading="lazy" /></div>
-      </div>
+    <!-- ===========================================================
+         RSVP
+         =========================================================== -->
+    <section class="rsvp" id="rsvp">
+      <div class="wrap-narrow reveal">
+        <div class="rsvp-card">
+          <svg class="motif motif-sm rsvp-card-motif-tl" aria-hidden="true"><use href="#motif-euc"/></svg>
+          <svg class="motif motif-sm rsvp-card-motif-br" aria-hidden="true"><use href="#motif-euc"/></svg>
 
-      <div class="gallery-quote">
-        <div class="quote">“Trăm năm hạnh phúc — vạn dặm yêu thương”</div>
-        <div class="attr">— CHÚC PHÚC TRĂM NĂM —</div>
-      </div>
-    </div>
-  </section>
+          <span class="small-cap">Xác nhận tham dự</span>
+          <h2>Để bàn tiệc luôn đủ chỗ cho quý vị.</h2>
+          <p>Vui lòng cho chúng tôi biết bạn sẽ đến dự bên nhà trai hay nhà gái, và cùng đi với mấy người.</p>
 
-  <!-- ===========================================================
-       RSVP
-       =========================================================== -->
-  <section class="rsvp-section reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">·</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">R.S.V.P · KÍNH MỜI XÁC NHẬN</div>
-          <h2 class="chapter-title">Xác Nhận Tham Dự</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 12</div>
-          <div class="folio">— PRESENCE —</div>
-        </div>
-      </div>
+          <form class="rsvp-form" id="rsvpForm" autocomplete="off">
+            <div class="rsvp-honey" aria-hidden="true">
+              <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
 
-      <p class="chapter-lead">
-        Sự hiện diện của anh chị là niềm vinh hạnh của gia đình chúng tôi.<br/>
-        Mong nhận được lời xác nhận trước ngày trọng đại.
-      </p>
+            <div class="rsvp-field">
+              <label class="rsvp-label" for="rsvpName">Tên của bạn</label>
+              <input class="rsvp-input" type="text" name="name" id="rsvpName" required maxlength="60" placeholder="Họ và tên" />
+            </div>
 
-      <form class="rsvp-form" id="rsvpForm" autocomplete="off">
-        <input type="text" name="name" placeholder="Tên của bạn" required maxlength="60" />
+            <div class="rsvp-field">
+              <span class="rsvp-label">Bạn là khách bên</span>
+              <div class="rsvp-sides">
+                <label class="rsvp-side-opt">
+                  <input type="radio" name="side" value="bride" required />
+                  <span>Nhà gái</span>
+                </label>
+                <label class="rsvp-side-opt">
+                  <input type="radio" name="side" value="groom" required />
+                  <span>Nhà trai</span>
+                </label>
+              </div>
+            </div>
 
-        <div>
-          <div class="rsvp-radio-label">Tham dự tiệc</div>
-          <div class="rsvp-radio-group">
-            <label class="rsvp-radio">
-              <input type="radio" name="side" value="Tiệc Nhà Trai" required />
-              <span>TIỆC NHÀ TRAI</span>
-            </label>
-            <label class="rsvp-radio">
-              <input type="radio" name="side" value="Tiệc Nhà Gái" />
-              <span>TIỆC NHÀ GÁI</span>
-            </label>
-            <label class="rsvp-radio">
-              <input type="radio" name="side" value="Không thể tham dự" />
-              <span>KHÔNG THAM DỰ</span>
-            </label>
+            <div class="rsvp-field">
+              <label class="rsvp-label" for="rsvpGuests">Số người tham dự</label>
+              <select class="rsvp-select" name="guests" id="rsvpGuests">
+                <option value="1">1 người (một mình tôi)</option>
+                <option value="2">2 người</option>
+                <option value="3">3 người</option>
+                <option value="4">4 người</option>
+                <option value="5+">5 người trở lên</option>
+              </select>
+            </div>
+
+            <button type="submit" class="rsvp-submit">Gửi xác nhận</button>
+          </form>
+
+          <div class="rsvp-thanks" id="rsvpThanks" style="display:none;">
+            <div class="hand-thank">Cảm ơn bạn</div>
+            <h3>Hẹn gặp tại lễ cưới.</h3>
+            <p>Chúng tôi đã ghi nhận thông tin của bạn. Sẽ liên hệ thêm nếu có cập nhật mới.</p>
           </div>
         </div>
-
-        <input type="number" name="guests" min="1" max="10" placeholder="Số khách đi kèm (mặc định 1)" />
-
-        <input type="text" name="website" class="rsvp-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-        <div style="text-align: center; padding-top: 12px;">
-          <button type="submit" class="wishes-submit">XÁC NHẬN THAM DỰ</button>
-        </div>
-      </form>
-
-      <div class="rsvp-thanks" id="rsvpThanks" style="display:none;">
-        Cảm ơn anh chị đã xác nhận.<br/>
-        Hẹn gặp lại trong ngày trọng đại!
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================================
-       CHAPTER VI — LỜI CHÚC
-       =========================================================== -->
-  <section class="chapter reveal">
-    <div class="stage">
-      <div class="chapter-head">
-        <div class="chapter-number">VI</div>
-        <div class="chapter-title-wrap">
-          <div class="eyebrow">SỔ LƯU BÚT · GUEST BOOK</div>
-          <h2 class="chapter-title">Lời Chúc</h2>
-          <svg class="title-ornament" viewBox="0 0 200 16" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <path d="M5 8 Q 30 2, 65 8"/>
-            <circle cx="65" cy="8" r="1.2"/>
-            <path d="M100 2.5 L 105.5 8 L 100 13.5 L 94.5 8 Z" fill="currentColor" stroke="none"/>
-            <circle cx="135" cy="8" r="1.2"/>
-            <path d="M135 8 Q 170 14, 195 8"/>
-          </svg>
-        </div>
-        <div class="chapter-meta">
-          <div class="folio">FOLIO 14</div>
-          <div class="folio">— WISHES —</div>
-        </div>
+    <!-- ===========================================================
+         WISHES (Sổ Lưu Bút)
+         =========================================================== -->
+    <section class="wishes">
+      <div class="wrap-narrow wishes-head reveal">
+        <h2 class="display">Gửi đôi mình một lời chúc.</h2>
+        <p>Mỗi lời chúc của bạn là một bông hoa nhỏ chúng tôi sẽ giữ mãi trong cuốn sổ kỷ niệm.</p>
       </div>
 
-      <p class="chapter-lead">
-        Gửi đến Thiện Tâm &amp; Kỳ Duyên một lời chúc tốt đẹp cho ngày trọng đại.
-      </p>
-
-      <form class="wishes-form" id="wishesForm" autocomplete="off">
+      <form class="wishes-form reveal" id="wishesForm" autocomplete="off">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px;" />
         <input type="text" name="name" id="wishName" placeholder="Tên của bạn" required maxlength="60" />
-        <textarea name="message" id="wishMessage" placeholder="Lời chúc dành cho cô dâu chú rể..." required maxlength="500"></textarea>
-        <div style="text-align: center; padding-top: 8px;">
-          <button type="submit" class="wishes-submit">GỬI LỜI CHÚC</button>
+        <textarea name="message" id="wishMessage" placeholder="Lời chúc dành cho cô dâu và chú rể..." required maxlength="500"></textarea>
+        <div class="row">
+          <span style="font-family:var(--display); font-style:italic; color:var(--ink-faded); font-size:14px;">Lời chúc sẽ hiện trên trang sau khi gửi.</span>
+          <button type="submit" id="wishSubmit">Gửi lời chúc</button>
         </div>
       </form>
 
       <div class="wishes-list" id="wishesList"></div>
       <div class="wishes-count" id="wishesCount" style="display:none;"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===========================================================
-       EPILOGUE
-       =========================================================== -->
-  <section class="epilogue reveal">
-    <div class="stage">
-      <div class="eyebrow">EPILOGUE · WITH LOVE</div>
-      <div class="closing-title">Hẹn gặp bạn</div>
-      <p class="closing-text">
-        Sự hiện diện của Quý vị và các bạn trong ngày trọng đại của chúng tôi
-        chính là món quà ý nghĩa nhất.<br/>
-        Trân trọng kính mời!
-      </p>
-      <div class="closing-couple">
-        THIỆN TÂM <span class="amp">&amp;</span> KỲ DUYÊN
-      </div>
-      <div class="closing-date">25 · 07 · 2026</div>
-    </div>
-  </section>
+    <!-- ===========================================================
+         EPILOGUE
+         =========================================================== -->
+    <section class="epilogue">
+      <svg class="motif motif-lg epilogue-motif" aria-hidden="true"><use href="#motif-arch"/></svg>
+      <div class="epilogue-eyebrow display">Trân trọng kính mời</div>
+      <div class="epilogue-names">Thiện Tâm</div>
+      <span class="epilogue-and">và</span>
+      <div class="epilogue-names">Kỳ Duyên</div>
+      <div class="epilogue-date">25 . 07 . 2026</div>
+      <p class="epilogue-thanks">Sự hiện diện của quý vị là niềm vinh hạnh và món quà lớn nhất mà chúng tôi nhận được trong ngày trọng đại.</p>
+    </section>
 
-  <!-- ===========================================================
-       COLOPHON
-       =========================================================== -->
-  <footer class="colophon">
-    <div class="colophon-left">FOREVER &amp; ALWAYS</div>
-    <div class="colophon-mark">T &amp; D</div>
-    <div class="colophon-right">MMXXVI · 25 · 07</div>
-  </footer>
+  </main>
+
+  <footer class="footer-tiny">Made with love · Thiện Tâm &amp; Kỳ Duyên · 2026</footer>
 
 <script>
-  // ===== Floating particles =====
-  (function spawnParticles() {
-    const wrap = document.getElementById('particles');
-    const count = 22;
-    for (let i = 0; i < count; i++) {
+  /* =========================================================
+     Wedding logic - vanilla JS (no frameworks, no build)
+     ========================================================= */
+
+  // ===== Envelope opener =====
+  (function envelope() {
+    const overlay = document.getElementById('envelopeOverlay');
+    const card = document.getElementById('envelopeCard');
+    const btn = document.getElementById('envelopeBtn');
+    const petalsHost = document.getElementById('envelopePetals');
+    if (!overlay || !card) return;
+
+    // sprinkle petals inside the envelope
+    if (petalsHost && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (let i = 0; i < 14; i++) {
+        const p = document.createElement('div');
+        p.className = 'envelope-petal';
+        p.style.left = (Math.random() * 100) + '%';
+        p.style.animationDelay = (Math.random() * 7) + 's';
+        p.style.animationDuration = (5 + Math.random() * 4) + 's';
+        p.style.background = i % 3 === 0 ? 'var(--sage-mist)' : 'var(--rose-mist)';
+        petalsHost.appendChild(p);
+      }
+    }
+
+    function open() {
+      overlay.classList.add('open');
+      document.body.style.overflow = '';
+      setTimeout(() => { overlay.style.display = 'none'; }, 900);
+      try {
+        const audio = window.__weddingAudio;
+        if (audio && audio.src && audio.paused) audio.play().catch(() => {});
+      } catch (e) {}
+    }
+
+    document.body.style.overflow = 'hidden';
+    btn && btn.addEventListener('click', open);
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('button')) return;
+      open();
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  })();
+
+  // ===== Petals (page-wide, lightweight) =====
+  (function petals() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const host = document.getElementById('petals');
+    if (!host) return;
+    const COUNT = 14;
+    for (let i = 0; i < COUNT; i++) {
       const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDelay = (Math.random() * 14) + 's';
-      p.style.animationDuration = (10 + Math.random() * 12) + 's';
-      const size = 2 + Math.random() * 4;
-      p.style.width = p.style.height = size + 'px';
-      wrap.appendChild(p);
+      p.className = 'petal';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.top = (-20 - Math.random() * 60) + 'px';
+      p.style.animationDuration = (16 + Math.random() * 18) + 's';
+      p.style.animationDelay = (Math.random() * 18) + 's';
+      const scale = 0.6 + Math.random() * 1.2;
+      p.style.transform = `scale(${scale})`;
+      host.appendChild(p);
     }
   })();
 
-  // ===== Countdown — set the target wedding date when known =====
-  // TODO: thay YYYY-MM-DDTHH:MM:SS bên dưới bằng ngày giờ cưới thật
-  const weddingDate = new Date('2026-07-25T09:00:00+07:00').getTime();
+  // ===== Countdown =====
+  const weddingDate = new Date('2026-07-25T08:00:00+07:00').getTime();
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function updateCountdown() {
     const now = Date.now();
     const diff = weddingDate - now;
     if (diff <= 0) {
-      document.querySelectorAll('.cd-num').forEach(n => n.textContent = '0');
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '00';
+      });
       return;
     }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
-    document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
-    document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = pad(v); };
+    set('cd-days', days);
+    set('cd-hours', hours);
+    set('cd-mins', mins);
+    set('cd-secs', secs);
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ===== Mini calendar — render month of weddingDate, heart on wedding day =====
-  (function renderCalendar(){
+  // ===== Mini calendar for wedding month =====
+  (function calendar() {
     const grid = document.getElementById('cal-grid');
-    const monthEl = document.getElementById('cal-month-name');
+    const monthName = document.getElementById('cal-month-name');
     if (!grid) return;
 
-    const wed = new Date(weddingDate);
-    const year = wed.getFullYear();
-    const month = wed.getMonth();
-    const wedDay = wed.getDate();
+    const target = new Date(weddingDate);
+    const year = target.getFullYear();
+    const month = target.getMonth();
+    const weddingDay = target.getDate();
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
 
-    const heads = ['T2','T3','T4','T5','T6','T7','CN'];
-    const monthsVi = ['Một','Hai','Ba','Tư','Năm','Sáu','Bảy','Tám','Chín','Mười','Mười Một','Mười Hai'];
-    if (monthEl) monthEl.textContent = monthsVi[month] + ' ' + year;
+    const monthNamesVi = ['Một','Hai','Ba','Tư','Năm','Sáu','Bảy','Tám','Chín','Mười','Mười Một','Mười Hai'];
+    if (monthName) monthName.textContent = monthNamesVi[month] + ' ' + year;
 
-    let html = '';
-    heads.forEach(h => { html += '<div class="cal-head">' + h + '</div>'; });
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    // Week starts on Monday (Mon..Sun) for Vietnam convention
+    const dowVi = ['T2','T3','T4','T5','T6','T7','CN'];
+    dowVi.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
 
-    // Mon=0 .. Sun=6
-    const firstDow = (new Date(year, month, 1).getDay() + 6) % 7;
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    for (let i = 0; i < firstDow; i++) html += '<div class="cal-cell empty"></div>';
-
-    for (let d = 1; d <= daysInMonth; d++) {
-      if (d === wedDay) {
-        html += '<div class="cal-cell is-day"><div class="cal-heart"><span>' + d + '</span></div></div>';
-      } else {
-        html += '<div class="cal-cell is-day">' + d + '</div>';
-      }
+    // Compute leading blank cells (Mon-start)
+    let leading = (firstDay.getDay() + 6) % 7;
+    for (let i = 0; i < leading; i++) {
+      const c = document.createElement('div');
+      c.className = 'cal-cell muted';
+      c.textContent = '.';
+      grid.appendChild(c);
     }
-    const remainder = (firstDow + daysInMonth) % 7;
-    if (remainder) {
-      for (let i = remainder; i < 7; i++) html += '<div class="cal-cell empty"></div>';
+    for (let d = 1; d <= lastDay.getDate(); d++) {
+      const c = document.createElement('div');
+      c.className = 'cal-cell';
+      if (d === weddingDay) c.classList.add('wedding');
+      else if (isCurrentMonth && d === today.getDate()) c.classList.add('today');
+      c.textContent = d;
+      grid.appendChild(c);
     }
-    grid.innerHTML = html;
   })();
 
   // ===== Reveal on scroll =====
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // ===== Music toggle (placeholder — add audio src to enable) =====
-  const audio = new Audio();
-  // Optional: gán URL nhạc cưới của bạn, ví dụ một file mp3 trong cùng thư mục
-  // audio.src = 'wedding-song.mp3';
-  audio.loop = true;
-  audio.volume = 0.45;
-  const btn = document.getElementById('musicToggle');
-  btn.addEventListener('click', () => {
-    if (!audio.src) {
-      alert('Để bật nhạc nền: lưu file nhạc (mp3) vào cùng thư mục và bỏ comment dòng audio.src trong code.');
+  (function reveal() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
       return;
     }
-    if (audio.paused) { audio.play(); btn.classList.add('playing'); }
-    else { audio.pause(); btn.classList.remove('playing'); }
-  });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  })();
 
-  // ===== INTRO — Hỷ card gently splits open =====
-  (function envelopeAnimation() {
-    const overlay  = document.getElementById('envelopeOverlay');
-    const envelope = document.getElementById('envelope');
-    if (!overlay || !envelope) return;
+  // ===== Music toggle (placeholder - assign audio.src to enable) =====
+  (function music() {
+    const btn = document.getElementById('musicToggle');
+    if (!btn) return;
+    const audio = new Audio();
+    // To enable: drop an mp3 in this folder and uncomment the next line:
+    // audio.src = 'wedding-song.mp3';
+    audio.loop = true;
+    audio.volume = 0.45;
+    window.__weddingAudio = audio;
 
-    let opened = false;
-    const openEnvelope = () => {
-      if (opened) return;
-      opened = true;
-      envelope.classList.add('opening');
-      setTimeout(() => {
-        overlay.classList.add('hidden');
-        document.body.classList.remove('envelope-active');
-      }, 3000);
-      setTimeout(() => { overlay.remove(); }, 4400);
-      try { if (audio.src && audio.paused) { audio.play().then(() => btn.classList.add('playing')).catch(() => {}); } } catch (e) {}
-    };
-
-    envelope.addEventListener('click', openEnvelope);
-    envelope.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+    btn.addEventListener('click', () => {
+      if (!audio.src) {
+        alert('Để bật nhạc nền: lưu file nhạc (.mp3) vào thư mục web/ rồi bỏ comment dòng audio.src trong code.');
+        return;
+      }
+      if (audio.paused) { audio.play().catch(() => {}); btn.classList.add('playing'); }
+      else { audio.pause(); btn.classList.remove('playing'); }
     });
   })();
 
-  // ===== WISHES / COMMENTS (Cloudflare KV via Pages Function, localStorage fallback) =====
-  (function wishesSystem() {
+  // ===== Wishes (Sổ Lưu Bút) - KV-backed via /api/wishes, localStorage fallback =====
+  (function wishes() {
     const API = '/api/wishes';
     const CACHE_KEY = 'wedding-wishes-cache-v2';
     const form = document.getElementById('wishesForm');
     const list = document.getElementById('wishesList');
     const counter = document.getElementById('wishesCount');
+    const nameInput = document.getElementById('wishName');
+    const msgInput = document.getElementById('wishMessage');
+    const submitBtn = document.getElementById('wishSubmit');
     if (!form || !list) return;
 
-    let useLocalOnly = false;
-    let wishesCache = [];
-
-    const loadLocal = () => {
-      try { return JSON.parse(localStorage.getItem(CACHE_KEY) || '[]'); }
-      catch (e) { return []; }
-    };
-    const saveLocal = (arr) => {
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify(arr)); } catch (e) {}
-    };
-
-    wishesCache = loadLocal();
-
-    const fetchRemote = async () => {
+    const fmtTime = (iso) => {
       try {
-        const res = await fetch(API, { cache: 'no-store' });
-        if (!res.ok) throw new Error('API ' + res.status);
-        const data = await res.json();
-        if (!Array.isArray(data)) throw new Error('Bad response');
-        wishesCache = data;
-        saveLocal(data);
-        useLocalOnly = false;
-        render();
-      } catch (err) {
-        useLocalOnly = true;
-        render();
+        const d = new Date(iso);
+        const opts = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return d.toLocaleString('vi-VN', opts);
+      } catch (e) {
+        return '';
       }
     };
 
-    const postRemote = async (name, message) => {
-      const res = await fetch(API, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ name, message, website: '' }),
-      });
-      if (!res.ok) throw new Error('Post failed');
-      const data = await res.json();
-      if (Array.isArray(data)) { wishesCache = data; saveLocal(data); }
-      return data;
-    };
+    const escapeHtml = (s) => String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
-    const formatTime = (ts) => {
-      const d = new Date(ts);
-      const now = Date.now();
-      const diff = now - ts;
-      const mins = Math.floor(diff / 60000);
-      const hours = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
-      if (mins < 1) return 'VỪA XONG';
-      if (mins < 60) return mins + ' PHÚT TRƯỚC';
-      if (hours < 24) return hours + ' GIỜ TRƯỚC';
-      if (days < 7) return days + ' NGÀY TRƯỚC';
-      const dd = String(d.getDate()).padStart(2,'0');
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      return dd + '.' + mm + '.' + d.getFullYear();
-    };
-
-    const escapeHTML = (s) => s.replace(/[&<>"']/g, (c) => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[c]));
-
-    const STAGE_DURATION = 13000;
-    const STAGE_STAGGER = 2400;
-    let stageQueue = [];
-    let stageIdx = 0;
-    let stageTimer = null;
-
-    const shuffle = (arr) => {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    };
-
-    const spawnWish = () => {
-      if (!stageQueue.length) return;
-      if (stageIdx >= stageQueue.length) {
-        stageQueue = shuffle(stageQueue);
-        stageIdx = 0;
-      }
-      const w = stageQueue[stageIdx++];
-      const card = document.createElement('div');
-      card.className = 'wish-card wish-float';
-      card.innerHTML =
-        '<div class="wish-head">' +
-          '<div class="wish-name">' + escapeHTML(w.name) + '</div>' +
-          '<div class="wish-time">' + formatTime(w.ts) + '</div>' +
-        '</div>' +
-        '<div class="wish-message">' + escapeHTML(w.message).replace(/\n/g, '<br/>') + '</div>';
-      list.appendChild(card);
-      setTimeout(() => card.remove(), STAGE_DURATION + 500);
-    };
-
-    const stopStage = () => {
-      if (stageTimer) clearInterval(stageTimer);
-      stageTimer = null;
-    };
-
-    const startStage = () => {
-      if (stageTimer || !stageQueue.length) return;
-      spawnWish();
-      stageTimer = setInterval(spawnWish, STAGE_STAGGER);
-    };
-
-    const render = () => {
-      const wishes = wishesCache.slice();
-
-      if (!wishes.length) {
-        stopStage();
-        list.classList.add('is-empty');
-        list.innerHTML = '<div class="wishes-empty">Hãy là người đầu tiên gửi lời chúc tới Thiện Tâm &amp; Kỳ Duyên...</div>';
+    function render(items) {
+      list.innerHTML = '';
+      if (!items || !items.length) {
         counter.style.display = 'none';
+        list.innerHTML = '<div style="text-align:center; font-family:var(--display); font-style:italic; color:var(--ink-faded); padding:32px 0;">Chưa có lời chúc nào. Hãy là người đầu tiên ✿</div>';
         return;
       }
-
-      if (list.classList.contains('is-empty')) {
-        list.classList.remove('is-empty');
-        list.innerHTML = '';
-      }
-
-      stageQueue = shuffle(wishes);
-      stageIdx = 0;
-      startStage();
-
+      // newest first
+      const tsOf = (w) => {
+        const v = w.ts != null ? w.ts : (w.t != null ? w.t : (w.time != null ? w.time : 0));
+        return typeof v === 'number' ? v : new Date(v).getTime();
+      };
+      const sorted = items.slice().sort((a, b) => tsOf(b) - tsOf(a));
+      sorted.forEach(w => {
+        const div = document.createElement('div');
+        div.className = 'wish';
+        const name = escapeHtml(w.n || w.name || 'Ẩn danh');
+        const msg = escapeHtml(w.m || w.message || '');
+        const t = fmtTime(tsOf(w));
+        div.innerHTML =
+          '<div class="wish-quote">&ldquo;</div>' +
+          '<div class="wish-name">' + name + '</div>' +
+          (t ? '<div class="wish-time">' + t + '</div>' : '') +
+          '<div class="wish-msg">' + msg + '</div>';
+        list.appendChild(div);
+      });
       counter.style.display = 'block';
-      const suffix = useLocalOnly ? ' (chỉ lưu trên máy bạn)' : '';
-      counter.textContent = '— ' + wishes.length + ' LỜI CHÚC' + suffix + ' —';
-    };
+      counter.textContent = sorted.length + ' lời chúc đã gửi';
+    }
 
-    const submitBtn = form.querySelector('.wishes-submit');
-    const flashBtn = (text, ok = true) => {
-      const original = submitBtn.dataset.original || submitBtn.textContent;
-      submitBtn.dataset.original = original;
-      submitBtn.textContent = text;
-      submitBtn.style.background = ok ? 'var(--rose-deep)' : '#8a3a3a';
-      submitBtn.style.borderColor = ok ? 'var(--rose-deep)' : '#8a3a3a';
-      submitBtn.style.color = 'var(--bone)';
-      setTimeout(() => {
-        submitBtn.textContent = original;
-        submitBtn.style.background = '';
-        submitBtn.style.borderColor = '';
-        submitBtn.style.color = '';
-        submitBtn.disabled = false;
-      }, 1800);
-    };
+    function readCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) { return []; }
+    }
+    function writeCache(arr) {
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(arr)); } catch (e) {}
+    }
+
+    async function load() {
+      try {
+        const res = await fetch(API, { cache: 'no-store' });
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+        const items = Array.isArray(data) ? data : (data && Array.isArray(data.list) ? data.list : []);
+        writeCache(items);
+        render(items);
+      } catch (e) {
+        render(readCache());
+      }
+    }
+
+    async function submit(name, message) {
+      const body = { name, message };
+      try {
+        const res = await fetch(API, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) throw new Error('post failed');
+        return true;
+      } catch (e) {
+        // fallback: write to local cache only
+        const local = readCache();
+        local.push({ name, message, ts: Date.now(), _local: true });
+        writeCache(local);
+        render(local);
+        return false;
+      }
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = form.wishName.value.trim();
-      const message = form.wishMessage.value.trim();
+      // honeypot
+      if (form.website && form.website.value) {
+        nameInput.value = ''; msgInput.value = '';
+        return;
+      }
+      const name = (nameInput.value || '').trim();
+      const message = (msgInput.value || '').trim();
       if (!name || !message) return;
-
       submitBtn.disabled = true;
-      submitBtn.textContent = 'ĐANG GỬI...';
-
-      if (useLocalOnly) {
-        wishesCache.push({ name, message, ts: Date.now() });
-        saveLocal(wishesCache);
-        form.reset();
-        render();
-        flashBtn('✓ ĐÃ LƯU');
-        return;
+      const orig = submitBtn.textContent;
+      submitBtn.textContent = 'Đang gửi...';
+      const ok = await submit(name, message);
+      if (ok) {
+        nameInput.value = '';
+        msgInput.value = '';
+        await load();
       }
-
-      try {
-        await postRemote(name, message);
-        form.reset();
-        render();
-        flashBtn('✓ ĐÃ GỬI');
-      } catch (err) {
-        wishesCache.push({ name, message, ts: Date.now() });
-        saveLocal(wishesCache);
-        form.reset();
-        render();
-        flashBtn('⚠ LƯU TẠM', false);
-      }
+      submitBtn.disabled = false;
+      submitBtn.textContent = orig;
     });
 
-    render();
-    fetchRemote();
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopStage();
-        return;
-      }
-      if (!useLocalOnly) fetchRemote();
-      else if (stageQueue.length) startStage();
-    });
+    load();
   })();
-
-  // ===== jQuery — đặc sắc hover effects =====
-  if (window.jQuery) (function($) {
-    $(function() {
-      // 1) Wedding card — gentle parallax following the cursor (subtle, not aggressive)
-      const $envelope = $('#envelope');
-      const $wcard    = $envelope.find('.wcard');
-
-      $envelope.on('mousemove.tilt', function(e) {
-        if ($envelope.hasClass('opening')) return;
-        const rect = this.getBoundingClientRect();
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const dx = (e.clientX - rect.left - cx) / cx;
-        const dy = (e.clientY - rect.top  - cy) / cy;
-        $wcard.css({
-          'transform':  'translateY(-4px) translate(' + (dx * 6) + 'px, ' + (dy * 4) + 'px)',
-          'transition': 'transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1)'
-        });
-      }).on('mouseleave.tilt', function() {
-        $wcard.css({
-          'transform':  '',
-          'transition': 'transform 0.9s cubic-bezier(0.2, 0.8, 0.3, 1)'
-        });
-      });
-
-      // 2) Magnetic buttons — slight pull toward cursor
-      $('.wishes-submit, .event-cta').each(function() {
-        const $btn = $(this);
-        $btn.on('mousemove.mag', function(e) {
-          const r = this.getBoundingClientRect();
-          const mx = (e.clientX - r.left - r.width / 2) * 0.28;
-          const my = (e.clientY - r.top  - r.height / 2) * 0.28;
-          $btn.css({
-            'transform':  'translate(' + mx + 'px, ' + my + 'px)',
-            'transition': 'transform 0.12s ease-out'
-          });
-        }).on('mouseleave.mag', function() {
-          $btn.css({
-            'transform':  '',
-            'transition': 'transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1)'
-          });
-        });
-      });
-
-      // 3) Couple photos — 3D tilt with parallax depth
-      $('.couple-photo').each(function() {
-        const $el = $(this);
-        $el.on('mousemove.tilt', function(e) {
-          const r = this.getBoundingClientRect();
-          const cx = r.width / 2, cy = r.height / 2;
-          const dx = (e.clientX - r.left - cx) / cx;
-          const dy = (e.clientY - r.top  - cy) / cy;
-          $el.css({
-            'transform':  'perspective(1200px) rotateX(' + (-dy * 5) + 'deg) rotateY(' + (dx * 5) + 'deg) translateZ(10px)',
-            'transition': 'transform 0.1s ease-out'
-          });
-        }).on('mouseleave.tilt', function() {
-          $el.css({
-            'transform':  '',
-            'transition': 'transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1)'
-          });
-        });
-      });
-
-      // 4) Gallery mosaic — 3D tilt
-      $('.gm-item').each(function() {
-        const $el = $(this);
-        $el.on('mousemove.tilt', function(e) {
-          const r = this.getBoundingClientRect();
-          const cx = r.width / 2, cy = r.height / 2;
-          const dx = (e.clientX - r.left - cx) / cx;
-          const dy = (e.clientY - r.top  - cy) / cy;
-          $el.css({
-            'transform':  'perspective(1000px) rotateX(' + (-dy * 6) + 'deg) rotateY(' + (dx * 6) + 'deg) translateZ(6px) scale(1.02)',
-            'transition': 'transform 0.12s ease-out'
-          });
-        }).on('mouseleave.tilt', function() {
-          $el.css({
-            'transform':  '',
-            'transition': 'transform 0.55s cubic-bezier(0.2, 0.8, 0.3, 1)'
-          });
-        });
-      });
-
-      // 5) Music toggle — spin on hover
-      $('#musicToggle').on('mouseenter.spin', function() {
-        $(this).css({
-          'transform':  'scale(1.08) rotate(180deg)',
-          'transition': 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
-        });
-      }).on('mouseleave.spin', function() {
-        $(this).css({
-          'transform':  '',
-          'transition': 'transform 0.4s ease'
-        });
-      });
-
-      // 6) Section title ornaments — gentle drift when in view
-      $('.title-ornament').each(function() {
-        const $el = $(this);
-        $el.parent().on('mouseenter.orn', function() {
-          $el.css({
-            'transform':  'translateY(-3px) scale(1.04)',
-            'transition': 'transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1)'
-          });
-        }).on('mouseleave.orn', function() {
-          $el.css({ 'transform': '' });
-        });
-      });
-    });
-  })(window.jQuery);
 
   // ===== RSVP (Google Apps Script endpoint, honeypot) =====
   (function rsvpSystem() {
     const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyheMK5SrJGw99_rxeE73nq0JR9Zj0ZF5JMDw73zXn_9CoFw7Ee0LY8i_bwLIVbIkjc/exec';
-
     const form = document.getElementById('rsvpForm');
     const thanks = document.getElementById('rsvpThanks');
     if (!form || !thanks) return;
-
     const btn = form.querySelector('button[type=submit]');
-    const originalText = btn.textContent;
+    const original = btn.textContent;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      if (form.website.value) {
+      // honeypot
+      if (form.website && form.website.value) {
         form.style.display = 'none';
         thanks.style.display = 'block';
         return;
       }
-
       const name = form.name.value.trim();
       const side = (form.querySelector('input[name=side]:checked') || {}).value;
       const guests = form.guests.value || '1';
-
       if (!name || !side) return;
 
       btn.disabled = true;
-      btn.textContent = 'ĐANG GỬI...';
-
+      btn.textContent = 'Đang gửi...';
       try {
         await fetch(RSVP_ENDPOINT, {
           method: 'POST',
@@ -2485,16 +1685,8 @@
         thanks.style.display = 'block';
       } catch (err) {
         btn.disabled = false;
-        btn.textContent = 'THỬ LẠI';
-        btn.style.background = '#8a3a3a';
-        btn.style.borderColor = '#8a3a3a';
-        btn.style.color = 'var(--bone)';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.style.borderColor = '';
-          btn.style.color = '';
-        }, 2400);
+        btn.textContent = 'Thử lại';
+        setTimeout(() => { btn.textContent = original; }, 2400);
       }
     });
   })();
