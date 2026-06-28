@@ -285,11 +285,63 @@
   .motif-rose { color: var(--rose); opacity: 0.7; }
 
   /* ----------------------------------------------------------
+     MASTHEAD (Hai gia đình) - sits above the hero
+  ---------------------------------------------------------- */
+  .hero-masthead {
+    padding: 40px 0 28px;
+    border-bottom: 1px solid var(--line);
+    background: var(--cream);
+  }
+  .masthead-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .masthead-family { text-align: center; }
+  .masthead-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--sage-deep);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+  .masthead-parents {
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .masthead-place {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .masthead-motif { width: 160px; color: var(--sage); opacity: 0.8; }
+
+  @media (max-width: 720px) {
+    .hero-masthead { padding: 28px 0 22px; }
+    .masthead-inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      text-align: center;
+    }
+    .masthead-motif { width: 120px; justify-self: center; }
+    .masthead-family + .masthead-family { padding-top: 20px; border-top: 1px solid var(--line); }
+  }
+
+  /* ----------------------------------------------------------
      HERO (Section 1 - opening)
   ---------------------------------------------------------- */
   .hero {
-    min-height: 100dvh;
-    padding-top: 72px;
+    min-height: calc(100dvh - 220px);
+    padding-top: 56px;
     padding-bottom: 64px;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -333,19 +385,48 @@
     .hero-name + .hero-name { margin-left: 8vw; }
   }
 
-  .hero-date-row {
+  .hero-dates {
     display: flex;
-    align-items: center;
-    gap: 18px;
+    align-items: stretch;
+    gap: 28px;
     margin-top: 38px;
-    font-family: var(--body);
-    color: var(--ink-soft);
-    font-size: 14px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    flex-wrap: wrap;
   }
-  .hero-date-row .num { font-family: var(--display); font-style: italic; font-size: clamp(20px, 2.5vw, 26px); color: var(--ink); letter-spacing: 0; text-transform: none; }
-  .hero-date-row .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rose); display: inline-block; }
+  .hero-date-item { display: grid; gap: 4px; }
+  .hero-date-label {
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .hero-date-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(22px, 2.6vw, 28px);
+    color: var(--ink);
+    line-height: 1.1;
+    padding-bottom: 2px;
+  }
+  .hero-date-sub {
+    font-family: var(--body);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .hero-dates-sep {
+    width: 1px;
+    background: var(--line-strong);
+    align-self: stretch;
+  }
+  @media (max-width: 520px) {
+    .hero-dates { gap: 18px; }
+    .hero-dates-sep { display: none; }
+    .hero-date-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .hero-date-item:last-child { border-bottom: none; }
+  }
 
   .hero-blessing { font-family: var(--display); font-style: italic; font-size: 18px; color: var(--ink-soft); margin-top: 28px; max-width: 38ch; line-height: 1.55; padding-bottom: 4px; }
 
@@ -621,6 +702,244 @@
   .event-cta:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
   .event-cta svg { width: 14px; height: 14px; }
 
+  /* Per-event clock (countdown + mini calendar) */
+  .event-clock {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.25s var(--ease);
+    max-width: 320px;
+    width: 100%;
+  }
+
+  /* Fully transparent overlay: just an outlined frame, no blur, photo is fully visible underneath */
+  .event-clock-overlay {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    max-width: none;
+    width: auto;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 10px 28px rgba(20, 20, 18, 0.25);
+    padding: 14px 16px;
+  }
+  .event-clock-overlay .ec-unit {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+  }
+  /* Strong multi-layer text-shadow for legibility against any photo tone */
+  .event-clock-overlay .ec-num,
+  .event-clock-overlay .ec-cal-month {
+    color: var(--paper);
+    text-shadow:
+      0 1px 2px rgba(0,0,0,0.6),
+      0 0 6px rgba(0,0,0,0.35);
+  }
+  .event-clock-overlay .ec-label,
+  .event-clock-overlay .ec-cal-label,
+  .event-clock-overlay .ec-dow,
+  .event-clock-overlay .ec-cell,
+  .event-clock-overlay .event-clock-expand {
+    color: rgba(251, 248, 241, 0.92);
+    text-shadow:
+      0 1px 2px rgba(0,0,0,0.7),
+      0 0 4px rgba(0,0,0,0.4);
+  }
+  .event-clock-overlay .ec-cell.today {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: var(--paper);
+  }
+  .event-clock-overlay .ec-cell.wedding {
+    background: var(--rose);
+    color: var(--paper);
+    text-shadow: none;
+    box-shadow: 0 2px 8px rgba(201, 122, 110, 0.4);
+  }
+  .event-clock-overlay:hover { border-color: rgba(255, 255, 255, 0.9); }
+
+  @media (max-width: 640px) {
+    .event-clock-overlay {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 12px;
+    }
+  }
+  .event-clock:hover { border-color: var(--rose); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(94, 107, 81, 0.12); }
+  .event-clock:focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 3px; }
+
+  .event-clock-cd {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+  .ec-unit {
+    background: var(--paper-warm);
+    border-radius: var(--r-sm);
+    padding: 5px 3px 4px;
+    text-align: center;
+    display: grid;
+    gap: 1px;
+  }
+  .ec-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--sage-deep);
+    line-height: 1;
+  }
+  .ec-label {
+    font-family: var(--body);
+    font-size: 7px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+
+  .event-clock-cal { position: relative; }
+  .ec-cal-head {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .ec-cal-label { font-family: var(--body); font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
+  .ec-cal-month { font-family: var(--display); font-style: italic; font-size: 12px; color: var(--ink); font-weight: 500; }
+  .ec-cal-motif { display: none; }
+
+  .ec-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+  }
+  .ec-dow { text-align: center; font-family: var(--body); font-size: 7px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; padding: 1px 0; }
+  .ec-cell {
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    border-radius: 2px;
+    font-family: var(--body);
+    font-size: 8px;
+    color: var(--ink-soft);
+    position: relative;
+  }
+  .ec-cell.muted { color: transparent; }
+  .ec-cell.today { background: var(--sage-mist); color: var(--sage-deep); }
+  .ec-cell.wedding {
+    background: var(--rose);
+    color: var(--paper);
+    font-weight: 600;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 9px;
+    box-shadow: 0 2px 6px rgba(201, 122, 110, 0.28);
+  }
+
+  .event-clock-expand {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-family: var(--body);
+    font-size: 7px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .event-clock-expand svg { width: 8px; height: 8px; }
+
+  /* ===== Clock modal (large view) ===== */
+  .clock-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(44, 42, 36, 0.55);
+    display: grid;
+    place-items: center;
+    padding: 28px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .clock-modal.open { opacity: 1; visibility: visible; }
+  .clock-modal-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 40px 32px 32px;
+    width: min(460px, 100%);
+    box-shadow: 0 24px 60px rgba(44, 42, 36, 0.35);
+    position: relative;
+    transform: translateY(20px) scale(0.96);
+    transition: transform 0.4s var(--ease);
+  }
+  .clock-modal.open .clock-modal-card { transform: none; }
+
+  .clock-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--paper-warm);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    color: var(--ink-soft);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .clock-modal-close:hover { color: var(--rose-deep); border-color: var(--rose); }
+  .clock-modal-close svg { width: 14px; height: 14px; }
+
+  .clock-modal-title { font-family: var(--display); font-style: italic; font-size: 24px; color: var(--ink); margin-bottom: 4px; padding-bottom: 4px; }
+  .clock-modal-sub { font-family: var(--body); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 20px; }
+
+  /* Large clock inside modal */
+  .clock-modal .event-clock {
+    cursor: default;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    gap: 22px;
+  }
+  .clock-modal .event-clock:hover { transform: none; border: none; box-shadow: none; }
+  .clock-modal .event-clock-cd { gap: 10px; }
+  .clock-modal .ec-unit { padding: 16px 8px 12px; background: var(--paper-warm); border-radius: var(--r-md); }
+  .clock-modal .ec-num { font-size: clamp(30px, 5vw, 40px); }
+  .clock-modal .ec-label { font-size: 10px; letter-spacing: 0.28em; }
+  .clock-modal .ec-cal-head { margin-bottom: 12px; }
+  .clock-modal .ec-cal-label { font-size: 11px; letter-spacing: 0.28em; }
+  .clock-modal .ec-cal-month { font-size: 22px; }
+  .clock-modal .ec-cal-motif { display: block; position: absolute; top: -18px; right: -12px; width: 80px; opacity: 0.6; transform: rotate(14deg); }
+  .clock-modal .ec-cal-grid { gap: 4px; }
+  .clock-modal .ec-dow { font-size: 10px; letter-spacing: 0.18em; padding: 6px 0; }
+  .clock-modal .ec-cell { font-size: 13px; border-radius: var(--r-sm); }
+  .clock-modal .ec-cell.wedding { font-size: 16px; box-shadow: 0 6px 18px rgba(201, 122, 110, 0.32); }
+  .clock-modal .event-clock-expand { display: none; }
+
   /* ----------------------------------------------------------
      GALLERY (bento with real photos)
   ---------------------------------------------------------- */
@@ -632,43 +951,171 @@
   .gallery-head h2 { font-style: italic; font-size: clamp(38px, 5vw, 60px); padding-bottom: 6px; }
   .gallery-head p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 18px; max-width: 40ch; }
 
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: 140px;
-    gap: 14px;
+  /* Main featured image */
+  .gallery-main { margin-bottom: 28px; }
+  .gm-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: none;
+    padding: 0;
+    background: var(--paper-warm);
+    box-shadow: var(--shadow-lift);
+    cursor: zoom-in;
   }
-  .gallery-cell { border-radius: var(--r-md); overflow: hidden; background: var(--paper-warm); position: relative; }
-  .gallery-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .gallery-cell:hover img { transform: scale(1.05); }
-  .gallery-cell::after {
+  .gm-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s var(--ease), transform 1s var(--ease);
+  }
+  .gm-frame:hover img { transform: scale(1.02); }
+  .gm-frame:focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 4px; }
+  .gm-frame.swapping img { opacity: 0; }
+  .gm-caption {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    background: rgba(20, 20, 18, 0.45);
+    color: var(--paper);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  @media (max-width: 640px) {
+    .gm-frame { aspect-ratio: 4 / 3; }
+    .gm-caption { bottom: 12px; right: 12px; font-size: 12px; padding: 5px 10px; }
+  }
+
+  /* Thumbnail strip */
+  .gallery-slider { position: relative; }
+  .gs-track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-padding: 24px;
+    padding: 8px 32px 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .gs-track::-webkit-scrollbar { display: none; }
+  .gs-slide {
+    flex: 0 0 auto;
+    width: clamp(80px, 11vw, 110px);
+    aspect-ratio: 3 / 4;
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    background: var(--paper-warm);
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), opacity 0.3s var(--ease);
+    opacity: 0.72;
+  }
+  .gs-slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); display: block; }
+  .gs-slide:hover { opacity: 1; transform: translateY(-2px); }
+  .gs-slide:hover img { transform: scale(1.05); }
+  .gs-slide:focus-visible { outline: 2px solid var(--sage-deep); outline-offset: 3px; }
+  .gs-slide.active {
+    border-color: var(--rose);
+    opacity: 1;
+    box-shadow: 0 6px 18px rgba(201, 122, 110, 0.22);
+  }
+  .gs-slide.active::after {
     content: '';
     position: absolute;
-    inset: 0;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: inherit;
-    pointer-events: none;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 2px;
+    background: var(--rose);
+    border-radius: 2px;
+  }
+  .gs-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--sage-deep);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    z-index: 4;
+    box-shadow: var(--shadow-soft);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .gs-nav:hover { color: var(--rose-deep); border-color: var(--rose); }
+  .gs-nav svg { width: 18px; height: 18px; }
+  .gs-prev { left: 6px; }
+  .gs-next { right: 6px; }
+  @media (max-width: 640px) {
+    .gs-nav { display: none; }
+    .gs-track { padding: 12px 16px 22px; }
   }
 
-  /* Bento layout: 9 cells, distinct sizes */
-  .gc-1 { grid-column: span 3; grid-row: span 3; }
-  .gc-2 { grid-column: span 3; grid-row: span 2; }
-  .gc-3 { grid-column: span 2; grid-row: span 2; }
-  .gc-4 { grid-column: span 2; grid-row: span 2; }
-  .gc-5 { grid-column: span 2; grid-row: span 3; }
-  .gc-6 { grid-column: span 2; grid-row: span 2; }
-  .gc-7 { grid-column: span 4; grid-row: span 2; }
-  .gc-8 { grid-column: span 3; grid-row: span 2; }
-  .gc-9 { grid-column: span 3; grid-row: span 2; }
-
-  @media (max-width: 767px) {
-    .gallery-grid {
-      grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 130px;
-      gap: 10px;
-    }
-    .gc-1 { grid-column: span 2; grid-row: span 3; }
-    .gc-2, .gc-3, .gc-4, .gc-5, .gc-6, .gc-7, .gc-8, .gc-9 { grid-column: span 1; grid-row: span 2; }
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 180;
+    background: rgba(20, 20, 18, 0.92);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+    padding: 24px;
+  }
+  .lightbox.open { opacity: 1; visibility: visible; }
+  .lb-figure { margin: 0; max-width: 100%; max-height: 100%; display: grid; gap: 10px; justify-items: center; transform: scale(0.96); transition: transform 0.4s var(--ease); }
+  .lightbox.open .lb-figure { transform: scale(1); }
+  .lb-img {
+    max-width: 92vw;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: var(--r-md);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .lb-caption { font-family: var(--display); font-style: italic; color: rgba(251, 248, 241, 0.78); font-size: 14px; letter-spacing: 0.18em; }
+  .lb-btn {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.05);
+    color: var(--paper);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .lb-btn:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.7); }
+  .lb-btn svg { width: 20px; height: 20px; }
+  .lb-close { top: 24px; right: 24px; }
+  .lb-prev { top: 50%; left: 24px; transform: translateY(-50%); }
+  .lb-next { top: 50%; right: 24px; transform: translateY(-50%); }
+  @media (max-width: 640px) {
+    .lb-close { top: 16px; right: 16px; width: 40px; height: 40px; }
+    .lb-prev { left: 12px; width: 40px; height: 40px; }
+    .lb-next { right: 12px; width: 40px; height: 40px; }
   }
 
   /* ----------------------------------------------------------
@@ -1009,6 +1456,33 @@
   <main>
 
     <!-- ===========================================================
+         MASTHEAD (Hai gia đình)
+         =========================================================== -->
+    <div class="hero-masthead reveal">
+      <div class="wrap-wide masthead-inner">
+        <div class="masthead-family">
+          <div class="masthead-label">Nhà gái</div>
+          <div class="masthead-parents">
+            Ông Phan Văn Mẫu Anh<br/>
+            Bà Lê Hồng Tiền
+          </div>
+          <div class="masthead-place">Thoại Sơn, An Giang</div>
+        </div>
+
+        <svg class="motif masthead-motif" aria-hidden="true"><use href="#motif-divider"/></svg>
+
+        <div class="masthead-family">
+          <div class="masthead-label">Nhà trai</div>
+          <div class="masthead-parents">
+            Ông Phạm Hữu Hùng<br/>
+            Bà Đinh Thị Hạnh
+          </div>
+          <div class="masthead-place">An Nhơn Đông, Gia Lai</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===========================================================
          HERO
          =========================================================== -->
     <section class="hero">
@@ -1022,12 +1496,18 @@
           <span class="hero-and">và</span>
           <h1 class="hero-name">Kỳ Duyên</h1>
 
-          <div class="hero-date-row">
-            <span class="num">25</span>
-            <span class="dot"></span>
-            <span>Bảy</span>
-            <span class="dot"></span>
-            <span class="num">2026</span>
+          <div class="hero-dates">
+            <div class="hero-date-item">
+              <div class="hero-date-label">Lễ Vu Quy</div>
+              <div class="hero-date-num">25 . 07 . 2026</div>
+              <div class="hero-date-sub">Thứ Bảy · 08:00</div>
+            </div>
+            <div class="hero-dates-sep" aria-hidden="true"></div>
+            <div class="hero-date-item">
+              <div class="hero-date-label">Tiệc Tân Hôn</div>
+              <div class="hero-date-num">02 . 08 . 2026</div>
+              <div class="hero-date-sub">Chủ Nhật · 11:00</div>
+            </div>
           </div>
 
           <p class="hero-blessing">
@@ -1044,46 +1524,12 @@
         </div>
       </div>
 
-      <div class="wrap hero-foot reveal">
-        <span>Thoại Sơn · An Giang</span>
-        <a href="#thu-moi" class="hero-foot-cta">Lướt xuống xem thiệp</a>
-        <span>An Nhơn Đông · Gia Lai</span>
-      </div>
-    </section>
-
-    <!-- ===========================================================
-         COUNTDOWN + CALENDAR
-         =========================================================== -->
-    <section class="interlude" id="thu-moi">
-      <div class="wrap interlude-inner reveal">
-        <div class="interlude-head">
-          <span class="small-cap">Thời khắc</span>
-          <h2>Đếm từng ngày, đợi mùa hè 2026.</h2>
-          <p>Một buổi sáng tháng Bảy, dưới giàn hoa, hai gia đình sẽ chính thức gặp gỡ và trao lời chúc phúc.</p>
-
-          <div class="countdown-grid" id="countdown" aria-live="polite">
-            <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Ngày</div></div>
-            <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Giờ</div></div>
-            <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Phút</div></div>
-            <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Giây</div></div>
-          </div>
-        </div>
-
-        <div class="calendar" aria-label="Lịch tháng Bảy 2026">
-          <svg class="motif motif-sm cal-corner" aria-hidden="true"><use href="#motif-rose"/></svg>
-          <div class="cal-month">
-            <span class="label">Tháng</span>
-            <b id="cal-month-name">Bảy 2026</b>
-          </div>
-          <div class="cal-grid" id="cal-grid"></div>
-        </div>
-      </div>
     </section>
 
     <!-- ===========================================================
          COUPLE
          =========================================================== -->
-    <section class="couple">
+    <section class="couple" id="thu-moi">
       <div class="wrap-narrow couple-head reveal">
         <h2 class="display">Câu chuyện của chúng tôi.</h2>
         <svg class="motif motif-md" aria-hidden="true"><use href="#motif-divider"/></svg>
@@ -1092,7 +1538,7 @@
       <div class="wrap couple-grid reveal">
         <div class="couple-card">
           <div class="couple-photo">
-            <img src="images/LAT06410.jpg" alt="Chú rể Thiện Tâm" loading="lazy" />
+            <img src="images/PLT08330.jpg" alt="Chú rể Thiện Tâm" loading="lazy" />
           </div>
           <div class="couple-role">Chú rể</div>
           <div class="couple-name">Thiện Tâm</div>
@@ -1103,7 +1549,7 @@
 
         <div class="couple-card">
           <div class="couple-photo">
-            <img src="images/LAT07605.jpg" alt="Cô dâu Kỳ Duyên" loading="lazy" />
+            <img src="images/LAT05934.jpg" alt="Cô dâu Kỳ Duyên" loading="lazy" />
           </div>
           <div class="couple-role">Cô dâu</div>
           <div class="couple-name">Kỳ Duyên</div>
@@ -1119,6 +1565,25 @@
       <div class="wrap event-grid reveal">
         <div class="event-photo">
           <img src="images/LAT07668.jpg" alt="Lễ Vu Quy" loading="lazy" />
+          <div class="event-clock event-clock-overlay" data-target="2026-07-25T08:00:00+07:00" data-month="6" data-year="2026" data-highlight="25" data-title="Lễ Vu Quy" data-sub="25 . 07 . 2026 · 08:00" role="button" tabindex="0" aria-label="Xem lớn đếm ngược và lịch Lễ Vu Quy">
+            <span class="event-clock-expand" aria-hidden="true">
+              Xem lớn
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            </span>
+            <div class="event-clock-cd" aria-live="polite">
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Ngày</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giờ</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Phút</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giây</span></div>
+            </div>
+            <div class="event-clock-cal">
+              <div class="ec-cal-head">
+                <span class="ec-cal-label">Tháng</span>
+                <b class="ec-cal-month">Bảy 2026</b>
+              </div>
+              <div class="ec-cal-grid"></div>
+            </div>
+          </div>
         </div>
 
         <div class="event-body">
@@ -1175,6 +1640,25 @@
       <div class="wrap event-grid reverse reveal">
         <div class="event-photo">
           <img src="images/LAT07812.jpg" alt="Tiệc Tân Hôn" loading="lazy" />
+          <div class="event-clock event-clock-overlay" data-target="2026-08-02T11:00:00+07:00" data-month="7" data-year="2026" data-highlight="2" data-title="Tiệc Tân Hôn" data-sub="02 . 08 . 2026 · 11:00" role="button" tabindex="0" aria-label="Xem lớn đếm ngược và lịch Tiệc Tân Hôn">
+            <span class="event-clock-expand" aria-hidden="true">
+              Xem lớn
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            </span>
+            <div class="event-clock-cd" aria-live="polite">
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Ngày</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giờ</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Phút</span></div>
+              <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giây</span></div>
+            </div>
+            <div class="event-clock-cal">
+              <div class="ec-cal-head">
+                <span class="ec-cal-label">Tháng</span>
+                <b class="ec-cal-month">Tám 2026</b>
+              </div>
+              <div class="ec-cal-grid"></div>
+            </div>
+          </div>
         </div>
 
         <div class="event-body">
@@ -1201,9 +1685,8 @@
             <div class="event-row">
               <div class="event-row-label">Địa điểm</div>
               <div class="event-row-value">
-                <strong>Tư gia nhà trai</strong>
-                <span class="small">368 Thanh Liêm, Nhơn A,<br/>TX. An Nhơn, Bình Định (cũ)</span>
-                <em>Địa danh mới: Khu phố Thanh Liêm, P. An Nhơn Đông, T. Gia Lai</em>
+                <strong>Nhà hàng tiệc cưới Hoàng Yến</strong>
+                <span class="small">Đập Đá, An Nhơn, Gia Lai</span>
               </div>
             </div>
             <div class="event-row">
@@ -1234,16 +1717,31 @@
         <p>Vài khung hình chúng tôi ghi lại trong những buổi chiều cuối hè, giữa một khu vườn nhỏ ở quê nhà.</p>
       </div>
 
-      <div class="wrap-wide gallery-grid reveal">
-        <div class="gallery-cell gc-1"><img src="images/LAT06447.jpg" alt="Khoảnh khắc 1" loading="lazy" /></div>
-        <div class="gallery-cell gc-2"><img src="images/LAT06688.jpg" alt="Khoảnh khắc 2" loading="lazy" /></div>
-        <div class="gallery-cell gc-3"><img src="images/LAT06696.jpg" alt="Khoảnh khắc 3" loading="lazy" /></div>
-        <div class="gallery-cell gc-4"><img src="images/LAT06909.jpg" alt="Khoảnh khắc 4" loading="lazy" /></div>
-        <div class="gallery-cell gc-5"><img src="images/LAT07711.jpg" alt="Khoảnh khắc 5" loading="lazy" /></div>
-        <div class="gallery-cell gc-6"><img src="images/LAT08060.jpg" alt="Khoảnh khắc 6" loading="lazy" /></div>
-        <div class="gallery-cell gc-7"><img src="images/LAT08258.jpg" alt="Khoảnh khắc 7" loading="lazy" /></div>
-        <div class="gallery-cell gc-8"><img src="images/PLT08078.jpg" alt="Khoảnh khắc 8" loading="lazy" /></div>
-        <div class="gallery-cell gc-9"><img src="images/PLT08330.jpg" alt="Khoảnh khắc 9" loading="lazy" /></div>
+      <div class="wrap-narrow gallery-main reveal" id="galleryMain">
+        <button class="gm-frame" type="button" id="galleryMainBtn" aria-label="Mở ảnh lớn">
+          <img id="galleryMainImg" src="images/LAT06447.jpg" alt="Khoảnh khắc 1" />
+          <span class="gm-caption" id="galleryMainCaption">1 / 9</span>
+        </button>
+      </div>
+
+      <div class="gallery-slider reveal" id="gallerySlider" aria-label="Chọn ảnh">
+        <div class="gs-track">
+          <button class="gs-slide active" type="button" data-i="0" aria-label="Chọn ảnh 1"><img src="images/LAT06447.jpg" alt="Khoảnh khắc 1" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="1" aria-label="Chọn ảnh 2"><img src="images/LAT06688.jpg" alt="Khoảnh khắc 2" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="2" aria-label="Chọn ảnh 3"><img src="images/LAT06696.jpg" alt="Khoảnh khắc 3" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="3" aria-label="Chọn ảnh 4"><img src="images/LAT06909.jpg" alt="Khoảnh khắc 4" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="4" aria-label="Chọn ảnh 5"><img src="images/LAT07711.jpg" alt="Khoảnh khắc 5" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="5" aria-label="Chọn ảnh 6"><img src="images/LAT08060.jpg" alt="Khoảnh khắc 6" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="6" aria-label="Chọn ảnh 7"><img src="images/LAT08258.jpg" alt="Khoảnh khắc 7" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="7" aria-label="Chọn ảnh 8"><img src="images/PLT08078.jpg" alt="Khoảnh khắc 8" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="8" aria-label="Chọn ảnh 9"><img src="images/LAT06410.jpg" alt="Khoảnh khắc 9" loading="lazy" /></button>
+        </div>
+        <button class="gs-nav gs-prev" type="button" aria-label="Cuộn về trước">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="gs-nav gs-next" type="button" aria-label="Cuộn về sau">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
       </div>
     </section>
 
@@ -1345,6 +1843,37 @@
 
   </main>
 
+  <!-- Lightbox for gallery -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-btn lb-close" type="button" id="lbClose" aria-label="Đóng">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+    <button class="lb-btn lb-prev" type="button" id="lbPrev" aria-label="Ảnh trước">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lb-btn lb-next" type="button" id="lbNext" aria-label="Ảnh sau">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <figure class="lb-figure">
+      <img class="lb-img" id="lbImg" alt="" />
+      <figcaption class="lb-caption" id="lbCaption"></figcaption>
+    </figure>
+  </div>
+
+  <!-- Clock modal (populated on demand) -->
+  <div class="clock-modal" id="clockModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="clock-modal-card">
+      <button class="clock-modal-close" type="button" id="clockModalClose" aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18"/><path d="M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="clock-modal-sub" id="clockModalSub"></div>
+      <h3 class="clock-modal-title" id="clockModalTitle"></h3>
+      <div id="clockModalBody"></div>
+    </div>
+  </div>
+
   <footer class="footer-tiny">Made with love · Thiện Tâm &amp; Kỳ Duyên · 2026</footer>
 
 <script>
@@ -1413,75 +1942,236 @@
     }
   })();
 
-  // ===== Countdown =====
-  const weddingDate = new Date('2026-07-25T08:00:00+07:00').getTime();
-  function pad(n) { return n < 10 ? '0' + n : '' + n; }
-  function updateCountdown() {
-    const now = Date.now();
-    const diff = weddingDate - now;
-    if (diff <= 0) {
-      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = '00';
-      });
-      return;
-    }
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins = Math.floor((diff % 3600000) / 60000);
-    const secs = Math.floor((diff % 60000) / 1000);
-    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = pad(v); };
-    set('cd-days', days);
-    set('cd-hours', hours);
-    set('cd-mins', mins);
-    set('cd-secs', secs);
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // ===== Mini calendar for wedding month =====
-  (function calendar() {
-    const grid = document.getElementById('cal-grid');
-    const monthName = document.getElementById('cal-month-name');
-    if (!grid) return;
-
-    const target = new Date(weddingDate);
-    const year = target.getFullYear();
-    const month = target.getMonth();
-    const weddingDay = target.getDate();
-    const today = new Date();
-    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-
+  // ===== Per-event clock (countdown + mini calendar) + modal expand =====
+  (function eventClocks() {
+    const pad = (n) => (n < 10 ? '0' + n : '' + n);
     const monthNamesVi = ['Một','Hai','Ba','Tư','Năm','Sáu','Bảy','Tám','Chín','Mười','Mười Một','Mười Hai'];
-    if (monthName) monthName.textContent = monthNamesVi[month] + ' ' + year;
-
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    // Week starts on Monday (Mon..Sun) for Vietnam convention
     const dowVi = ['T2','T3','T4','T5','T6','T7','CN'];
-    dowVi.forEach(d => {
-      const el = document.createElement('div');
-      el.className = 'cal-dow';
-      el.textContent = d;
-      grid.appendChild(el);
+
+    function startCountdown(host, targetMs) {
+      const nums = host.querySelectorAll('.ec-num');
+      function tick() {
+        const diff = targetMs - Date.now();
+        if (diff <= 0) { nums.forEach(n => n.textContent = '00'); return false; }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        [d, h, m, s].forEach((v, i) => { if (nums[i]) nums[i].textContent = pad(v); });
+        return true;
+      }
+      tick();
+      return setInterval(tick, 1000);
+    }
+
+    function paintCalendar(host, year, month, highlight) {
+      const grid = host.querySelector('.ec-cal-grid');
+      const monthEl = host.querySelector('.ec-cal-month');
+      if (!grid) return;
+      if (monthEl) monthEl.textContent = monthNamesVi[month] + ' ' + year;
+      const today = new Date();
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+      grid.innerHTML = '';
+      dowVi.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'ec-dow';
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+      let leading = (firstDay.getDay() + 6) % 7;
+      for (let i = 0; i < leading; i++) {
+        const c = document.createElement('div');
+        c.className = 'ec-cell muted';
+        c.textContent = '.';
+        grid.appendChild(c);
+      }
+      for (let d = 1; d <= lastDay.getDate(); d++) {
+        const c = document.createElement('div');
+        c.className = 'ec-cell';
+        if (d === highlight) c.classList.add('wedding');
+        else if (isCurrentMonth && d === today.getDate()) c.classList.add('today');
+        c.textContent = d;
+        grid.appendChild(c);
+      }
+    }
+
+    // Compact clocks (always on)
+    document.querySelectorAll('.event-clock').forEach(host => {
+      const targetMs = new Date(host.dataset.target).getTime();
+      const year = parseInt(host.dataset.year, 10);
+      const month = parseInt(host.dataset.month, 10);
+      const highlight = parseInt(host.dataset.highlight, 10);
+      startCountdown(host, targetMs);
+      paintCalendar(host, year, month, highlight);
     });
 
-    // Compute leading blank cells (Mon-start)
-    let leading = (firstDay.getDay() + 6) % 7;
-    for (let i = 0; i < leading; i++) {
-      const c = document.createElement('div');
-      c.className = 'cal-cell muted';
-      c.textContent = '.';
-      grid.appendChild(c);
+    // ===== Modal: open on click, close on backdrop/ESC =====
+    const modal = document.getElementById('clockModal');
+    const modalBody = document.getElementById('clockModalBody');
+    const modalTitle = document.getElementById('clockModalTitle');
+    const modalSub = document.getElementById('clockModalSub');
+    const closeBtn = document.getElementById('clockModalClose');
+    let modalInterval = null;
+
+    function openModal(srcHost) {
+      const targetMs = new Date(srcHost.dataset.target).getTime();
+      const year = parseInt(srcHost.dataset.year, 10);
+      const month = parseInt(srcHost.dataset.month, 10);
+      const highlight = parseInt(srcHost.dataset.highlight, 10);
+
+      modalTitle.textContent = srcHost.dataset.title || '';
+      modalSub.textContent = srcHost.dataset.sub || '';
+
+      modalBody.innerHTML = `
+        <div class="event-clock" data-target="${srcHost.dataset.target}" data-month="${month}" data-year="${year}" data-highlight="${highlight}">
+          <div class="event-clock-cd" aria-live="polite">
+            <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Ngày</span></div>
+            <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giờ</span></div>
+            <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Phút</span></div>
+            <div class="ec-unit"><span class="ec-num">--</span><span class="ec-label">Giây</span></div>
+          </div>
+          <div class="event-clock-cal">
+            <div class="ec-cal-head">
+              <span class="ec-cal-label">Tháng</span>
+              <b class="ec-cal-month"></b>
+              <svg class="motif ec-cal-motif" aria-hidden="true"><use href="#motif-rose"/></svg>
+            </div>
+            <div class="ec-cal-grid"></div>
+          </div>
+        </div>`;
+
+      const host = modalBody.querySelector('.event-clock');
+      modalInterval = startCountdown(host, targetMs);
+      paintCalendar(host, year, month, highlight);
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
-    for (let d = 1; d <= lastDay.getDate(); d++) {
-      const c = document.createElement('div');
-      c.className = 'cal-cell';
-      if (d === weddingDay) c.classList.add('wedding');
-      else if (isCurrentMonth && d === today.getDate()) c.classList.add('today');
-      c.textContent = d;
-      grid.appendChild(c);
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (modalInterval) { clearInterval(modalInterval); modalInterval = null; }
+      // delay body clear so transition finishes
+      setTimeout(() => { if (!modal.classList.contains('open')) modalBody.innerHTML = ''; }, 400);
     }
+
+    document.querySelectorAll('.event-clock').forEach(host => {
+      host.addEventListener('click', () => openModal(host));
+      host.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(host); }
+      });
+    });
+
+    closeBtn && closeBtn.addEventListener('click', closeModal);
+    modal && modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  })();
+
+  // ===== Gallery: main image + thumb strip + lightbox =====
+  (function gallerySlider() {
+    const slider = document.getElementById('gallerySlider');
+    const lightbox = document.getElementById('lightbox');
+    if (!slider || !lightbox) return;
+
+    const track = slider.querySelector('.gs-track');
+    const slides = Array.from(slider.querySelectorAll('.gs-slide'));
+    const prevBtn = slider.querySelector('.gs-prev');
+    const nextBtn = slider.querySelector('.gs-next');
+
+    const images = slides.map(s => {
+      const img = s.querySelector('img');
+      return { src: img.src, alt: img.alt };
+    });
+
+    const mainFrame = document.getElementById('galleryMainBtn');
+    const mainImg = document.getElementById('galleryMainImg');
+    const mainCaption = document.getElementById('galleryMainCaption');
+
+    const lbImg = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    let activeIndex = 0;
+
+    function setMain(i) {
+      activeIndex = (i + images.length) % images.length;
+      const item = images[activeIndex];
+
+      // crossfade swap
+      if (mainFrame && mainImg) {
+        mainFrame.classList.add('swapping');
+        setTimeout(() => {
+          mainImg.src = item.src;
+          mainImg.alt = item.alt;
+          if (mainCaption) mainCaption.textContent = (activeIndex + 1) + ' / ' + images.length;
+          mainFrame.classList.remove('swapping');
+        }, 220);
+      }
+
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === activeIndex));
+
+      // center the active thumb in the strip
+      const target = slides[activeIndex];
+      if (target && track) {
+        const trackRect = track.getBoundingClientRect();
+        const slideRect = target.getBoundingClientRect();
+        const offset = (slideRect.left - trackRect.left) + track.scrollLeft - (track.clientWidth / 2) + (slideRect.width / 2);
+        track.scrollTo({ left: offset, behavior: 'smooth' });
+      }
+    }
+
+    function openLightbox(i) {
+      setMain(i);
+      const item = images[activeIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.alt;
+      lbCaption.textContent = (activeIndex + 1) + ' / ' + images.length;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function lbNav(delta) {
+      const nextIdx = (activeIndex + delta + images.length) % images.length;
+      openLightbox(nextIdx);
+    }
+
+    // Thumb click → swap main
+    slides.forEach((s, i) => s.addEventListener('click', () => setMain(i)));
+    // Main click → open lightbox at current
+    mainFrame && mainFrame.addEventListener('click', () => openLightbox(activeIndex));
+
+    // Lightbox
+    lbClose && lbClose.addEventListener('click', closeLightbox);
+    lbNext && lbNext.addEventListener('click', () => lbNav(1));
+    lbPrev && lbPrev.addEventListener('click', () => lbNav(-1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') lbNav(1);
+      else if (e.key === 'ArrowLeft') lbNav(-1);
+    });
+
+    // Thumb-strip nav arrows
+    function scrollByDelta(delta) {
+      if (!track) return;
+      track.scrollBy({ left: delta, behavior: 'smooth' });
+    }
+    prevBtn && prevBtn.addEventListener('click', () => scrollByDelta(-Math.max(200, track.clientWidth * 0.6)));
+    nextBtn && nextBtn.addEventListener('click', () => scrollByDelta(Math.max(200, track.clientWidth * 0.6)));
   })();
 
   // ===== Reveal on scroll =====
