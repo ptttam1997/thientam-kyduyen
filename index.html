@@ -365,10 +365,57 @@
   }
 
   .hero-text { position: relative; z-index: 2; }
+  /* Parents strip inside the hero - nhà trai first, nhà gái second */
+  .hero-parents {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: stretch;
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-parents-col { display: grid; gap: 6px; }
+  .hero-parents-label {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--sage-deep);
+  }
+  .hero-parents-names {
+    font-family: var(--body);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .hero-parents-place {
+    font-family: var(--body);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .hero-parents-sep {
+    width: 1px;
+    background: var(--line-strong);
+    align-self: stretch;
+  }
+  @media (max-width: 600px) {
+    .hero-parents {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .hero-parents-sep { display: none; }
+    .hero-parents-col + .hero-parents-col { padding-top: 18px; border-top: 1px solid var(--line); }
+  }
+
   .hero-eyebrow { font-family: var(--body); font-size: 11px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 24px; display: inline-flex; align-items: center; gap: 12px; }
   .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--sage); }
 
-  .hero-and { font-family: var(--hand); font-size: clamp(38px, 6vw, 60px); color: var(--rose-deep); line-height: 1; margin: 6px 0 6px 6vw; display: block; }
+  .hero-and { font-family: var(--hand); font-size: clamp(38px, 6vw, 60px); color: var(--rose-deep); line-height: 1; margin: 6px 0; display: block; text-align: center; }
 
   .hero-name {
     font-family: var(--display);
@@ -379,10 +426,9 @@
     color: var(--ink);
     letter-spacing: -0.005em;
     margin: 0;
-  }
-  .hero-name + .hero-name { margin-left: 12vw; }
-  @media (min-width: 900px) {
-    .hero-name + .hero-name { margin-left: 8vw; }
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 
   .hero-dates {
@@ -619,6 +665,7 @@
   .couple-role { font-family: var(--body); font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 8px; }
   .couple-name { font-family: var(--display); font-style: italic; font-size: clamp(30px, 4vw, 44px); color: var(--ink); line-height: 1.05; padding-bottom: 6px; }
   .couple-bio { font-family: var(--display); font-style: italic; color: var(--ink-soft); margin-top: 12px; font-size: 17px; line-height: 1.55; max-width: 28ch; margin-left: auto; margin-right: auto; }
+  .couple-intro { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 18px; line-height: 1.65; max-width: 52ch; margin: 18px auto 0; text-align: center; padding-bottom: 6px; }
 
   .couple-and {
     display: grid;
@@ -1456,33 +1503,6 @@
   <main>
 
     <!-- ===========================================================
-         MASTHEAD (Hai gia đình)
-         =========================================================== -->
-    <div class="hero-masthead reveal">
-      <div class="wrap-wide masthead-inner">
-        <div class="masthead-family">
-          <div class="masthead-label">Nhà gái</div>
-          <div class="masthead-parents">
-            Ông Phan Văn Mẫu Anh<br/>
-            Bà Lê Hồng Tiền
-          </div>
-          <div class="masthead-place">Thoại Sơn, An Giang</div>
-        </div>
-
-        <svg class="motif masthead-motif" aria-hidden="true"><use href="#motif-divider"/></svg>
-
-        <div class="masthead-family">
-          <div class="masthead-label">Nhà trai</div>
-          <div class="masthead-parents">
-            Ông Phạm Hữu Hùng<br/>
-            Bà Đinh Thị Hạnh
-          </div>
-          <div class="masthead-place">An Nhơn Đông, Gia Lai</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===========================================================
          HERO
          =========================================================== -->
     <section class="hero">
@@ -1491,6 +1511,26 @@
 
       <div class="wrap-wide hero-stage reveal">
         <div class="hero-text">
+          <div class="hero-parents">
+            <div class="hero-parents-col">
+              <div class="hero-parents-label">Nhà trai</div>
+              <div class="hero-parents-names">
+                Ông Phạm Hữu Hùng<br/>
+                Bà Đinh Thị Hạnh
+              </div>
+              <div class="hero-parents-place">An Nhơn Đông, Gia Lai</div>
+            </div>
+            <div class="hero-parents-sep" aria-hidden="true"></div>
+            <div class="hero-parents-col">
+              <div class="hero-parents-label">Nhà gái</div>
+              <div class="hero-parents-names">
+                Ông Phan Văn Mẫu Anh<br/>
+                Bà Lê Hồng Tiền
+              </div>
+              <div class="hero-parents-place">Thoại Sơn, An Giang</div>
+            </div>
+          </div>
+
           <div class="hero-eyebrow">Save the date · 2026</div>
           <h1 class="hero-name">Thiện Tâm</h1>
           <span class="hero-and">và</span>
@@ -1506,7 +1546,7 @@
             <div class="hero-date-item">
               <div class="hero-date-label">Tiệc Tân Hôn</div>
               <div class="hero-date-num">02 . 08 . 2026</div>
-              <div class="hero-date-sub">Chủ Nhật · 11:00</div>
+              <div class="hero-date-sub">Chủ Nhật · Tiệc 11:00</div>
             </div>
           </div>
 
@@ -1532,6 +1572,7 @@
     <section class="couple" id="thu-moi">
       <div class="wrap-narrow couple-head reveal">
         <h2 class="display">Câu chuyện của chúng tôi.</h2>
+        <p class="couple-intro">Hai người, hai miền đất, gặp nhau giữa hành trình đời và quyết định cùng viết tiếp một chương mới. Hôm nay, chúng tôi muốn cùng quý vị mở ra trang đầu của câu chuyện ấy.</p>
         <svg class="motif motif-md" aria-hidden="true"><use href="#motif-divider"/></svg>
       </div>
 
@@ -1542,7 +1583,6 @@
           </div>
           <div class="couple-role">Chú rể</div>
           <div class="couple-name">Thiện Tâm</div>
-          <p class="couple-bio">Sinh ra giữa nắng Tây Nguyên, mang trong tim một mùa hạ chưa bao giờ tắt.</p>
         </div>
 
         <div class="couple-and"><span>&amp;</span></div>
@@ -1553,7 +1593,6 @@
           </div>
           <div class="couple-role">Cô dâu</div>
           <div class="couple-name">Kỳ Duyên</div>
-          <p class="couple-bio">Dịu dàng như con nước Hậu Giang, là mảnh ghép làm trọn vẹn câu chuyện cổ tích này.</p>
         </div>
       </div>
     </section>
@@ -1678,8 +1717,8 @@
             <div class="event-row">
               <div class="event-row-label">Giờ</div>
               <div class="event-row-value">
-                <strong>11:00 trưa</strong>
-                <span class="small">Đón khách từ 10:30</span>
+                <strong>Lễ lúc 08:00 sáng</strong>
+                <span class="small">Tiệc mời quan khách lúc 11:00 trưa</span>
               </div>
             </div>
             <div class="event-row">
@@ -2196,17 +2235,13 @@
     const btn = document.getElementById('musicToggle');
     if (!btn) return;
     const audio = new Audio();
-    // To enable: drop an mp3 in this folder and uncomment the next line:
-    // audio.src = 'wedding-song.mp3';
+    audio.src = 'wedding-song.mp3';
     audio.loop = true;
     audio.volume = 0.45;
+    audio.preload = 'metadata';
     window.__weddingAudio = audio;
 
     btn.addEventListener('click', () => {
-      if (!audio.src) {
-        alert('Để bật nhạc nền: lưu file nhạc (.mp3) vào thư mục web/ rồi bỏ comment dòng audio.src trong code.');
-        return;
-      }
       if (audio.paused) { audio.play().catch(() => {}); btn.classList.add('playing'); }
       else { audio.pause(); btn.classList.remove('playing'); }
     });

@@ -23,7 +23,8 @@
       "Bash(gh --version)",
       "Bash(git push *)",
       "Read(//Users/phamtuthientam/.ssh/**)",
-      "Bash(ssh -T git@github.com)"
+      "Bash(ssh -T git@github.com)",
+      "Bash(xxd)"
     ]
   }
 }
