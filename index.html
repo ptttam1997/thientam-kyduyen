@@ -358,8 +358,10 @@
     background: var(--paper-warm);
     box-shadow: var(--shadow-lift);
   }
-  .hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); transition: transform 1.4s var(--ease); }
-  .hero-photo-frame:hover img { transform: scale(1.06); }
+  .hero-photo-frame img,
+  .hero-photo-frame video { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); transition: transform 1.4s var(--ease); }
+  .hero-photo-frame:hover img,
+  .hero-photo-frame:hover video { transform: scale(1.06); }
   .hero-photo-stamp {
     position: absolute;
     bottom: -18px;
@@ -1036,7 +1038,7 @@
 
         <div class="hero-photo-col">
           <div class="hero-photo-frame">
-            <img src="images/LAT06963.jpg" alt="Thiện Tâm và Kỳ Duyên" />
+            <video src="images/7984626616067.mp4" autoplay muted loop playsinline preload="metadata" poster="images/LAT06963.jpg" aria-label="Video cưới Thiện Tâm và Kỳ Duyên"></video>
           </div>
           <div class="hero-photo-stamp">A garden wedding</div>
         </div>
