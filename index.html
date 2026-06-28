@@ -1024,13 +1024,14 @@
   .gallery-head h2 { font-style: italic; font-size: clamp(38px, 5vw, 60px); padding-bottom: 6px; }
   .gallery-head p { font-family: var(--display); font-style: italic; color: var(--ink-soft); font-size: 18px; max-width: 40ch; }
 
-  /* Main featured image */
+  /* Main featured image - shows full image, no cropping */
   .gallery-main { margin-bottom: 28px; }
   .gm-frame {
     position: relative;
-    display: block;
+    display: flex;
     width: 100%;
-    aspect-ratio: 16 / 10;
+    min-height: 360px;
+    max-height: 78vh;
     border-radius: var(--r-lg);
     overflow: hidden;
     border: none;
@@ -1038,11 +1039,14 @@
     background: var(--paper-warm);
     box-shadow: var(--shadow-lift);
     cursor: zoom-in;
+    align-items: center;
+    justify-content: center;
   }
   .gm-frame img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    max-height: 78vh;
+    object-fit: contain;
     transition: opacity 0.4s var(--ease), transform 1s var(--ease);
   }
   .gm-frame:hover img { transform: scale(1.02); }
@@ -1052,7 +1056,7 @@
     position: absolute;
     bottom: 18px;
     right: 18px;
-    background: rgba(20, 20, 18, 0.45);
+    background: rgba(20, 20, 18, 0.55);
     color: var(--paper);
     font-family: var(--display);
     font-style: italic;
@@ -1062,9 +1066,11 @@
     border-radius: var(--r-pill);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    z-index: 2;
   }
   @media (max-width: 640px) {
-    .gm-frame { aspect-ratio: 4 / 3; }
+    .gm-frame { min-height: 320px; max-height: 70vh; }
+    .gm-frame img { max-height: 70vh; }
     .gm-caption { bottom: 12px; right: 12px; font-size: 12px; padding: 5px 10px; }
   }
 
@@ -1568,7 +1574,7 @@
             <div class="hero-date-item">
               <div class="hero-date-label">Lễ Vu Quy</div>
               <div class="hero-date-num">25 . 07 . 2026</div>
-              <div class="hero-date-sub">Thứ Bảy · 08:00</div>
+              <div class="hero-date-sub">Thứ Bảy · Tiệc 10:00</div>
             </div>
             <div class="hero-dates-sep" aria-hidden="true"></div>
             <div class="hero-date-item">
@@ -1632,7 +1638,7 @@
       <div class="wrap event-grid reveal">
         <div class="event-photo">
           <img src="images/LAT07668.jpg" alt="Lễ Vu Quy" loading="lazy" />
-          <div class="event-clock event-clock-overlay" data-target="2026-07-25T08:00:00+07:00" data-month="6" data-year="2026" data-highlight="25" data-title="Lễ Vu Quy" data-sub="25 . 07 . 2026 · 08:00" role="button" tabindex="0" aria-label="Xem lớn đếm ngược và lịch Lễ Vu Quy">
+          <div class="event-clock event-clock-overlay" data-target="2026-07-25T10:00:00+07:00" data-month="6" data-year="2026" data-highlight="25" data-title="Lễ Vu Quy" data-sub="25 . 07 . 2026 · Tiệc 10:00" role="button" tabindex="0" aria-label="Xem lớn đếm ngược và lịch Lễ Vu Quy">
             <span class="event-clock-expand" aria-hidden="true">
               Xem lớn
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
@@ -1670,8 +1676,8 @@
             <div class="event-row">
               <div class="event-row-label">Giờ</div>
               <div class="event-row-value">
-                <strong>08:00 sáng</strong>
-                <span class="small">Tiệc chính khai vị lúc 09:00</span>
+                <strong>Lễ lúc 08:00 sáng</strong>
+                <span class="small">Đón khách dùng tiệc lúc 10:00</span>
               </div>
             </div>
             <div class="event-row">
