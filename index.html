@@ -365,17 +365,19 @@
   }
 
   .hero-text { position: relative; z-index: 2; }
-  /* Parents strip inside the hero - nhà trai first, nhà gái second */
+  /* Parents strip inside the hero - nhà trai (left side) | divider | nhà gái (right side) */
   .hero-parents {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 1px 1fr;
     gap: 24px;
-    align-items: stretch;
+    align-items: center;
     padding-bottom: 24px;
     margin-bottom: 28px;
     border-bottom: 1px solid var(--line);
   }
   .hero-parents-col { display: grid; gap: 6px; }
+  .hero-parents-col:first-child { justify-items: start; text-align: left; }
+  .hero-parents-col:last-child { justify-items: end; text-align: right; }
   .hero-parents-label {
     font-family: var(--display);
     font-style: italic;
@@ -400,16 +402,20 @@
   }
   .hero-parents-sep {
     width: 1px;
+    height: 70%;
     background: var(--line-strong);
-    align-self: stretch;
+    align-self: center;
+    justify-self: center;
   }
   @media (max-width: 600px) {
-    .hero-parents {
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-    .hero-parents-sep { display: none; }
-    .hero-parents-col + .hero-parents-col { padding-top: 18px; border-top: 1px solid var(--line); }
+    .hero-parents { gap: 14px; }
+    .hero-parents-label { font-size: 13px; }
+    .hero-parents-names { font-size: 12px; line-height: 1.45; }
+    .hero-parents-place { font-size: 9px; letter-spacing: 0.18em; }
+  }
+  @media (max-width: 400px) {
+    .hero-parents-names { font-size: 11px; }
+    .hero-parents-place { font-size: 8.5px; }
   }
 
   .hero-eyebrow { font-family: var(--body); font-size: 11px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage-deep); margin-bottom: 24px; display: inline-flex; align-items: center; gap: 12px; }
@@ -430,15 +436,23 @@
     width: 100%;
     text-align: center;
   }
+  .hero-name-left { text-align: left; }
+  .hero-name-right { text-align: right; }
 
   .hero-dates {
-    display: flex;
-    align-items: stretch;
-    gap: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 32px;
     margin-top: 38px;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
   }
-  .hero-date-item { display: grid; gap: 4px; }
+  .hero-date-item {
+    display: grid;
+    gap: 4px;
+    text-align: center;
+    justify-items: center;
+  }
   .hero-date-label {
     font-family: var(--body);
     font-size: 11px;
@@ -464,11 +478,16 @@
   }
   .hero-dates-sep {
     width: 1px;
+    height: 60%;
     background: var(--line-strong);
-    align-self: stretch;
+    align-self: center;
+    justify-self: center;
   }
   @media (max-width: 520px) {
-    .hero-dates { gap: 18px; }
+    .hero-dates {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
     .hero-dates-sep { display: none; }
     .hero-date-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
     .hero-date-item:last-child { border-bottom: none; }
@@ -1532,9 +1551,9 @@
           </div>
 
           <div class="hero-eyebrow">Save the date · 2026</div>
-          <h1 class="hero-name">Thiện Tâm</h1>
+          <h1 class="hero-name hero-name-left">Thiện Tâm</h1>
           <span class="hero-and">và</span>
-          <h1 class="hero-name">Kỳ Duyên</h1>
+          <h1 class="hero-name hero-name-right">Kỳ Duyên</h1>
 
           <div class="hero-dates">
             <div class="hero-date-item">
@@ -1758,22 +1777,22 @@
 
       <div class="wrap-narrow gallery-main reveal" id="galleryMain">
         <button class="gm-frame" type="button" id="galleryMainBtn" aria-label="Mở ảnh lớn">
-          <img id="galleryMainImg" src="images/LAT06447.jpg" alt="Khoảnh khắc 1" />
+          <img id="galleryMainImg" src="images/LAT07542.jpg" alt="Khoảnh khắc 1" />
           <span class="gm-caption" id="galleryMainCaption">1 / 9</span>
         </button>
       </div>
 
       <div class="gallery-slider reveal" id="gallerySlider" aria-label="Chọn ảnh">
         <div class="gs-track">
-          <button class="gs-slide active" type="button" data-i="0" aria-label="Chọn ảnh 1"><img src="images/LAT06447.jpg" alt="Khoảnh khắc 1" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="1" aria-label="Chọn ảnh 2"><img src="images/LAT06688.jpg" alt="Khoảnh khắc 2" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="2" aria-label="Chọn ảnh 3"><img src="images/LAT06696.jpg" alt="Khoảnh khắc 3" loading="lazy" /></button>
+          <button class="gs-slide active" type="button" data-i="0" aria-label="Chọn ảnh 1"><img src="images/LAT07542.jpg" alt="Khoảnh khắc 1" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="1" aria-label="Chọn ảnh 2"><img src="images/LAT08209.jpg" alt="Khoảnh khắc 2" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="2" aria-label="Chọn ảnh 3"><img src="images/LAT05887.jpg" alt="Khoảnh khắc 3" loading="lazy" /></button>
           <button class="gs-slide" type="button" data-i="3" aria-label="Chọn ảnh 4"><img src="images/LAT06909.jpg" alt="Khoảnh khắc 4" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="4" aria-label="Chọn ảnh 5"><img src="images/LAT07711.jpg" alt="Khoảnh khắc 5" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="5" aria-label="Chọn ảnh 6"><img src="images/LAT08060.jpg" alt="Khoảnh khắc 6" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="6" aria-label="Chọn ảnh 7"><img src="images/LAT08258.jpg" alt="Khoảnh khắc 7" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="4" aria-label="Chọn ảnh 5"><img src="images/LAT07240.jpg" alt="Khoảnh khắc 5" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="5" aria-label="Chọn ảnh 6"><img src="images/LAT07677.jpg" alt="Khoảnh khắc 6" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="6" aria-label="Chọn ảnh 7"><img src="images/LAT08073.jpg" alt="Khoảnh khắc 7" loading="lazy" /></button>
           <button class="gs-slide" type="button" data-i="7" aria-label="Chọn ảnh 8"><img src="images/PLT08078.jpg" alt="Khoảnh khắc 8" loading="lazy" /></button>
-          <button class="gs-slide" type="button" data-i="8" aria-label="Chọn ảnh 9"><img src="images/LAT06410.jpg" alt="Khoảnh khắc 9" loading="lazy" /></button>
+          <button class="gs-slide" type="button" data-i="8" aria-label="Chọn ảnh 9"><img src="images/LAT07564.jpg" alt="Khoảnh khắc 9" loading="lazy" /></button>
         </div>
         <button class="gs-nav gs-prev" type="button" aria-label="Cuộn về trước">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>

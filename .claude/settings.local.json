@@ -24,7 +24,9 @@
       "Bash(git push *)",
       "Read(//Users/phamtuthientam/.ssh/**)",
       "Bash(ssh -T git@github.com)",
-      "Bash(xxd)"
+      "Bash(xxd)",
+      "Bash(sips -Z 1600 -s formatOptions 78 \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web/images/LAT07400.jpg\" --out \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web/images/LAT07400.jpg\")",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/phamtuthientam/Documents/THIENTAM-KYDUYEN/TP THIEN TAM - KY DUYEN/web/images/LAT07400.jpg\")"
     ]
   }
 }
