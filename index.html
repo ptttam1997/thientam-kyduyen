@@ -836,11 +836,12 @@
     color: var(--paper);
   }
   .event-clock-overlay .ec-cell.wedding {
-    background: var(--rose);
-    color: var(--paper);
+    background: transparent;
     text-shadow: none;
-    box-shadow: 0 2px 8px rgba(201, 122, 110, 0.4);
+    box-shadow: none;
   }
+  .event-clock-overlay .ec-cell.wedding .ec-heart { color: var(--rose); filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5)); }
+  .event-clock-overlay .ec-cell.wedding .ec-day { color: var(--paper); text-shadow: 0 1px 1px rgba(0,0,0,0.4); }
   .event-clock-overlay:hover { border-color: rgba(255, 255, 255, 0.9); }
 
   @media (max-width: 640px) {
@@ -914,13 +915,28 @@
   .ec-cell.muted { color: transparent; }
   .ec-cell.today { background: var(--sage-mist); color: var(--sage-deep); }
   .ec-cell.wedding {
-    background: var(--rose);
+    background: transparent;
+    box-shadow: none;
+    position: relative;
+  }
+  .ec-cell.wedding .ec-heart {
+    position: absolute;
+    inset: 8%;
+    width: 84%;
+    height: 84%;
+    color: var(--rose);
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(201, 122, 110, 0.3));
+  }
+  .ec-cell.wedding .ec-day {
+    position: relative;
+    z-index: 1;
     color: var(--paper);
     font-weight: 600;
     font-family: var(--display);
     font-style: italic;
-    font-size: 9px;
-    box-shadow: 0 2px 6px rgba(201, 122, 110, 0.28);
+    font-size: 10px;
+    line-height: 1;
   }
 
   .event-clock-expand {
@@ -1010,7 +1026,9 @@
   .clock-modal .ec-cal-grid { gap: 4px; }
   .clock-modal .ec-dow { font-size: 10px; letter-spacing: 0.18em; padding: 6px 0; }
   .clock-modal .ec-cell { font-size: 13px; border-radius: var(--r-sm); }
-  .clock-modal .ec-cell.wedding { font-size: 16px; box-shadow: 0 6px 18px rgba(201, 122, 110, 0.32); }
+  .clock-modal .ec-cell.wedding { background: transparent; box-shadow: none; }
+  .clock-modal .ec-cell.wedding .ec-heart { inset: 4%; width: 92%; height: 92%; }
+  .clock-modal .ec-cell.wedding .ec-day { font-size: 16px; }
   .clock-modal .event-clock-expand { display: none; }
 
   /* ----------------------------------------------------------
@@ -2063,9 +2081,13 @@
       for (let d = 1; d <= lastDay.getDate(); d++) {
         const c = document.createElement('div');
         c.className = 'ec-cell';
-        if (d === highlight) c.classList.add('wedding');
-        else if (isCurrentMonth && d === today.getDate()) c.classList.add('today');
-        c.textContent = d;
+        if (d === highlight) {
+          c.classList.add('wedding');
+          c.innerHTML = '<svg class="ec-heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="ec-day">' + d + '</span>';
+        } else {
+          if (isCurrentMonth && d === today.getDate()) c.classList.add('today');
+          c.textContent = d;
+        }
         grid.appendChild(c);
       }
     }
