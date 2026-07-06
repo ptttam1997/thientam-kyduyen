@@ -1370,7 +1370,56 @@
   .wishes-form button:hover:not(:disabled) { background: var(--ink); transform: translateY(-2px); }
   .wishes-form button:disabled { opacity: 0.6; cursor: wait; }
 
-  .wishes-list { display: grid; gap: 22px; max-width: 760px; margin: 0 auto; }
+  .wishes-live-hint {
+    max-width: 760px;
+    margin: 0 auto 14px;
+    text-align: center;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+  .wishes-live-hint .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose-deep);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: liveDot 1.4s ease-in-out infinite;
+  }
+  @keyframes liveDot {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+  .wishes-live {
+    position: relative;
+    max-width: 760px;
+    height: 520px;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 6px;
+    border-radius: var(--r-lg);
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(74, 92, 74, 0.28) transparent;
+  }
+  .wishes-live::-webkit-scrollbar { width: 6px; }
+  .wishes-live::-webkit-scrollbar-thumb {
+    background: rgba(74, 92, 74, 0.28);
+    border-radius: 3px;
+  }
+  .wishes-live::-webkit-scrollbar-thumb:hover { background: rgba(74, 92, 74, 0.55); }
+  .wishes-live::-webkit-scrollbar-track { background: transparent; }
+  @media (max-width: 640px) {
+    .wishes-live { height: 460px; }
+  }
+  .wishes-list { display: grid; gap: 22px; padding: 12px 4px; }
   .wish {
     background: var(--paper);
     border: 1px solid var(--line);
@@ -1920,7 +1969,12 @@
         </div>
       </form>
 
-      <div class="wishes-list" id="wishesList"></div>
+      <div class="wishes-live-hint reveal" id="wishesLiveHint" style="display:none;">
+        <span class="dot"></span>Liveshow · rê chuột hoặc vuốt để tạm dừng · cuộn lên/xuống để xem
+      </div>
+      <div class="wishes-live reveal" id="wishesLive" tabindex="0" aria-label="Danh sách lời chúc, cuộn để xem thêm">
+        <div class="wishes-list" id="wishesList"></div>
+      </div>
       <div class="wishes-count" id="wishesCount" style="display:none;"></div>
     </section>
 
@@ -2314,11 +2368,97 @@
     const CACHE_KEY = 'wedding-wishes-cache-v2';
     const form = document.getElementById('wishesForm');
     const list = document.getElementById('wishesList');
+    const viewport = document.getElementById('wishesLive');
+    const liveHint = document.getElementById('wishesLiveHint');
     const counter = document.getElementById('wishesCount');
     const nameInput = document.getElementById('wishName');
     const msgInput = document.getElementById('wishMessage');
     const submitBtn = document.getElementById('wishSubmit');
     if (!form || !list) return;
+
+    // ----- Liveshow marquee state -----
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let liveRaf = null;
+    let liveHalfHeight = 0;
+    let livePausedUntil = 0;
+    let liveHovering = false;
+    const RESUME_DELAY_MS = 2200;
+    const SCROLL_SPEED_PX_PER_SEC = 22; // slow, readable
+
+    function stopMarquee() {
+      if (liveRaf) { cancelAnimationFrame(liveRaf); liveRaf = null; }
+    }
+
+    function startMarquee() {
+      if (!viewport) return;
+      stopMarquee();
+      let lastT = 0;
+      const step = (t) => {
+        if (!lastT) lastT = t;
+        const dt = (t - lastT) / 1000;
+        lastT = t;
+        const now = performance.now();
+        const canMove = !liveHovering && now >= livePausedUntil && liveHalfHeight > 0;
+        if (canMove) {
+          viewport.scrollTop += SCROLL_SPEED_PX_PER_SEC * dt;
+        }
+        if (liveHalfHeight > 0) {
+          if (viewport.scrollTop >= liveHalfHeight) {
+            viewport.scrollTop -= liveHalfHeight;
+          } else if (viewport.scrollTop < 0) {
+            viewport.scrollTop += liveHalfHeight;
+          }
+        }
+        liveRaf = requestAnimationFrame(step);
+      };
+      liveRaf = requestAnimationFrame(step);
+    }
+
+    function setupLiveshow() {
+      if (!viewport) return;
+      stopMarquee();
+      liveHalfHeight = 0;
+      // Wait for layout, then decide if we need to loop
+      requestAnimationFrame(() => {
+        const naturalH = list.scrollHeight;
+        const vpH = viewport.clientHeight;
+        if (naturalH <= vpH + 12) {
+          // Content fits — no marquee needed, no clone
+          if (liveHint) liveHint.style.display = 'none';
+          return;
+        }
+        if (liveHint) liveHint.style.display = 'block';
+        // Clone all children once so the loop is seamless
+        const originalChildren = Array.from(list.children);
+        originalChildren.forEach(node => {
+          const clone = node.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          list.appendChild(clone);
+        });
+        // Half height = original content height including gap
+        liveHalfHeight = list.scrollHeight / 2;
+        viewport.scrollTop = 0;
+        if (!prefersReduced) startMarquee();
+      });
+    }
+
+    if (viewport) {
+      const pauseBriefly = () => { livePausedUntil = performance.now() + RESUME_DELAY_MS; };
+      viewport.addEventListener('wheel', pauseBriefly, { passive: true });
+      viewport.addEventListener('touchstart', pauseBriefly, { passive: true });
+      viewport.addEventListener('touchmove', pauseBriefly, { passive: true });
+      viewport.addEventListener('mouseenter', () => { liveHovering = true; });
+      viewport.addEventListener('mouseleave', () => { liveHovering = false; livePausedUntil = performance.now() + 400; });
+      viewport.addEventListener('focus', () => { liveHovering = true; });
+      viewport.addEventListener('blur', () => { liveHovering = false; });
+      // Keyboard arrows scroll the viewport
+      viewport.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') { viewport.scrollTop += 40; pauseBriefly(); e.preventDefault(); }
+        else if (e.key === 'ArrowUp') { viewport.scrollTop -= 40; pauseBriefly(); e.preventDefault(); }
+        else if (e.key === 'PageDown') { viewport.scrollTop += viewport.clientHeight * 0.85; pauseBriefly(); e.preventDefault(); }
+        else if (e.key === 'PageUp') { viewport.scrollTop -= viewport.clientHeight * 0.85; pauseBriefly(); e.preventDefault(); }
+      });
+    }
 
     const fmtTime = (iso) => {
       try {
@@ -2338,9 +2478,11 @@
       .replace(/'/g, '&#39;');
 
     function render(items) {
+      stopMarquee();
       list.innerHTML = '';
       if (!items || !items.length) {
         counter.style.display = 'none';
+        if (liveHint) liveHint.style.display = 'none';
         list.innerHTML = '<div style="text-align:center; font-family:var(--display); font-style:italic; color:var(--ink-faded); padding:32px 0;">Chưa có lời chúc nào. Hãy là người đầu tiên ✿</div>';
         return;
       }
@@ -2365,6 +2507,7 @@
       });
       counter.style.display = 'block';
       counter.textContent = sorted.length + ' lời chúc đã gửi';
+      setupLiveshow();
     }
 
     function readCache() {
