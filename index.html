@@ -177,6 +177,13 @@
   .envelope-date { font-family: var(--body); font-size: 13px; letter-spacing: 0.22em; color: var(--ink-soft); margin: 22px 0 28px; }
   .envelope-date::before, .envelope-date::after { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--sage); vertical-align: middle; margin: 0 14px; }
 
+  .envelope-dates { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 22px 0 28px; }
+  .envelope-date-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .envelope-date-label { font-family: var(--body); font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage-deep); }
+  .envelope-date-num { font-family: var(--body); font-size: 13px; letter-spacing: 0.22em; color: var(--ink-soft); }
+  .envelope-date-num::before, .envelope-date-num::after { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--sage); vertical-align: middle; margin: 0 10px; }
+  .envelope-dates-sep { width: 44px; height: 1px; background: var(--rose-mist); opacity: 0.8; }
+
   .envelope-btn {
     display: inline-flex;
     align-items: center;
@@ -1485,6 +1492,53 @@
     vertical-align: middle;
     margin: 0 12px;
   }
+  .epilogue-dates {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 32px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .epilogue-date-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px;
+  }
+  .epilogue-date-label {
+    font-family: var(--body);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+  }
+  .epilogue-date-num {
+    font-family: var(--body);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .epilogue-date-num::before, .epilogue-date-num::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--sage);
+    vertical-align: middle;
+    margin: 0 10px;
+  }
+  .epilogue-dates-sep {
+    width: 1px;
+    background: var(--line);
+    align-self: stretch;
+  }
+  @media (max-width: 520px) {
+    .epilogue-dates { flex-direction: column; gap: 18px; align-items: center; }
+    .epilogue-dates-sep { width: 44px; height: 1px; }
+  }
   .epilogue-thanks { font-family: var(--display); font-style: italic; color: var(--ink-faded); font-size: 17px; margin-top: 26px; max-width: 44ch; margin-left: auto; margin-right: auto; line-height: 1.6; }
 
   .footer-tiny { padding: 24px 0 32px; text-align: center; font-family: var(--body); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-faded); background: var(--paper); }
@@ -1579,7 +1633,17 @@
       <div class="envelope-names display">Thiện Tâm</div>
       <span class="envelope-and">và</span>
       <div class="envelope-names display">Kỳ Duyên</div>
-      <div class="envelope-date">25 . 07 . 2026</div>
+      <div class="envelope-dates">
+        <div class="envelope-date-item">
+          <div class="envelope-date-label">Lễ Vu Quy · Nhà gái</div>
+          <div class="envelope-date-num">25 . 07 . 2026</div>
+        </div>
+        <div class="envelope-dates-sep" aria-hidden="true"></div>
+        <div class="envelope-date-item">
+          <div class="envelope-date-label">Tiệc Tân Hôn · Nhà chú rể</div>
+          <div class="envelope-date-num">02 . 08 . 2026</div>
+        </div>
+      </div>
       <button class="envelope-btn" type="button" id="envelopeBtn">
         Mở thiệp
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -1987,7 +2051,17 @@
       <div class="epilogue-names">Thiện Tâm</div>
       <span class="epilogue-and">và</span>
       <div class="epilogue-names">Kỳ Duyên</div>
-      <div class="epilogue-date">25 . 07 . 2026</div>
+      <div class="epilogue-dates">
+        <div class="epilogue-date-item">
+          <div class="epilogue-date-label">Lễ Vu Quy · Nhà gái</div>
+          <div class="epilogue-date-num">25 . 07 . 2026</div>
+        </div>
+        <div class="epilogue-dates-sep" aria-hidden="true"></div>
+        <div class="epilogue-date-item">
+          <div class="epilogue-date-label">Tiệc Tân Hôn · Nhà chú rể</div>
+          <div class="epilogue-date-num">02 . 08 . 2026</div>
+        </div>
+      </div>
       <p class="epilogue-thanks">Sự hiện diện của quý vị là niềm vinh hạnh và món quà lớn nhất mà chúng tôi nhận được trong ngày trọng đại.</p>
     </section>
 
