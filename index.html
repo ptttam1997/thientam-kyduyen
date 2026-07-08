@@ -1454,6 +1454,313 @@
   .wishes-count { text-align: center; margin-top: 32px; font-family: var(--display); font-style: italic; color: var(--ink-faded); font-size: 16px; }
 
   /* ----------------------------------------------------------
+     GIFT (Phong Bao Mừng Cưới) - Compact envelope + QR modal
+  ---------------------------------------------------------- */
+  .gift {
+    background: var(--paper-warm);
+    padding: 64px 0;
+    position: relative;
+    text-align: center;
+  }
+  .gift::before, .gift::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--line);
+  }
+  .gift::before { top: 0; }
+  .gift::after { bottom: 0; }
+
+  .gift-head { text-align: center; margin-bottom: 22px; }
+  .gift-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(20px, 2.6vw, 26px);
+    color: var(--sage-deep);
+    line-height: 1.1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding-bottom: 4px;
+  }
+  .gift-head p {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 14px;
+    max-width: 44ch;
+    margin: 10px auto 0;
+    line-height: 1.55;
+  }
+
+  /* ===== Compact envelope trigger ===== */
+  .envelope-gift {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .envelope-gift:focus-visible .red-envelope {
+    box-shadow: 0 0 0 3px rgba(212, 162, 80, 0.55), 0 10px 20px rgba(90, 20, 20, 0.25);
+  }
+
+  .red-envelope {
+    position: relative;
+    width: 56px;
+    aspect-ratio: 3 / 4;
+    background:
+      radial-gradient(ellipse at 30% 25%, rgba(255, 220, 200, 0.18) 0%, transparent 55%),
+      linear-gradient(155deg, #b8322e 0%, #9c2622 45%, #7d1c1a 100%);
+    border-radius: 6px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 220, 200, 0.2),
+      inset 0 -6px 12px rgba(60, 10, 10, 0.35),
+      0 6px 14px rgba(90, 20, 20, 0.26),
+      0 2px 5px rgba(90, 20, 20, 0.18);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .envelope-gift:hover .red-envelope {
+    transform: translateY(-3px) rotate(-1.5deg);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 220, 200, 0.24),
+      inset 0 -10px 20px rgba(60, 10, 10, 0.35),
+      0 14px 26px rgba(90, 20, 20, 0.32),
+      0 6px 10px rgba(90, 20, 20, 0.22);
+  }
+  .envelope-gift:active .red-envelope { transform: translateY(-1px) scale(0.97); }
+
+  .red-envelope::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(212, 162, 80, 0.28);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .re-corner {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    color: #e6b866;
+    filter: drop-shadow(0 1px 1px rgba(60, 10, 10, 0.4));
+    pointer-events: none;
+  }
+  .re-corner-tl { top: 5px; left: 5px; }
+  .re-corner-tr { top: 5px; right: 5px; transform: scaleX(-1); }
+  .re-corner-bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
+  .re-corner-br { bottom: 5px; right: 5px; transform: scale(-1, -1); }
+
+  .re-medallion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 30%, #f6d078 0%, #d4a250 55%, #a8792d 100%);
+    display: grid;
+    place-items: center;
+    box-shadow:
+      inset 0 1px 2px rgba(255, 235, 190, 0.55),
+      inset 0 -2px 3px rgba(120, 80, 20, 0.35),
+      0 2px 4px rgba(60, 10, 10, 0.45);
+  }
+  .re-medallion::before {
+    content: '';
+    position: absolute;
+    inset: 8%;
+    border: 1px dashed rgba(120, 80, 20, 0.55);
+    border-radius: 50%;
+  }
+  .re-song-hy {
+    font-family: 'Cormorant Garamond', 'STKaiti', 'KaiTi', serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #7d1c1a;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255, 235, 190, 0.55);
+    user-select: none;
+  }
+
+  .envelope-gift-hint {
+    font-family: var(--body);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+  }
+  .envelope-gift:hover .envelope-gift-hint { color: var(--rose-deep); }
+
+  /* ===== Gift modal (opens on envelope click) ===== */
+  .gift-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 170;
+    background: rgba(44, 42, 36, 0.55);
+    display: grid;
+    place-items: center;
+    padding: 24px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .gift-modal.open { opacity: 1; visibility: visible; }
+  .gift-modal-card {
+    width: min(380px, 100%);
+    background: var(--paper);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(44, 42, 36, 0.4);
+    transform: translateY(18px) scale(0.96);
+    transition: transform 0.4s var(--ease);
+    position: relative;
+  }
+  .gift-modal.open .gift-modal-card { transform: none; }
+
+  .gift-modal-header {
+    background: linear-gradient(135deg, #4a5f3a 0%, #3d5030 100%);
+    color: var(--paper);
+    padding: 18px 44px 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+  }
+  .gift-modal-header h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-style: normal;
+    font-size: 17px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+  }
+  .gift-modal-close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    color: var(--paper);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .gift-modal-close:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.5); }
+  .gift-modal-close svg { width: 12px; height: 12px; }
+
+  .gift-modal-body { padding: 22px 22px 24px; text-align: center; }
+
+  .gift-modal-name {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    padding-bottom: 4px;
+  }
+
+  .gift-qr-frame {
+    display: block;
+    width: min(220px, 78%);
+    margin: 16px auto 14px;
+    padding: 10px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .gift-qr-frame img { width: 100%; height: auto; display: block; border-radius: var(--r-sm); }
+
+  .gift-bank {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .gift-bank .small { display: block; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faded); margin-top: 2px; font-style: normal; }
+
+  .gift-account {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    margin-top: 10px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .gift-account:hover { border-color: var(--rose); color: var(--rose-deep); }
+  .gift-account.copied { border-color: var(--sage-deep); background: var(--sage-mist); color: var(--sage-deep); }
+  .gift-account svg { width: 12px; height: 12px; }
+
+  .gift-holder {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    margin-top: 10px;
+  }
+
+  .gift-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 20px;
+    background: var(--sage-deep);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.25s var(--ease), transform 0.2s var(--ease);
+  }
+  .gift-download:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+  .gift-download svg { width: 13px; height: 13px; }
+
+  @media (max-width: 480px) {
+    .gift { padding: 52px 0; }
+    .gift-modal-header { padding: 14px 40px 14px 18px; }
+    .gift-modal-header h3 { font-size: 14px; letter-spacing: 0.12em; }
+    .gift-modal-body { padding: 18px 18px 20px; }
+  }
+
+  /* ----------------------------------------------------------
      EPILOGUE / closing
   ---------------------------------------------------------- */
   .epilogue {
@@ -2021,6 +2328,30 @@
       <div class="wrap-narrow wishes-head reveal">
         <h2 class="display">Gửi đôi mình một lời chúc.</h2>
         <p>Mỗi lời chúc của bạn là một bông hoa nhỏ chúng tôi sẽ giữ mãi trong cuốn sổ kỷ niệm.</p>
+        <button class="envelope-gift" type="button" id="envelopeGift" aria-label="Nhấn để mở phong bao mừng cưới">
+          <div class="red-envelope">
+            <svg class="re-corner re-corner-tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M2 2 L38 2 L38 5 L5 5 L5 38 L2 38 Z" fill="currentColor"/>
+              <path d="M9 9 L20 9 L20 11 L11 11 L11 20 L9 20 Z" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <svg class="re-corner re-corner-tr" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M2 2 L38 2 L38 5 L5 5 L5 38 L2 38 Z" fill="currentColor"/>
+              <path d="M9 9 L20 9 L20 11 L11 11 L11 20 L9 20 Z" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <svg class="re-corner re-corner-bl" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M2 2 L38 2 L38 5 L5 5 L5 38 L2 38 Z" fill="currentColor"/>
+              <path d="M9 9 L20 9 L20 11 L11 11 L11 20 L9 20 Z" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <svg class="re-corner re-corner-br" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M2 2 L38 2 L38 5 L5 5 L5 38 L2 38 Z" fill="currentColor"/>
+              <path d="M9 9 L20 9 L20 11 L11 11 L11 20 L9 20 Z" fill="currentColor" opacity="0.8"/>
+            </svg>
+            <div class="re-medallion" aria-hidden="true">
+              <span class="re-song-hy">囍</span>
+            </div>
+          </div>
+          <span class="envelope-gift-hint">Nhấn để mở</span>
+        </button>
       </div>
 
       <form class="wishes-form reveal" id="wishesForm" autocomplete="off">
@@ -2041,6 +2372,44 @@
       </div>
       <div class="wishes-count" id="wishesCount" style="display:none;"></div>
     </section>
+
+    <!-- Gift modal (opens on envelope click) -->
+    <div class="gift-modal" id="giftModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="giftModalTitle">
+      <div class="gift-modal-card">
+        <div class="gift-modal-header">
+          <h3 id="giftModalTitle">Phong Bao Mừng Cưới</h3>
+          <button class="gift-modal-close" type="button" id="giftModalClose" aria-label="Đóng">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="gift-modal-body">
+          <div class="gift-modal-name">Phạm Tự Thiện Tâm</div>
+          <div class="gift-qr-frame">
+            <img src="images/qr-thien-tam-vietinbank.png" alt="Mã QR VietinBank - Phạm Tự Thiện Tâm - 103876438199" loading="lazy" />
+          </div>
+          <div class="gift-bank">
+            VietinBank
+            <span class="small">CN 12 - TP HCM · PGD Phan Huy Ích</span>
+          </div>
+          <button class="gift-account" type="button" data-account="103876438199" aria-label="Sao chép số tài khoản">
+            <span class="gift-account-num">103876438199</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+          <div class="gift-holder">PHAM TU THIEN TAM</div>
+          <a class="gift-download" href="images/qr-thien-tam-vietinbank.png" download="qr-thien-tam.png">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Lưu QR
+          </a>
+        </div>
+      </div>
+    </div>
 
     <!-- ===========================================================
          EPILOGUE
@@ -2653,6 +3022,62 @@
     });
 
     load();
+  })();
+
+  // ===== Envelope + gift modal (Phong Bao Mừng Cưới) =====
+  (function envelopeGift() {
+    const trigger = document.getElementById('envelopeGift');
+    const modal = document.getElementById('giftModal');
+    const closeBtn = document.getElementById('giftModalClose');
+    if (!trigger || !modal) return;
+
+    const open = () => {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    trigger.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+  })();
+
+  // ===== Copy bank account number (Gửi thiệp mừng) =====
+  (function giftCopy() {
+    document.querySelectorAll('.gift-account').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const acct = btn.getAttribute('data-account') || '';
+        if (!acct) return;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(acct);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = acct;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+          const numEl = btn.querySelector('.gift-account-num');
+          const original = numEl ? numEl.textContent : '';
+          btn.classList.add('copied');
+          if (numEl) numEl.textContent = 'Đã sao chép ✓';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            if (numEl && original) numEl.textContent = original;
+          }, 1600);
+        } catch (e) {}
+      });
+    });
   })();
 
   // ===== RSVP (Google Apps Script endpoint, honeypot) =====
