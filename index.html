@@ -1672,6 +1672,46 @@
 
   .gift-modal-body { padding: 22px 22px 24px; text-align: center; }
 
+  .gift-tabs {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 4px;
+    padding: 4px;
+    margin: 0 auto 4px;
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+  }
+  .gift-tab {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    padding: 8px 18px;
+    font-family: var(--body);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease);
+    line-height: 1;
+  }
+  .gift-tab .gift-tab-role { display: block; font-size: 9px; letter-spacing: 0.26em; opacity: 0.8; margin-bottom: 3px; }
+  .gift-tab .gift-tab-name { display: block; font-family: var(--display); font-style: italic; font-size: 14px; letter-spacing: 0.04em; text-transform: none; font-weight: 500; }
+  .gift-tab[aria-selected="true"] {
+    background: var(--sage-deep);
+    color: var(--paper);
+    box-shadow: 0 2px 6px rgba(60, 80, 48, 0.22);
+  }
+  .gift-panel { display: none; }
+  .gift-panel.active { display: block; animation: giftFade 0.35s var(--ease); }
+  @keyframes giftFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .gift-modal-name {
     font-family: var(--display);
     font-style: italic;
@@ -2350,7 +2390,7 @@
               <span class="re-song-hy">囍</span>
             </div>
           </div>
-          <span class="envelope-gift-hint">Nhấn để mở</span>
+          <span class="envelope-gift-hint">Nhấn để gửi quà mừng</span>
         </button>
       </div>
 
@@ -2383,30 +2423,70 @@
           </button>
         </div>
         <div class="gift-modal-body">
-          <div class="gift-modal-name">Phạm Từ Thiện Tâm</div>
-          <div class="gift-qr-frame">
-            <img src="images/qr-thien-tam-vietinbank.png" alt="Mã QR VietinBank - Phạm Tự Thiện Tâm - 103876438199" loading="lazy" />
+          <div class="gift-tabs" role="tablist" aria-label="Chọn tài khoản">
+            <button class="gift-tab" type="button" role="tab" id="giftTabGroom" aria-selected="true" aria-controls="giftPanelGroom" data-target="giftPanelGroom">
+              <span class="gift-tab-role">Chú rể</span>
+              <span class="gift-tab-name">Thiện Tâm</span>
+            </button>
+            <button class="gift-tab" type="button" role="tab" id="giftTabBride" aria-selected="false" aria-controls="giftPanelBride" data-target="giftPanelBride">
+              <span class="gift-tab-role">Cô dâu</span>
+              <span class="gift-tab-name">Kỳ Duyên</span>
+            </button>
           </div>
-          <div class="gift-bank">
-            VietinBank
-            <span class="small">CN 12 - TP HCM · PGD Phan Huy Ích</span>
+
+          <div class="gift-panel active" id="giftPanelGroom" role="tabpanel" aria-labelledby="giftTabGroom">
+            <div class="gift-modal-name">Phạm Từ Thiện Tâm</div>
+            <div class="gift-qr-frame">
+              <img src="images/qr-thien-tam-vietinbank.png" alt="Mã QR VietinBank - Phạm Từ Thiện Tâm - 103876438199" loading="lazy" />
+            </div>
+            <div class="gift-bank">
+              VietinBank
+              <span class="small">CN 12 - TP HCM · PGD Phan Huy Ích</span>
+            </div>
+            <button class="gift-account" type="button" data-account="103876438199" aria-label="Sao chép số tài khoản chú rể">
+              <span class="gift-account-num">103876438199</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+            </button>
+            <div class="gift-holder">PHAM TU THIEN TAM</div>
+            <a class="gift-download" href="images/qr-thien-tam-vietinbank.png" download="qr-thien-tam.png">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Lưu QR
+            </a>
           </div>
-          <button class="gift-account" type="button" data-account="103876438199" aria-label="Sao chép số tài khoản">
-            <span class="gift-account-num">103876438199</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-          </button>
-          <div class="gift-holder">PHAM TU THIEN TAM</div>
-          <a class="gift-download" href="images/qr-thien-tam-vietinbank.png" download="qr-thien-tam.png">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Lưu QR
-          </a>
+
+          <div class="gift-panel" id="giftPanelBride" role="tabpanel" aria-labelledby="giftTabBride" hidden>
+            <div class="gift-modal-name">Phan Kỳ Duyên</div>
+            <div class="gift-qr-frame">
+              <img src="images/qr-ky-duyen-vietinbank.png" alt="Mã QR VietinBank - Phan Kỳ Duyên - 100876086205" loading="lazy" />
+            </div>
+            <div class="gift-bank">
+              VietinBank
+              <span class="small">CN An Giang · PGD Phú Hoà</span>
+            </div>
+            <button class="gift-account" type="button" data-account="100876086205" aria-label="Sao chép số tài khoản cô dâu">
+              <span class="gift-account-num">100876086205</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+            </button>
+            <div class="gift-holder">PHAN KY DUYEN</div>
+            <a class="gift-download" href="images/qr-ky-duyen-vietinbank.png" download="qr-ky-duyen.png">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Lưu QR
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -3046,6 +3126,20 @@
     if (closeBtn) closeBtn.addEventListener('click', close);
     modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+
+    const tabs = modal.querySelectorAll('.gift-tab');
+    const panels = modal.querySelectorAll('.gift-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+        tabs.forEach(t => t.setAttribute('aria-selected', t === tab ? 'true' : 'false'));
+        panels.forEach(p => {
+          const active = p.id === target;
+          p.classList.toggle('active', active);
+          if (active) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+        });
+      });
+    });
   })();
 
   // ===== Copy bank account number (Gửi thiệp mừng) =====
